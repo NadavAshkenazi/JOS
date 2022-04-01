@@ -7,7 +7,6 @@
 #include <inc/string.h>
 #include <inc/stdarg.h>
 #include <inc/error.h>
-#include <inc/colors.h>
 
 /*
  * Space or zero padding and a field width are supported for the numeric
