@@ -165,7 +165,6 @@ mem_init(void)
 	// memory management will go through the page_* functions. In
 	// particular, we can now map memory using boot_map_region
 	// or page_insert
-
 	page_init();
 
 	check_page_free_list(1);
@@ -209,7 +208,7 @@ mem_init(void)
 	// Permissions: kernel RW, user NONE
 	// Your code goes here:
 	
-	boot_map_region(kern_pgdir, KERNBASE, ROUNDUP((0x100000000 -KERNBASE), PGSIZE), 0, PTE_W | PTE_P);
+	boot_map_region(kern_pgdir, KERNBASE, ROUNDUP(((1ULL << 32) -KERNBASE), PGSIZE), 0, PTE_W | PTE_P);
 	// Check that the initial page directory has been set up correctly.
 	check_kern_pgdir();
 
@@ -247,7 +246,6 @@ mem_init(void)
 // allocator functions below to allocate and deallocate physical
 // memory via the page_free_list.
 //
-
 void
 page_init(void)
 {
@@ -269,6 +267,7 @@ page_init(void)
 	// NB: DO NOT actually touch the physical memory corresponding to
 	// free pages!
 	size_t i;
+
 	pages[0].pp_ref = 1;
 	pages[0].pp_link = NULL;
 
@@ -279,19 +278,17 @@ page_init(void)
 		page_free_list = &pages[i];
 	}
 
-	for (i = IOPHYSMEM / PGSIZE; i < EXTPHYSMEM / PGSIZE; i++){
+	for (i = IOPHYSMEM / PGSIZE / PGSIZE; i < EXTPHYSMEM / PGSIZE; i++){
 		//[IOPHYSMEM, EXTPHYSMEM) marked as used so wont be allocated
 		pages[i].pp_ref = 1;
 		pages[i].pp_link = NULL;
 	}
 
-
-	for (i = EXTPHYSMEM / PGSIZE; i < PADDR(boot_alloc(0)) / PGSIZE; i++){
+	for (i = EXTPHYSMEM / PGSIZE; i < PADDR(boot_alloc(0)); i++){
 		//[EXTPHYSMEM, ...) is free
 		pages[i].pp_ref = 1;
 		pages[i].pp_link = NULL;
 	}
-
 
 	for (; i < npages; i++){
 		// mark the rest of the pages as free.
