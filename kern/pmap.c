@@ -391,7 +391,21 @@ pte_t *
 pgdir_walk(pde_t *pgdir, const void *va, int create)
 {
 	// Fill this function in
-	return NULL;
+	uintptr_t index = (uintptr_t)PDX(va);
+	pde_t *pde = (pde_t *)(pgdir + index); //get entry from page dir
+
+	if ((*pde) & PTE_P)
+		return ((pte_t *)KADDR(PTE_ADDR(*pde)) + (uintptr_t)PTX(va)); // found existing pde
+	
+	if (create == 0) // not existing, dont want to create
+		return NULL;
+	
+	struct PageInfo *pp = page_alloc(1);  // create and return new pde
+	if (pp == NULL)
+		return NULL;
+	pp->pp_ref++;
+	*pde = (page2pa(pp) | PTE_P | PTE_W | PTE_U);
+	return ((pte_t *)KADDR(PTE_ADDR(*pde)) + (uintptr_t)PTX(va));
 }
 
 //
@@ -405,10 +419,20 @@ pgdir_walk(pde_t *pgdir, const void *va, int create)
 // mapped pages.
 //
 // Hint: the TA solution uses pgdir_walk
+
+
 static void
 boot_map_region(pde_t *pgdir, uintptr_t va, size_t size, physaddr_t pa, int perm)
 {
 	// Fill this function in
+	pde_t *pte;
+	int pageNum = 0;
+	for (; pageNum < size; pageNum += PGSIZE){
+		pte = pgdir_walk(pgdir,(void*)(va + pageNum), 1);
+		if (!pte)
+			panic("boot_map_region: cant allocate pte");
+		*pte = (pa + pageNum) | PTE_P | perm;
+	}
 }
 
 //
@@ -440,6 +464,23 @@ int
 page_insert(pde_t *pgdir, struct PageInfo *pp, void *va, int perm)
 {
 	// Fill this function in
+	pte_t* pte = pgdir_walk(pgdir, va, 1); // get relevent pte
+
+	// if couldnt find or allocate pte return error value
+	if (!pte) 
+		return -E_NO_MEM;
+	
+	// increamnt referance to pp (as it will be refernced py the pte)
+	// do this before the removal of 'va' to avoid freeing pa in the case of reinserting
+	pp->pp_ref++;
+
+	// remove the current mapping of va if there is one
+	if (*pte & PTE_P)
+		page_remove(pgdir, va);
+
+	// add the new mapping to pte
+	*pte = page2pa(pp) | perm | PTE_P;
+
 	return 0;
 }
 
@@ -458,7 +499,18 @@ struct PageInfo *
 page_lookup(pde_t *pgdir, void *va, pte_t **pte_store)
 {
 	// Fill this function in
-	return NULL;
+	pte_t* pte = pgdir_walk(pgdir, va, 0);
+
+	if (!pte) // no pte found 
+		return NULL;
+	
+	if (!(*pte & PTE_P)) //pte found but no page present 
+		return NULL;
+
+	if (pte_store) //store pte in requied pointer
+		*pte_store = pte;
+	
+	return pa2page(PTE_ADDR(*pte));
 }
 
 //
@@ -480,6 +532,15 @@ void
 page_remove(pde_t *pgdir, void *va)
 {
 	// Fill this function in
+	pte_t* pte;
+	struct PageInfo *pageToRemove = page_lookup(pgdir, va, &pte);
+
+	if (pageToRemove){ //if page exist
+		page_decref(pageToRemove); //dec refrences - frees if ref == 0
+		*pte = 0; // clear pte
+		tlb_invalidate(pgdir, va); //flush pages cache
+	}
+	
 }
 
 //
