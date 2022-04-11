@@ -10,9 +10,12 @@
 #include <kern/console.h>
 #include <kern/monitor.h>
 #include <kern/kdebug.h>
+#include <kern/pmap.h>
+
 
 #define CMDBUF_SIZE	80	// enough for one VGA text line
 
+int showmappings(int argc, char **argv, struct Trapframe *tf);
 
 struct Command {
 	const char *name;
@@ -24,7 +27,8 @@ struct Command {
 static struct Command commands[] = {
 	{ "help", "Display this list of commands", mon_help },
 	{ "kerninfo", "Display information about the kernel", mon_kerninfo },
-	{ "backtrace", "Trace previous functions from the stack ", mon_backtrace }
+	{ "backtrace", "Trace previous functions from the stack ", mon_backtrace},
+	{"showmappings", "Display in a useful and easy-to-read format all of the physical page mapping", showmappings}
 };
 #define NCOMMANDS (sizeof(commands)/sizeof(commands[0]))
 
@@ -136,4 +140,56 @@ monitor(struct Trapframe *tf)
 			if (runcmd(buf, tf) < 0)
 				break;
 	}
+}
+
+uint32_t string2address(char* buff){
+	uint32_t address = 0;
+	buff++;
+	while (*(++buff) != 0){
+		uint32_t translation = 0;
+		if('a' <= *buff && *buff <= 'f'){
+			translation = *buff-'a'+10;
+		}
+		else if('A' <= *buff && *buff <= 'F'){
+			translation = *buff-'A'+10;
+		}
+		else if('0' <= *buff && *buff <= '9'){
+			translation = *buff-'0';
+		}
+		else{
+			return (uint32_t)0xFFFFFFFF;
+		}
+		address = address*16 + translation;
+	}
+	return address;
+}
+
+void printPTE(pte_t *pte){
+	cprintf("P_Flag(Present bit): %x, W_Flag(Writing bit): %x, U_Flag(User bit): %x\n",
+		 *pte&PTE_P, *pte&PTE_W, *pte&PTE_U);
+}
+
+int
+showmappings(int argc, char **argv, struct Trapframe *tf){
+	if (argc < 3){
+		cprintf("to use shoemappings run the following line: \n");
+		cprintf("showmappings start(hex) end(hex)\n");
+	}
+
+	uint32_t start, end;
+	cprintf("start: %x, end: %x\n", string2address(argv[1]), string2address(argv[2]));
+	for (start = string2address(argv[1]); start <= string2address(argv[2]); start += PGSIZE) {
+		pte_t *pte = pgdir_walk(kern_pgdir, (void *) start, 1);	
+		if (!pte) 
+			panic("boot_map_region: can't allocate pte\n");
+
+		if (*pte & PTE_P) {
+			cprintf("page at %x with ", start);
+			printPTE(pte);
+		} 
+		
+		else
+			cprintf("page at %x does not exist! \n", start);
+	}
+	return 0;
 }
