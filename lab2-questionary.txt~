@@ -10,141 +10,130 @@
 === gdb output "ADDRESS: INSTRUCTION", for example "0x7c26:  or  $0x1,%eax"
 === Don't make lines longer than 80 characters. You don't need to fit your
 === answer in a single line, you can start a new line at will.
+=== However, when asked to fill "a table" make each table raw a single line.
 
 
-=== Q What is the number of the first port BIOS writes into?
-0x70
-
-=== Q What is the number of the first port BIOS reads from?
-0x71
-
-=== Q What device is probably accessed through above ports?
-cmos
-
-=== Q What instruction causes processor to switch to 32-bit mode?
-===   (specify address & instruction)
-0x7c2d:	ljmp   $0x8,$0x7c32
-
-=== Q What's the instruction performed immediately after the processor
-===   is switched to 32-bit mode? (address & instruction)
-0x7c32: mov $0x10,%ax
-
-=== Q What is the last instruction of boot loader? (address & instruction)
-0x00007d61:	call   *0x10018
-
-=== Q What is first instruction of the kernel? (address & instruction)
-0x10000c:	movw   $0x1234,0x472
-
-=== Q Where boot loader finds information how many sectors it must
-===   read in order to fetch the entire kernel from disk? 
-===   (remove leading "====" from the correct answer line)
-==== hard coded in boot loader
-elf header
-==== elf tail
-==== gnome header
-==== gnome tail
-==== none of above
-
-=== Q Where boot loader finds information what address to start
-===   executing kernel from? 
-===   (remove leading "====" from the correct answer line)
-==== hard coded in boot loader
-elf header
-==== elf tail
-==== gnome header
-==== gnome tail
-==== none of above
-
-=== Q What C function in boot loader contains the logic of reading the
-===   whole kernel? (not full function declaration, just the name)
-bootmain
-
-=== Q What are 4 words of memory at 0x100000 at the point the BIOS
-===   enters the boot loader?
-===   (as displayed by gdb, in the form WORD1 WORD2 WORD3 WORD4)
-0x00000000	0x00000000	0x00000000	0x00000000
-
-=== Q What are 4 words of memory at 0x100000 at the point the boot
-===   loader enters the kernel?
-===   (as displayed by gdb, in the form WORD1 WORD2 WORD3 WORD4)
-0x1badb002	0x00000000	0xe4524ffe	0x7205c766
-
-=== Q What's the link address of .text section of the kernel?
-0xf0100000
-
-=== Q What's the entry point (start address) of the kernel?
-0x10000c
-
-=== Q What source file contains the first kernel instruction?
-===   (file name including extensions, but excluding the path)
-entry.S
-
-=== Q Study the file you've just found.
-===   What's the name of a kernel entry point as appears in this file?
-_start
-
-=== Q What line among all kernel sources declares the name you've just
-===   found as kernel entry point? (full line)
-ENTRY(_start)
-
-=== Q What's the first instruction which would "break" if you were to
-===   get the boot loader's link address wrong? "Break" here means: 
-===   the result of executing the instruction is different from the
-===   one before the change of the link address.
-===   Check yourself by recompiling & debugging!
-===   (address & instruction)
-0x7c1e:	lgdtw  0x7c64
-
-=== Q What's the first instruction after the kernel establishes a new
-===   mapping that would fail to work properly if the mappings were
-===   not in place? (address & instruction)
-0x10002d:	jmp    *%eax
-
-=== Q What functions from console.c are directly used by printf.c?
-===   (just function names separated by spaces, not full declarations)
-cputchar
-
-=== Q What is the task of console.c lines 194-202?
+=== Q What's the purpose of leaving virtual memory region
+===   0xeebfe000-0xeebff000 inaccessible?
 ===   (free form, up to 10 words)
-if out of screen, move previous lines and posision up
+safety protaction from stack overflow 
 
-===   Consider the code
-===   	int x = 1, y = 3, z = 4;
-===	cprintf("x %d, y %x, z %d\n", x, y, z);
-===   executing inside cprintf function just after fmt and ap are
-===   initialized (just before the call to vcprintf).
+=== Q Define a page table entry with the following properties:
+===   frame starts at 0x1234000. It can be written by the kernel
+===   without causing any errors, but has never been written yet. On
+===   the other hand, application cannot write to the page, but has
+===   recently successfully read from it. All bits which are not
+===   responsible for above properties are set to zero.  
+===   (a single memory WORD as would be output by gdb's x/1x)
+0x01234025
 
-=== Q What's the contents of the first byte in memory pointed to by
-===   fmt? (write this byte as a number)
-0x78
+=== Q Consider JOS kernel code:
+===     mystery_t x;
+===   	char* value = return_a_pointer();
+===   	*value = 10;
+===   	x = (mystery_t) value;
+===   What type mystery_t should refer to?
+===   (remove leading "====" from the correct answer line)
+uintptr_t
+==== physaddr_t
 
-=== Q What's the contents of the first byte in memory pointed to by
-===   ap? (write this byte as a number)
-0x01
 
-===   Consider the code
-===     unsigned int i = 0x00646c72;
-===     cprintf("H%x Wo%s", 57616, &i);
+=== Q What information is stored in page directory when mem_init()
+===   finishes? For each non-empty PD entry specify:
+===    - decimal index (0-1023)
+===    - hexadecimal address of virtual memory mapped by this entry
+===    - name of kernel data structure which is intended to be
+===      accessible through this PDE (when appropriate, in quotes)
+===    - general name (free form, up to 10 words in quotes)
+===    Sort the table by the index in ascending order. If several
+===    consequent entries are only differ in address field, you can
+===    specify ellipses ("...") instead of an "inner" entries. Please
+===    align columns into readable table using spaces.
+===    Format example (all the values are made up; omit the header):
+===    INDEX ADDRESS DATA-STRUCTURE         NAME/DESCRIPTION
+===    24    0x12345 "struct Segdesc gdt[]" "Global descriptor table"
+===    ...
+===    42    0x98765 "struct Segdesc gdt[]" "Global descriptor table"
+===    50    0x00011 ""                     "boot loader code"
+****************
 
-=== Q What is the output of the code?
-He110 World
 
-=== Q To lead to the same output in big-endian architecture, what
-===   should be the value of the second argument?
-57616
+=== Q We have placed the kernel and user environment in the same
+===   address space. Why will user programs not be able to read or
+===   write the kernel's memory? What specific mechanisms protect the
+===   kernel memory?
+===   (free form, up to 15 words)
+PTE_U flag in the pte tells the kernel if a user can access
 
-=== Q To lead to the same output in big-endian architecture, what
-===   should be the value of i?
-0x726c6400
 
-=== Q What is printed after "y=" for cprintf("x=%d y=%d", 3)?
-===   (free form, up to 10 words)
-garbage value
+=== Q Which virtual addresses are readable by the user?
+===   (in the form ADDR1-ADDR2, if none, specify NONE)
+************
 
-=== Q What instruction reserves spacreadsege for kernel stack?
-===   (address & instruction)
-0xf0100034: mov $0xf0110000,%esp
+0x00000000-0xEF800000
 
-=== Q How many 32-bit words (i.e. bytes/4) does each recursive nesting
-===   level of test_backtrace adds to the stack size?
-8
+=== Q Which virtual addresses are writable by the user?
+===   (in the form ADDR1-ADDR2, if none, specify NONE)
+***********
+0x00000000-0xEEC00000
+
+=== Q Assume a hacker can change N bits inside page table (on any
+===   level, PD or PT) after it has been set up by the kernel (and
+===   before full TLB flush). What is the minimal N to gain full
+===   control of the system from hacker's user space process?
+1
+
+=== Q What's the maximum amount of physical memory this kernel can
+===   support? (number of megabytes, without MB suffix)
+256
+
+=== Q What single constant can be changed in kernel source to make
+===   this limit 2 times lower (if kernel normally supports 10MB,
+===   we want to make it support only 5MB?
+KERNBASE
+
+=== Q What value should this constant be changed to?
+0xF8000000‬
+
+=== Q Assume the computer has the maximum amount of memory supported
+===   by the (unmodified) kernel. What's the overhead of managing this
+===   memory in terms of (physical) memory spent?
+===   Specify only data structures which size depends on the amount of
+===   physical memory and exclude the "fixed" overhead. For example,
+===   if data structure size is 123K+0.01*(memory size) and maximum 
+===   amount of memory is 100MB, specify 0.01*100MB = 1024KB.
+===   For each such data structure specify:
+===    - size in KB (without "KB suffix")
+===    - name of kernel data structure (when appropriate, in quotes)
+===    - general name (free form, up to 10 words in quotes)
+===    Sort the table by the size in ascending order. Please
+===    align columns into readable table using spaces.
+===    Format example (all the values are made up; omit the header):
+===    SIZE  DATA-STRUCTURE         NAME/DESCRIPTION
+===    42    "struct Segdesc gdt[]" "Global descriptor table"
+***********
+====================================================================
+=== Q What challenge(s) have you chosen to implement? (specify
+===   challenge numbers separated by spaces, if more than one)
+2
+=== Q If the challenge requires changing the kernel source, list the
+===   files which you have changed/added during implementation.
+===   (one file per line, relative to lab directory containing .git/)
+kern/monitor.c
+=== Q Describe your solution.
+===   (free form, up to 500 words, don't need to use all 500!)
+
+we have implemented 3 main funcions:
+1. showMappings():
+takes start and end adresses from the user,
+for each addresss in this range we use pgdir_walk to find the appropriate pte and print it.
+
+2. changePremissions():
+takes address , action (set to 1/ clear to 0) and type of premission.
+we get the relevant pte to the address, and bitwise set the appropriate flag of the pte according to the parameters given by bitwise |/& with the right flag (PTE_P, ~PTE_P.....).
+
+
+3. dumpMem():
+takes memType (virtual/physical), address and range(as integer).
+we make sure this address is aligned to 32b.
+according to the mem type we know if the address needs to be converted (KADDR((physaddr_t)) before derefrencing. then we loop over this range and print the derefrence val.

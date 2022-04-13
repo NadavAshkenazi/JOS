@@ -17,6 +17,7 @@
 
 int showMappings(int argc, char **argv, struct Trapframe *tf);
 int changePremissions(int argc, char **argv, struct Trapframe *tf);
+int dumpMem(int argc, char **argv, struct Trapframe *tf);
 
 struct Command {
 	const char *name;
@@ -30,8 +31,10 @@ static struct Command commands[] = {
 	{ "kerninfo", "Display information about the kernel", mon_kerninfo },
 	{ "backtrace", "Trace previous functions from the stack ", mon_backtrace},
 	{"showmappings", "Display in a useful and easy-to-read format all of the physical page mapping", showMappings},
-	{"changepremissions", "Explicitly set, clear, or change the permissions of any mapping in the current address space", changePremissions}
+	{"changepremissions", "Explicitly set, clear, or change the permissions of any mapping in the current address space", changePremissions},
+	{"dumpmem", "Dump the contents of a range of memory given either a virtual or physical address range", dumpMem}
 };
+
 #define NCOMMANDS (sizeof(commands)/sizeof(commands[0]))
 
 /***** Implementations of basic kernel monitor commands *****/
@@ -241,7 +244,7 @@ int
 changePremissions(int argc, char **argv, struct Trapframe *tf){
 	if (argc < 4){
 		cprintf("to use changepremissions run the following line: \n");
-		cprintf("changepremissions addresses(hex) <set|clear> <P|W|U>\n");
+		cprintf("changepremissions address(hex) <set|clear> <P|W|U>\n");
 		return 1;
 	}
 
@@ -301,5 +304,81 @@ changePremissions(int argc, char **argv, struct Trapframe *tf){
 
 	cprintf("to:\n");
 	printPTE(pte);
+	return 0;
+}
+
+
+int stringToInt(char* s)
+{
+    int res = 0;
+	int i = 0;
+    for (; s[i] != '\0'; ++i)
+        res = res * 10 + s[i] - '0';
+ 
+    return res;
+}
+
+
+void
+dumpVMem_aux(uintptr_t address, uint32_t range){
+
+	uintptr_t* va = (uintptr_t*) address;
+	cprintf("V addresss|content \n");
+
+	int i = 0;
+	for (; i< range; i++){
+		cprintf("  %x|%x\n", va + i, va[i]);
+	}
+}
+
+void
+dumpPMem_aux(uintptr_t address, uint32_t range){
+
+	uintptr_t* pa = (uintptr_t*) address;
+	uintptr_t* va;
+	cprintf("  %x|%x\n");
+
+	int i = 0;
+	for (; i< range; i++){
+		va = KADDR((physaddr_t)(pa + i));
+		cprintf("V adrress: %x, content: %x\n", pa + i, *va);
+	}
+}
+
+
+
+int
+dumpMem(int argc, char **argv, struct Trapframe *tf){
+	if (argc < 4){
+		cprintf("to use dumpmem run the following line: \n");
+		cprintf("dumpmem memType:<V|P> address(hex) range of addresses(int)\n");
+		return 1;
+	}
+
+	char* type = argv[1];
+	if ((type[0] != 'V') && (type[0] != 'P')){
+		cprintf("please use valid mem type <V|P>\n");
+		return 1;
+	}
+
+	uintptr_t address = (uintptr_t) strtol(argv[2], NULL, 16);
+	if (address == -1){
+		cprintf("please use addresses in hex format: <0x********>\n");
+		return 1;
+	}
+
+	if (address % 4){
+		cprintf("please use addresses aligned to 32b\n");
+		return 1;
+	}
+
+	uint32_t i = 0;
+	uint32_t range = stringToInt(argv[3]);
+
+	if (type[0] == 'V')
+		dumpVMem_aux(address, range);
+	else
+		dumpPMem_aux(address, range);
+
 	return 0;
 }
