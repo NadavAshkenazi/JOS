@@ -15,7 +15,8 @@
 
 #define CMDBUF_SIZE	80	// enough for one VGA text line
 
-int showmappings(int argc, char **argv, struct Trapframe *tf);
+int showMappings(int argc, char **argv, struct Trapframe *tf);
+int changePremissions(int argc, char **argv, struct Trapframe *tf);
 
 struct Command {
 	const char *name;
@@ -28,7 +29,8 @@ static struct Command commands[] = {
 	{ "help", "Display this list of commands", mon_help },
 	{ "kerninfo", "Display information about the kernel", mon_kerninfo },
 	{ "backtrace", "Trace previous functions from the stack ", mon_backtrace},
-	{"showmappings", "Display in a useful and easy-to-read format all of the physical page mapping", showmappings}
+	{"showmappings", "Display in a useful and easy-to-read format all of the physical page mapping", showMappings},
+	{"changepremissions", "Explicitly set, clear, or change the permissions of any mapping in the current address space", changePremissions}
 };
 #define NCOMMANDS (sizeof(commands)/sizeof(commands[0]))
 
@@ -142,19 +144,23 @@ monitor(struct Trapframe *tf)
 	}
 }
 
-uint32_t string2address(char* buff){
+uint32_t string2address(char* input){
 	uint32_t address = 0;
-	buff++;
-	while (*(++buff) != 0){
+	if ((input[0] != '0') || (input[1] != 'x')){
+		return -1;
+	}
+
+	input++;
+	while (*(++input) != 0){
 		uint32_t translation = 0;
-		if('a' <= *buff && *buff <= 'f'){
-			translation = *buff-'a'+10;
+		if('a' <= *input && *input <= 'f'){
+			translation = *input-'a'+10;
 		}
-		else if('A' <= *buff && *buff <= 'F'){
-			translation = *buff-'A'+10;
+		else if('A' <= *input && *input <= 'F'){
+			translation = *input-'A'+10;
 		}
-		else if('0' <= *buff && *buff <= '9'){
-			translation = *buff-'0';
+		else if('0' <= *input && *input <= '9'){
+			translation = *input-'0';
 		}
 		else{
 			return (uint32_t)0xFFFFFFFF;
@@ -164,21 +170,36 @@ uint32_t string2address(char* buff){
 	return address;
 }
 
-void printPTE(pte_t *pte){
-	cprintf("P_Flag(Present bit): %x, W_Flag(Writing bit): %x, U_Flag(User bit): %x\n",
-		 *pte&PTE_P, *pte&PTE_W, *pte&PTE_U);
+int 
+bitExtracted(int number, int k, int p)
+{
+    return (((1 << k) - 1) & (number >> (p - 1)));
+}
+
+void 
+printPTE(pte_t *pte){
+	cprintf("P_Flag(Present bit): %d, W_Flag(Writing bit): %d, U_Flag(User bit): %d\n",
+		 bitExtracted((int)(*pte&PTE_P), 1, 1), bitExtracted((int)(*pte&PTE_W), 1, 2), bitExtracted((int)(*pte&PTE_U), 1, 3));
 }
 
 int
-showmappings(int argc, char **argv, struct Trapframe *tf){
+showMappings(int argc, char **argv, struct Trapframe *tf){
 	if (argc < 3){
-		cprintf("to use shoemappings run the following line: \n");
+		cprintf("to use showmappings run the following line: \n");
 		cprintf("showmappings start(hex) end(hex)\n");
+		return 1;
 	}
 
-	uint32_t start, end;
+	uint32_t start = string2address(argv[1]);
+	uint32_t end = string2address(argv[2]);
+	
+	if ((start == -1) || (end == -1)){
+		cprintf("please use addresses in hex format: <0x********>\n");
+		return 1;
+	}
 	cprintf("start: %x, end: %x\n", string2address(argv[1]), string2address(argv[2]));
-	for (start = string2address(argv[1]); start <= string2address(argv[2]); start += PGSIZE) {
+
+	for (; start <= end; start += PGSIZE) {
 		pte_t *pte = pgdir_walk(kern_pgdir, (void *) start, 1);	
 		if (!pte) 
 			panic("boot_map_region: can't allocate pte\n");
@@ -191,5 +212,94 @@ showmappings(int argc, char **argv, struct Trapframe *tf){
 		else
 			cprintf("page at %x does not exist! \n", start);
 	}
+	return 0;
+}
+
+
+int 
+stringCompare(const char *s1, const char *s2) // 1 if equel, 0 otherwise;
+{
+    while (*s1)
+    {
+        // if characters differ, or end of the second string is reached
+        if (*s1 != *s2) {
+            break;
+        }
+ 
+        // move to the next pair of characters
+        s1++;
+        s2++;
+    }
+ 
+    // return the ASCII difference after converting `char*` to `unsigned char*`
+    int res = *(const unsigned char*)s1 - *(const unsigned char*)s2;
+	
+	return (res == 0);
+}
+
+int
+changePremissions(int argc, char **argv, struct Trapframe *tf){
+	if (argc < 4){
+		cprintf("to use changepremissions run the following line: \n");
+		cprintf("changepremissions addresses(hex) <set|clear> <P|W|U>\n");
+		return 1;
+	}
+
+	uint32_t address = string2address(argv[1]);
+	if (address == -1){
+		cprintf("please use addresses in hex format: <0x********>\n");
+		return 1;
+	}
+
+	char* action = argv[2];
+	int newPremVal = 0; // default clear;
+
+	if (!(stringCompare(action, "set")) && !(stringCompare(action, "clear"))){
+		cprintf("please enter a valid action: <set|clear>\n");
+		return 1;
+	}
+	else if (stringCompare(action, "set")){
+		newPremVal = 1; // if set: 1 else clear
+	}
+
+	char* prem = argv[3];
+	if ((prem[0] != 'P') && (prem[0] != 'U') && (prem[0] != 'W')){
+		cprintf(prem);
+		cprintf("\n");
+		cprintf("prem is U: %d\n", stringCompare(prem, "U"));
+
+		cprintf("please enter a valid premission flag: <P|W|U>\n");
+		return 1;
+	}
+
+	pte_t *pte = pgdir_walk(kern_pgdir, (void *) address, 1);	
+	cprintf("PTE of %x changed from:\n", address);
+	printPTE(pte);
+	switch (*prem){
+		case 'P':
+			if (newPremVal == 1)
+				*pte =  *pte | PTE_P;
+			else
+				*pte =  *pte & ~PTE_P;
+			break;
+		case 'U':
+			if (newPremVal == 1)
+				*pte =  *pte | PTE_U;
+			else
+				*pte =  *pte & ~PTE_U;
+			break;
+		case 'W':
+			if (newPremVal == 1)
+				*pte =  *pte | PTE_W;
+			else
+				*pte =  *pte & ~PTE_W;
+			break;
+		default:
+			panic("changePremissions: Invalid action");
+			break;
+	}
+
+	cprintf("to:\n");
+	printPTE(pte);
 	return 0;
 }
