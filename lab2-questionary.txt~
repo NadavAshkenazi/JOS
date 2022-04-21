@@ -16,7 +16,7 @@
 === Q What's the purpose of leaving virtual memory region
 ===   0xeebfe000-0xeebff000 inaccessible?
 ===   (free form, up to 10 words)
-safety protaction from stack overflow 
+safety protaction from user exception stack overflow 
 
 === Q Define a page table entry with the following properties:
 ===   frame starts at 0x1234000. It can be written by the kernel
@@ -55,7 +55,12 @@ uintptr_t
 ===    ...
 ===    42    0x98765 "struct Segdesc gdt[]" "Global descriptor table"
 ===    50    0x00011 ""                     "boot loader code"
-****************
+956	  0xef000000  	 "PageInfo*"	  "pages array"
+957	  0xef400000     "pde_t"	      "page dir"
+959	  0xefff8000	 "bootstack"      "kernel stack"
+960	  0xf0000000	 "physical page"  "physical memory we mapped"
+...
+1023  0xffe00000	 "physical page"  "physical memory we mapped"
 
 
 === Q We have placed the kernel and user environment in the same
@@ -63,19 +68,22 @@ uintptr_t
 ===   write the kernel's memory? What specific mechanisms protect the
 ===   kernel memory?
 ===   (free form, up to 15 words)
-PTE_U flag in the pte tells the kernel if a user can access
+PTE_U, PTE_W flag in the pte tells the kernel if a user can access and write.
+
+
 
 
 === Q Which virtual addresses are readable by the user?
 ===   (in the form ADDR1-ADDR2, if none, specify NONE)
-************
 
-0x00000000-0xEF800000
+0x00000000-0xeebfe000
+0xeebff000-0xef800000
 
 === Q Which virtual addresses are writable by the user?
 ===   (in the form ADDR1-ADDR2, if none, specify NONE)
-***********
-0x00000000-0xEEC00000
+
+0x00000000-0xeebfe000
+0xeebff000-0xeec00000
 
 === Q Assume a hacker can change N bits inside page table (on any
 ===   level, PD or PT) after it has been set up by the kernel (and
@@ -93,7 +101,7 @@ PTE_U flag in the pte tells the kernel if a user can access
 KERNBASE
 
 === Q What value should this constant be changed to?
-0xF8000000‬
+0xf8000000‬
 
 === Q Assume the computer has the maximum amount of memory supported
 ===   by the (unmodified) kernel. What's the overhead of managing this
@@ -111,7 +119,8 @@ KERNBASE
 ===    Format example (all the values are made up; omit the header):
 ===    SIZE  DATA-STRUCTURE         NAME/DESCRIPTION
 ===    42    "struct Segdesc gdt[]" "Global descriptor table"
-***********
+256     "pde_t"         "you need 64 page tables for 256MB"
+512 	"PageInfo*"	"array that holds indo about physical pages"
 ====================================================================
 === Q What challenge(s) have you chosen to implement? (specify
 ===   challenge numbers separated by spaces, if more than one)

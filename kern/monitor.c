@@ -327,8 +327,9 @@ dumpVMem_aux(uintptr_t address, uint32_t range){
 
 	int i = 0;
 	for (; i< range; i++){
-		cprintf("  %x|%x\n", va + i, va[i]);
+		cprintf("  %x|%x\n", va + i, *(va + i));
 	}
+	
 }
 
 void

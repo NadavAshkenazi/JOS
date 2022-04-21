@@ -147,7 +147,6 @@ mem_init(void)
 
 	// Permissions: kernel R, user R
 	kern_pgdir[PDX(UVPT)] = PADDR(kern_pgdir) | PTE_U | PTE_P;
-
 	//////////////////////////////////////////////////////////////////////
 	// Allocate an array of npages 'struct PageInfo's and store it in 'pages'.
 	// The kernel uses this array to keep track of physical pages: for
@@ -184,7 +183,6 @@ mem_init(void)
 	// Your code goes here:
 	boot_map_region(kern_pgdir, UPAGES, PTSIZE, PADDR((void *)pages), PTE_U | PTE_P);
 
-
 	//////////////////////////////////////////////////////////////////////
 	// Use the physical memory that 'bootstack' refers to as the kernel
 	// stack.  The kernel stack grows down from virtual address KSTACKTOP.
@@ -199,7 +197,6 @@ mem_init(void)
 
 	boot_map_region(kern_pgdir,KSTACKTOP-KSTKSIZE ,KSTKSIZE , PADDR((void *)bootstack), PTE_W | PTE_P);
 
-
 	//////////////////////////////////////////////////////////////////////
 	// Map all of physical memory at KERNBASE.
 	// Ie.  the VA range [KERNBASE, 2^32) should map to
@@ -210,6 +207,7 @@ mem_init(void)
 	// Your code goes here:
 	
 	boot_map_region(kern_pgdir, KERNBASE, ROUNDUP((0x100000000 -KERNBASE), PGSIZE), 0, PTE_W | PTE_P);
+
 	// Check that the initial page directory has been set up correctly.
 	check_kern_pgdir();
 
