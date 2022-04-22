@@ -12,14 +12,18 @@
 #include <kern/kdebug.h>
 #include <kern/pmap.h>
 #include <kern/trap.h>
+#include <kern/env.h>
 
 
 
 #define CMDBUF_SIZE	80	// enough for one VGA text line
 
-int showMappings(int argc, char **argv, struct Trapframe *tf);
-int changePremissions(int argc, char **argv, struct Trapframe *tf);
-int dumpMem(int argc, char **argv, struct Trapframe *tf);
+// JOS commands
+inline static int showMappings(int argc, char **argv, struct Trapframe *tf);
+inline static int changePremissions(int argc, char **argv, struct Trapframe *tf);
+inline static int dumpMem(int argc, char **argv, struct Trapframe *tf);
+inline static int breakPointContinue(int argc, char **argv, struct Trapframe *tf);
+inline static int breakPointStepInto(int argc, char **argv, struct Trapframe *tf);
 
 struct Command {
 	const char *name;
@@ -29,12 +33,16 @@ struct Command {
 };
 
 static struct Command commands[] = {
-	{ "help", "Display this list of commands", mon_help },
-	{ "kerninfo", "Display information about the kernel", mon_kerninfo },
-	{ "backtrace", "Trace previous functions from the stack ", mon_backtrace},
+	{"help", "Display this list of commands", mon_help },
+	{"kerninfo", "Display information about the kernel", mon_kerninfo },
+	{"backtrace", "Trace previous functions from the stack ", mon_backtrace},
 	{"showmappings", "Display in a useful and easy-to-read format all of the physical page mapping", showMappings},
 	{"changepremissions", "Explicitly set, clear, or change the permissions of any mapping in the current address space", changePremissions},
-	{"dumpmem", "Dump the contents of a range of memory given either a virtual or physical address range", dumpMem}
+	{"dumpmem", "Dump the contents of a range of memory given either a virtual or physical address range", dumpMem},
+	{"continue", "Continue when on breakpoint", breakPointContinue},
+	{"c", "Continue when on breakpoint", breakPointContinue},
+	{"stepinto", "Step Into when on breakpoint", breakPointStepInto},
+	{"si", "Step Into when on breakpoint", breakPointStepInto}
 };
 
 #define NCOMMANDS (sizeof(commands)/sizeof(commands[0]))
@@ -385,6 +393,35 @@ dumpMem(int argc, char **argv, struct Trapframe *tf){
 		dumpVMem_aux(address, range);
 	else
 		dumpPMem_aux(address, range);
+
+	return 0;
+}
+
+extern bool debuggerFlag;
+
+int
+breakPointContinue(int argc, char **argv, struct Trapframe *tf){
+	if (debuggerFlag){
+		debuggerFlag = false; // exit breakpoint mode
+		uint32_t newEFlags = tf->tf_eflags & (~(FL_TF | FL_RF)); // clear trap and resume flags
+		tf->tf_eflags |= newEFlags;
+		env_pop_tf(tf);
+	}
+	else
+		cprintf("breakPointContinue: tring to continue without being on breakpoint");
+
+	return 0;
+}
+
+int
+breakPointStepInto(int argc, char **argv, struct Trapframe *tf){
+	if (debuggerFlag){
+		uint32_t newEFlags = tf->tf_eflags | FL_TF | FL_RF; // set trap and resume flags
+		tf->tf_eflags |= newEFlags;
+		env_pop_tf(tf);
+	}
+	else
+		cprintf("breakPointStepInto: tring to step into without being on breakpoint");
 
 	return 0;
 }

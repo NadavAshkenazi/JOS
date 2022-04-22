@@ -179,11 +179,22 @@ print_regs(struct PushRegs *regs)
 	cprintf("  eax  0x%08x\n", regs->reg_eax);
 }
 
+bool debuggerFlag = false;
+
 static void
 trap_dispatch(struct Trapframe *tf)
 {
 	// Handle processor exceptions.
 	// LAB 3: Your code here.
+	uint32_t trapNumber = tf->tf_trapno;
+
+	if (trapNumber == T_PGFLT)
+		page_fault_handler(tf);
+	
+	else if (trapNumber == T_BRKPT){
+		debuggerFlag = true;
+		monitor(tf);
+	}
 
 	// Unexpected trap: The user process or the kernel has a bug.
 	print_trapframe(tf);
