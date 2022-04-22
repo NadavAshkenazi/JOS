@@ -47,9 +47,60 @@
  * Lab 3: Your code here for generating entry points for the different traps.
  */
 
+TRAPHANDLER_NOEC(t_divide, T_DIVIDE) 		# 0: divide error
+TRAPHANDLER_NOEC(t_debug, T_DEBUG) 			# 1: debug exception
+TRAPHANDLER_NOEC(t_nmi, T_NMI) 				# 2: non-maskable interrupt
+TRAPHANDLER_NOEC(t_brkpt, T_BRKPT) 			# 3: breakpoint
+TRAPHANDLER_NOEC(t_oflow, T_OFLOW) 			# 4: overflow
+TRAPHANDLER_NOEC(t_bound, T_BOUND) 			# 5: bounds check
+TRAPHANDLER_NOEC(t_illop, T_ILLOP) 			# 6:illegal opcode
+TRAPHANDLER_NOEC(t_device, T_DEVICE) 		# 7: device not available
+TRAPHANDLER(t_dblflt, T_DBLFLT) 			# 8: double fault
+											# 9: resevred
+TRAPHANDLER(t_tss, T_TSS) 					# 10: invalid task switch segment
+TRAPHANDLER(t_segnp, T_SEGNP) 				# 11: segment not present
+TRAPHANDLER(t_stack, T_STACK) 				# 12: stack exception
+TRAPHANDLER(t_gpflt, T_GPFLT) 				# 13: general protection fault
+TRAPHANDLER(t_pgflt, T_PGFLT) 				# 14: page fault
+											# 15: resevred
+TRAPHANDLER_NOEC(t_fperr, T_FPERR) 			# 16: device not available
+TRAPHANDLER(t_align, T_ALIGN) 				# 17: page fault
+TRAPHANDLER_NOEC(t_mchk, T_MCHK) 			# 18: device not available
+TRAPHANDLER_NOEC(t_simderr, T_SIMDERR) 		# 19: device not available
+TRAPHANDLER_NOEC(t_syscall, T_SYSCALL) 		# 48: device not available
 
 
 /*
  * Lab 3: Your code here for _alltraps
  */
+
+ _alltraps:
+	# push values to make the stack look like a struct Trapframe
+	pushl %ds # push ds + padding
+	pushl %es # push ds + padding
+	pushal 
+	/*
+	pushal def:
+		Temporary = ESP;
+		Push(EAX);
+		Push(ECX);
+		Push(EDX);
+		Push(EBX);
+		Push(Temporary);
+		Push(EBP);
+		Push(ESI);
+		Push(EDI);
+	*/
+	# load GD_KD into %ds and %es (16b values)
+	movw $GD_KD, %ax
+	movw %ax, %ds
+	movw %ax, %es
+
+	# pushl %esp to pass a pointer to the Trapframe as an argument to trap()
+	pushl %esp 
+
+	# call trap
+	call trap
+
+
 

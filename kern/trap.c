@@ -65,6 +65,47 @@ trap_init(void)
 	extern struct Segdesc gdt[];
 
 	// LAB 3: Your code here.
+	// declerations of funcs defined in trapentry.s and registering to IDT
+	void t_divide();			//0:  divide error
+	SETGATE(idt[T_DIVIDE], INTERRUPT, GD_KT, &t_divide, DPL_KERN);
+	void t_debug();				//1:  debug exception
+	SETGATE(idt[T_DEBUG], INTERRUPT, GD_KT, &t_debug, DPL_USER)	
+	void t_nmi();				//2:  non-maskable interrupt
+	SETGATE(idt[T_NMI], INTERRUPT, GD_KT, &t_nmi, DPL_KERN);	
+	void t_brkpt();				//3:  breakpoint
+	SETGATE(idt[T_BRKPT], TRAP, GD_KT, &t_brkpt, DPL_USER);	
+	void t_oflow();				//4:  overflow
+	SETGATE(idt[T_OFLOW], TRAP, GD_KT, &t_oflow, DPL_KERN);	
+	void t_bound();				//5:  bounds check
+	SETGATE(idt[T_BOUND], INTERRUPT, GD_KT, &t_bound, DPL_KERN);
+	void t_illop();				//6:  illegal opcode
+	SETGATE(idt[T_ILLOP], INTERRUPT, GD_KT, &t_illop, DPL_KERN);	
+	void t_device();			//7:  device not available
+	SETGATE(idt[T_DEVICE], INTERRUPT, GD_KT, &t_device, DPL_KERN);	
+	void t_dblflt();			//8:  double fault
+	SETGATE(idt[T_DBLFLT], INTERRUPT, GD_KT, &t_dblflt, DPL_KERN);
+								//9:  resevred
+	void t_tss();				//10: invalid task switch segment
+	SETGATE(idt[T_TSS], INTERRUPT, GD_KT, &t_tss, DPL_KERN);
+	void t_segnp();				//11: segment not present	
+	SETGATE(idt[T_SEGNP], INTERRUPT, GD_KT, t_segnp, DPL_KERN);
+	void t_stack();				//12: stack exception	
+	SETGATE(idt[T_STACK], INTERRUPT, GD_KT, &t_stack, DPL_KERN);
+	void t_gpflt();				//13: general protection fault	
+	SETGATE(idt[T_GPFLT], INTERRUPT, GD_KT, &t_gpflt, DPL_KERN);
+	void t_pgflt();				//14: page fault
+	SETGATE(idt[T_PGFLT], INTERRUPT, GD_KT, &t_pgflt, DPL_KERN);
+								//15: resevred
+	void t_fperr();				//16: device not available	
+	SETGATE(idt[T_FPERR], INTERRUPT, GD_KT, t_fperr, DPL_KERN);
+	void t_align();				//17: page fault
+	SETGATE(idt[T_ALIGN], INTERRUPT, GD_KT, &t_align, DPL_KERN);
+	void t_mchk();				//18: device not available	
+	SETGATE(idt[T_MCHK], INTERRUPT, GD_KT, &t_mchk, DPL_KERN);
+	void t_simderr();			//19: device not available		
+	SETGATE(idt[T_SIMDERR], INTERRUPT, GD_KT, &t_simderr, DPL_KERN);
+	void t_syscall();			//48: device not available
+	SETGATE(idt[T_SYSCALL], INTERRUPT, GD_KT, &t_syscall, DPL_USER);
 
 	// Per-CPU setup 
 	trap_init_percpu();
