@@ -10,13 +10,13 @@ umain(int argc, char **argv)
     breakpoint();
 
     cprintf("Continued!\n");
-	cprintf("running some code...")
+	cprintf("running some code...");
 
     int x = 1;
 	x = 2;
 	x = 3;
 	
-	cprintf("done.\n")
+	cprintf("done.\n");
 
     cprintf("breakpoint #2\n");
     breakpoint();

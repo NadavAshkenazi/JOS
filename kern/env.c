@@ -523,11 +523,12 @@ env_run(struct Env *e)
 
 	// LAB 3: Your code here.
 
-	if (e->env_status != ENV_RUNNABLE)
-		panic("env_run: new env is not runnable!");
-	
+
 	if (curenv && curenv->env_status == ENV_RUNNING) // making sure that curenv is not NOT_RUNABLLE (for exmp : waiting for IO)
 		curenv->env_status = ENV_RUNNABLE;
+
+	if (e->env_status != ENV_RUNNABLE)
+		panic("env_run: new env is not runnable!%d", e->env_status);
 
 	curenv = e; //Set 'curenv' to the new environment
 	curenv->env_status = ENV_RUNNING; // Set its status to ENV_RUNNING,

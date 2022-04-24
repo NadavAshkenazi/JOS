@@ -600,6 +600,24 @@ int
 user_mem_check(struct Env *env, const void *va, size_t len, int perm)
 {
 	// LAB 3: Your code here.
+	uintptr_t start = (uintptr_t) ROUNDDOWN((uintptr_t) va, PGSIZE);
+	uintptr_t end = (uintptr_t) ROUNDUP(((uintptr_t) va) + len, PGSIZE);
+
+	pte_t* pte;
+	uintptr_t runningAddr = start;
+	for (; runningAddr < end; runningAddr += PGSIZE){
+		pte = pgdir_walk(env->env_pgdir, (void*)runningAddr, 0);
+
+		if ((pte == NULL) || runningAddr > (uintptr_t)ULIM || !((*pte & (perm | PTE_U)))){
+			if (runningAddr < (uintptr_t)va)
+				user_mem_check_addr = (uintptr_t)va; //first address is the first the user asked
+			
+			else
+				user_mem_check_addr = runningAddr;
+			
+			return -E_FAULT;
+		}
+	}
 
 	return 0;
 }

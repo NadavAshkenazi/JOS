@@ -188,12 +188,28 @@ trap_dispatch(struct Trapframe *tf)
 	// LAB 3: Your code here.
 	uint32_t trapNumber = tf->tf_trapno;
 
-	if (trapNumber == T_PGFLT)
+	if (trapNumber == T_PGFLT){
 		page_fault_handler(tf);
-	
+		return;
+	}
 	else if (trapNumber == T_BRKPT){
 		debuggerFlag = true;
 		monitor(tf);
+		return;
+	}	
+	else if (trapNumber == T_DEBUG){
+		monitor(tf);
+		return;
+	}
+
+	else if (trapNumber == T_SYSCALL){
+		(tf->tf_regs).reg_eax = syscall(tf->tf_regs.reg_eax, //syscall number
+										  tf->tf_regs.reg_edx, //args 1-5
+										  tf->tf_regs.reg_ecx,
+										  tf->tf_regs.reg_ebx,
+										  tf->tf_regs.reg_edi,
+										  tf->tf_regs.reg_esi ); //return val in eax
+		return;
 	}
 
 	// Unexpected trap: The user process or the kernel has a bug.
@@ -256,6 +272,10 @@ page_fault_handler(struct Trapframe *tf)
 	// Handle kernel-mode page faults.
 
 	// LAB 3: Your code here.
+
+	if ((tf->tf_cs & DPL_USER) == 0x0) // not in user premmissions
+		panic("page_fault_handler: pageFault in kernel mode");
+
 
 	// We've already handled kernel-mode exceptions, so if we get here,
 	// the page fault happened in user mode.

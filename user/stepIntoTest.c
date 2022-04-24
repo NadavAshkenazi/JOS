@@ -9,7 +9,7 @@ umain(int argc, char **argv)
 	cprintf("Test stepInto Command\n");
 	cprintf("breakpoint #1\n");
     breakpoint();
-	#use stepInto
+	//use stepInto
 	int i;
 	for(i=1; i <= 5; i++){
 		cprintf("step %v%s\n", 0x0100, i);
@@ -18,7 +18,7 @@ umain(int argc, char **argv)
     cprintf("breakpoint #2\n");
     breakpoint();
 	
-	#use continue
+	//use continue
     cprintf("Continued!\n");
 	
 	for(i=1; i <= 5; i++){
