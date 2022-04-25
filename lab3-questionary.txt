@@ -38,6 +38,7 @@ because user cant use int 14 (requieres CPL 0)
 ===   instruction to invoke the kernel's page fault handler (which is
 ===   interrupt vector 14)?
 ===   (free form, 1 sentence)
+the user could pottentially get access to kernel address space
 
 === Q The break point test case will either generate a break point
 ===   exception or a general protection fault depending on how you
@@ -47,22 +48,36 @@ because user cant use int 14 (requieres CPL 0)
 ===   above and what incorrect setup would cause it to trigger a
 ===   general protection fault?
 ===   (free form)
+in order to get a breakpoint exeption we need to set the SETGATE with DPL_USER.
+otherwise it will need kernel permissions and int 3 will cause general protection exception
 
 === Q What do you think is the point of these mechanisms, particularly
 ===   in light of what the user/softint test program does? 
 ===   (free form, 1 sentence)
+to restrict user programs from accessing kernel space or getting kernel premmisions.
 
 === Q In Exercise 9, what causes the page fault which panics the
 ===   kernel when running user/breakpoint?
 ===   (free form, 1 sentence)
+backtrace tries to read the 5 arguments of libmain, but libmain only has 2 args therefor backtrace tries to access unmapped address.
 
 ====================================================================
 === Q What challenge(s) have you chosen to implement? (specify
 ===   challenge numbers separated by spaces, if more than one)
+2
 
 === Q If the challenge requires changing the kernel source, list the
 ===   files which you have changed/added during implementation.
 ===   (one file per line, relative to lab directory containing .git/)
+kern/trap.c
+kern/monitor.c
 
 === Q Describe you solution.
 ===   (free form, up to 500 words, don't need to use all 500!)
+we needed to Modify the JOS kernel monitor so that you can 'continue' execution from the current location.
+
+we added 2 commands called continue and stepinto that use breakpointContinue and breakpointStepInto funtions respecticly.
+continue function will restore the frame given to us by BRKPT Trap and clear the trap and resume flags to be able to resume the flow of the program.
+
+stepinto function will turn on thr trap and resume flags so the flow will stop on the next instruction.
+
