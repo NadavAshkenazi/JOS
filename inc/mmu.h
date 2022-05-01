@@ -202,6 +202,12 @@ struct Segdesc {
 #define STS_IG32	0xE	    // 32-bit Interrupt Gate
 #define STS_TG32	0xF	    // 32-bit Trap Gate
 
+#define DPL_KERN	0x0		// Kernel DPL
+#define DPL_USER    0x3     // User DPL
+
+#define INTERRUPT    0x0     // INTERRUPT flag
+#define TRAP	0x1		// TRAP flag
+
 
 /*
  *

@@ -230,6 +230,7 @@ mem_init(void)
 	// we just set up the mapping anyway.
 	// Permissions: kernel RW, user NONE
 	// Your code goes here:
+<<<<<<< HEAD
 
 
 	// Initialize the SMP-related parts of the memory map
@@ -239,6 +240,10 @@ mem_init(void)
 	
 	boot_map_region(kern_pgdir, KERNBASE, ROUNDUP((0x100000000 -KERNBASE), PGSIZE), 0, PTE_W | PTE_P);
 
+=======
+	
+	boot_map_region(kern_pgdir, KERNBASE, ROUNDUP((0x100000000 -KERNBASE), PGSIZE), 0, PTE_W | PTE_P);
+>>>>>>> lab3
 	// Check that the initial page directory has been set up correctly.
 	check_kern_pgdir();
 
@@ -263,6 +268,7 @@ mem_init(void)
 	// Some more checks, only possible after kern_pgdir is installed.
 	check_page_installed_pgdir();
 
+<<<<<<< HEAD
 }
 
 // Modify mappings in kern_pgdir to support SMP
@@ -288,6 +294,8 @@ mem_init_mp(void)
 	//
 	// LAB 4: Your code here:
 
+=======
+>>>>>>> lab3
 }
 
 // --------------------------------------------------------------
