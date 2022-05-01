@@ -287,6 +287,15 @@ mem_init_mp(void)
 	//     Permissions: kernel RW, user NONE
 	//
 	// LAB 4: Your code here:
+	uint32_t cpuNum = 0;
+	uintptr_t cpuFrame =(uintptr_t) (KSTKSIZE + KSTKGAP);
+	uintptr_t cpuKStackVStart;
+	physaddr_t cpuKStackPStart;
+	for (; cpuNum < NCPU; cpuNum++){
+		cpuKStackVStart = KSTACKTOP - cpuNum*cpuFrame - KSTKSIZE;
+		cpuKStackPStart = PADDR(percpu_kstacks[cpuNum]);
+		boot_map_region(kern_pgdir, cpuKStackVStart, KSTKSIZE, cpuKStackPStart, PTE_W);
+	}
 
 }
 
