@@ -230,7 +230,6 @@ mem_init(void)
 	// we just set up the mapping anyway.
 	// Permissions: kernel RW, user NONE
 	// Your code goes here:
-<<<<<<< HEAD
 
 
 	// Initialize the SMP-related parts of the memory map
@@ -240,10 +239,6 @@ mem_init(void)
 	
 	boot_map_region(kern_pgdir, KERNBASE, ROUNDUP((0x100000000 -KERNBASE), PGSIZE), 0, PTE_W | PTE_P);
 
-=======
-	
-	boot_map_region(kern_pgdir, KERNBASE, ROUNDUP((0x100000000 -KERNBASE), PGSIZE), 0, PTE_W | PTE_P);
->>>>>>> lab3
 	// Check that the initial page directory has been set up correctly.
 	check_kern_pgdir();
 
@@ -268,7 +263,6 @@ mem_init(void)
 	// Some more checks, only possible after kern_pgdir is installed.
 	check_page_installed_pgdir();
 
-<<<<<<< HEAD
 }
 
 // Modify mappings in kern_pgdir to support SMP
@@ -294,8 +288,6 @@ mem_init_mp(void)
 	//
 	// LAB 4: Your code here:
 
-=======
->>>>>>> lab3
 }
 
 // --------------------------------------------------------------
@@ -341,12 +333,18 @@ page_init(void)
 
 	for (i = 1; i < npages_basemem; i++) {
 		// [PGSIZE, npages_basemem * PGSIZE) is free
+		if (i == (size_t) (MPENTRY_PADDR / PGSIZE)) //skip MPENTRY
+			continue;
 		pages[i].pp_ref = 0;
 		pages[i].pp_link = page_free_list;
 		page_free_list = &pages[i];
 	}
+	pages[(size_t) (MPENTRY_PADDR / PGSIZE)].pp_ref = 1; // mark MPENTRY as used
+	pages[(size_t) (MPENTRY_PADDR / PGSIZE)].pp_link = NULL;
 
-	for (i = IOPHYSMEM / PGSIZE; i < EXTPHYSMEM / PGSIZE; i++){
+
+
+	for (i = (size_t) IOPHYSMEM / PGSIZE; i < (size_t) EXTPHYSMEM / PGSIZE; i++){
 		//[IOPHYSMEM, EXTPHYSMEM) marked as used so wont be allocated
 		pages[i].pp_ref = 1;
 		pages[i].pp_link = NULL;
@@ -654,7 +652,18 @@ mmio_map_region(physaddr_t pa, size_t size)
 	// Hint: The staff solution uses boot_map_region.
 	//
 	// Your code here:
-	panic("mmio_map_region not implemented");
+
+	uintptr_t start = base;
+	size_t alignedSize = (size_t)ROUNDUP(size, PGSIZE);
+	uintptr_t end = base + alignedSize;
+	if (end >= MMIOLIM)
+		panic("mmio_map_region: segment error");
+	
+	base = end; // move static base val to next free
+
+	boot_map_region(kern_pgdir, start, alignedSize, pa, PTE_W|PTE_PCD|PTE_PWT); //map
+	
+	return (void*) start;
 }
 
 static uintptr_t user_mem_check_addr;
@@ -784,6 +793,7 @@ check_page_free_list(bool only_low_memory)
 
 	assert(nfree_basemem > 0);
 	assert(nfree_extmem > 0);
+	cprintf("nadav&ofek:check_page_free_list() succeeded!\n");
 }
 
 //
