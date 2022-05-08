@@ -312,6 +312,7 @@ trap(struct Trapframe *tf)
 		// Acquire the big kernel lock before doing any
 		// serious kernel work.
 		// LAB 4: Your code here.
+		lock_kernel();
 		assert(curenv);
 
 		// Garbage collect if current enviroment is a zombie
@@ -358,8 +359,8 @@ page_fault_handler(struct Trapframe *tf)
 
 	// LAB 3: Your code here.
 
-	if ((tf->tf_cs & DPL_USER) == 0x0) // not in user premmissions
-		panic("page_fault_handler: pageFault in kernel mode");
+	// if ((tf->tf_cs & DPL_USER) == 0x0) // not in user premmissions
+	// 	panic("page_fault_handler: pageFault in kernel mode");
 
 
 	// We've already handled kernel-mode exceptions, so if we get here,

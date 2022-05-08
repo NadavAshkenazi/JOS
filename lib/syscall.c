@@ -63,7 +63,7 @@ sys_getenvid(void)
 
 void
 sys_yield(void)
-{
+{	
 	syscall(SYS_yield, 0, 0, 0, 0, 0, 0);
 }
 
