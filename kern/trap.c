@@ -359,8 +359,8 @@ page_fault_handler(struct Trapframe *tf)
 
 	// LAB 3: Your code here.
 
-	// if ((tf->tf_cs & DPL_USER) == 0x0) // not in user premmissions
-	// 	panic("page_fault_handler: pageFault in kernel mode");
+	if ((tf->tf_cs & DPL_USER) == 0x0) // not in user premmissions
+		panic("page_fault_handler: pageFault in kernel mode");
 
 
 	// We've already handled kernel-mode exceptions, so if we get here,
@@ -395,6 +395,34 @@ page_fault_handler(struct Trapframe *tf)
 	//   (the 'tf' variable points at 'curenv->env_tf').
 
 	// LAB 4: Your code here.
+
+	if (curenv->env_pgfault_upcall){ //Call the environment's page fault upcall, if one exists
+		struct UTrapframe* userTf;
+		if (tf->tf_esp < UXSTACKTOP && tf->tf_esp){ // nested exception
+			uint32_t* stackTop = (uint32_t*)(tf->tf_esp - 4);
+			*stackTop = 0x0; //push empty 32b word
+
+			stackTop -= sizeof(struct UTrapframe); //Set up a page fault stack frame on the user exception stack (after current TF in UXSTACK)
+			userTf = (struct UTrapframe*)(stackTop);
+		} 
+		else
+			userTf = (struct UTrapframe*)(UXSTACKTOP - sizeof(struct UTrapframe)); //Set up a page fault stack frame on the user exception stack (after UXSTACKTOP)
+		
+		user_mem_assert(curenv, (void*) userTf, sizeof(struct UTrapframe), PTE_W); //assert write permissions for new tf.
+
+		//set up new user tf:
+		userTf->utf_esp = tf->tf_esp;
+		userTf->utf_eflags = tf->tf_eflags;
+		userTf->utf_eip = tf->tf_eip;
+		userTf->utf_regs = tf->tf_regs;
+		userTf->utf_err = tf->tf_err;
+		userTf->utf_fault_va = fault_va;
+
+		curenv->env_tf.tf_eip = (uintptr_t)curenv->env_pgfault_upcall;
+		curenv->env_tf.tf_esp = (uintptr_t)userTf;
+		env_run(curenv); // run pgfault user handler
+	}
+
 
 	// Destroy the environment that caused the fault.
 	cprintf("[%08x] user fault va %08x ip %08x\n",
