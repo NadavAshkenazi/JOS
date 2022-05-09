@@ -239,7 +239,6 @@ sys_page_map(envid_t srcenvid, void *srcva,
 	//   check the current permissions on the page.
 
 	// LAB 4: Your code here.
-
 	if ((perm & (PTE_U | PTE_P)) != (PTE_U | PTE_P)) // check that PTE_U | PTE_P are on
 		return -E_INVAL;
 	
@@ -263,7 +262,7 @@ sys_page_map(envid_t srcenvid, void *srcva,
 	pp = page_lookup(srcEnv->env_pgdir, srcva, &pte);
 	if (!pp) //if srcva is not mapped in srcenvid's address space
 		return -E_INVAL;
-	
+
 	// if (srcva or dstva) >= UTOP or (srcva or dstva) is not page-aligned
 	if (((uintptr_t)srcva >= UTOP || PGOFF(srcva)) || ((uintptr_t)dstva >= UTOP) || PGOFF(dstva)) // check that va does not exceeds UTOP and that there is no offset (page is aligned)
 		return -E_INVAL;
@@ -404,9 +403,9 @@ syscall(uint32_t syscallno, uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4, 
 		case SYS_env_set_pgfault_upcall:
 			return sys_env_set_pgfault_upcall((envid_t) a1, (void*) a2);
 
-	default:
-		return -E_INVAL; // todo: was return -E_NO_SYS;
-		
+		default:
+			return -E_INVAL; // todo: was return -E_NO_SYS;
+			
 	}
 }
 
