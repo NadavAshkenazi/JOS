@@ -14,7 +14,6 @@
 static void
 pgfault(struct UTrapframe *utf)
 {
-	cprintf("before anything handler\n"); //debug
 	void *addr = (void *) utf->utf_fault_va;
 	uint32_t err = utf->utf_err;
 	int res;
@@ -26,10 +25,8 @@ pgfault(struct UTrapframe *utf)
 	//   (see <inc/memlayout.h>).
 
 	// LAB 4: Your code here.
-	cprintf("before first if in handler\n"); //debug
 	if (!((err & FEC_WR) && (uvpt[PGNUM(addr)] & PTE_COW)))
 		panic("pgfault: not write fault or not COW\n");
-	cprintf("after first if in handler\n"); //debug
 
 	// Allocate a new page, map it at a temporary location (PFTEMP),
 	// copy the data from the old page to the new page, then move the new
@@ -51,7 +48,6 @@ pgfault(struct UTrapframe *utf)
 	res =  sys_page_unmap(envid, PFTEMP); // unmap temp location
 	if (res < 0)
 		panic("pgfault: unmmaping failed - %e\n", res);
-	cprintf("end of handler\n");
 }
 
 //
@@ -141,7 +137,6 @@ fork(void)
 
 	extern void _pgfault_upcall(void); //Set up our page fault handler
 	set_pgfault_handler(pgfault);
-	cprintf("defiend pgfault\n");
 	int envid = sys_exofork(); //Create a child
 	if (envid <0)
 		panic("fork: sys_exfork faild - %e\n", envid);
