@@ -106,7 +106,7 @@ trap_init(void)
 	SETGATE(idt[T_TSS], INTERRUPT, GD_KT, &t_tss, DPL_KERN);
 
 	void t_segnp();				//11: segment not present	
-	SETGATE(idt[T_SEGNP], INTERRUPT, GD_KT, t_segnp, DPL_KERN);
+	SETGATE(idt[T_SEGNP], INTERRUPT, GD_KT, &t_segnp, DPL_KERN);
 
 	void t_stack();				//12: stack exception	
 	SETGATE(idt[T_STACK], INTERRUPT, GD_KT, &t_stack, DPL_KERN);
@@ -120,7 +120,7 @@ trap_init(void)
 								//15: resevred
 
 	void t_fperr();				//16: device not available	
-	SETGATE(idt[T_FPERR], INTERRUPT, GD_KT, t_fperr, DPL_KERN);
+	SETGATE(idt[T_FPERR], INTERRUPT, GD_KT, &t_fperr, DPL_KERN);
 
 	void t_align();				//17: aligment check
 	SETGATE(idt[T_ALIGN], INTERRUPT, GD_KT, &t_align, DPL_KERN);
@@ -131,6 +131,57 @@ trap_init(void)
 	void t_simderr();			//19: SIMD floating point error		
 	SETGATE(idt[T_SIMDERR], INTERRUPT, GD_KT, &t_simderr, DPL_KERN);
 	
+
+
+	void t_timer();				//32
+	SETGATE(idt[IRQ_OFFSET + IRQ_TIMER], INTERRUPT, GD_KT, &t_timer, DPL_KERN);
+	
+	void t_kbd();				//33
+	SETGATE(idt[IRQ_OFFSET + IRQ_KBD], INTERRUPT, GD_KT, &t_kbd, DPL_KERN);
+	
+	void t_irq2();				//34
+	SETGATE(idt[IRQ_OFFSET + 2], INTERRUPT, GD_KT, &t_irq2, DPL_KERN);
+	
+	void t_irq3();				//35
+	SETGATE(idt[IRQ_OFFSET + 3], INTERRUPT, GD_KT, &t_irq3, DPL_KERN);
+	
+	void t_serial();			//36
+	SETGATE(idt[IRQ_OFFSET + IRQ_SERIAL], INTERRUPT, GD_KT, &t_serial, DPL_KERN);
+	
+	void t_irq5();				//37
+	SETGATE(idt[IRQ_OFFSET + 5], INTERRUPT, GD_KT, &t_irq5, DPL_KERN);
+	
+	void t_irq6();				//38
+	SETGATE(idt[IRQ_OFFSET + 6], INTERRUPT, GD_KT, &t_irq6, DPL_KERN);
+	
+	void t_spurious();			//39
+	SETGATE(idt[IRQ_OFFSET + IRQ_SPURIOUS], INTERRUPT, GD_KT, &t_spurious, DPL_KERN);
+	
+	void t_irq8();				//40
+	SETGATE(idt[IRQ_OFFSET + 8], INTERRUPT, GD_KT, &t_irq8, DPL_KERN);
+	
+	void t_irq9();				//41
+	SETGATE(idt[IRQ_OFFSET + 9], INTERRUPT, GD_KT, &t_irq9, DPL_KERN);
+	
+	void t_irq10();				//42
+	SETGATE(idt[IRQ_OFFSET + 10], INTERRUPT, GD_KT, &t_irq10, DPL_KERN);
+	
+	void t_irq11();				//43
+	SETGATE(idt[IRQ_OFFSET + 11], INTERRUPT, GD_KT, &t_irq11, DPL_KERN);
+	
+	void t_irq12();				//44
+	SETGATE(idt[IRQ_OFFSET + 12], INTERRUPT, GD_KT, &t_irq12, DPL_KERN);
+	
+	void t_irq13();				//45
+	SETGATE(idt[IRQ_OFFSET + 13], INTERRUPT, GD_KT, &t_irq13, DPL_KERN);
+	
+	void t_ide();				//46
+	SETGATE(idt[IRQ_OFFSET + IRQ_IDE], INTERRUPT, GD_KT, &t_ide, DPL_KERN);
+	
+	void t_irq15();				//47
+	SETGATE(idt[IRQ_OFFSET + 15], INTERRUPT, GD_KT, &t_irq15, DPL_KERN);
+
+
 	void t_syscall();			//48: system call
 	SETGATE(idt[T_SYSCALL], INTERRUPT, GD_KT, &t_syscall, DPL_USER);
 
@@ -266,7 +317,7 @@ trap_dispatch(struct Trapframe *tf)
 	// Handle spurious interrupts
 	// The hardware sometimes raises these because of noise on the
 	// IRQ line or other reasons. We don't care.
-	if (tf->tf_trapno == IRQ_OFFSET + IRQ_SPURIOUS) {
+	if (trapNumber == IRQ_OFFSET + IRQ_SPURIOUS) {
 		cprintf("Spurious interrupt on irq 7\n");
 		print_trapframe(tf);
 		return;
@@ -275,7 +326,10 @@ trap_dispatch(struct Trapframe *tf)
 	// Handle clock interrupts. Don't forget to acknowledge the
 	// interrupt using lapic_eoi() before calling the scheduler!
 	// LAB 4: Your code here.
-
+	if (trapNumber == IRQ_OFFSET + IRQ_TIMER){
+		lapic_eoi();
+		sched_yield();
+	}
 	// Unexpected trap: The user process or the kernel has a bug.
 	print_trapframe(tf);
 	if (tf->tf_cs == GD_KT)

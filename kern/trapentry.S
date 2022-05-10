@@ -68,8 +68,26 @@ TRAPHANDLER_NOEC(t_fperr, T_FPERR) 			# 16: device not available
 TRAPHANDLER(t_align, T_ALIGN) 				# 17: page fault
 TRAPHANDLER_NOEC(t_mchk, T_MCHK) 			# 18: device not available
 TRAPHANDLER_NOEC(t_simderr, T_SIMDERR) 		# 19: device not available
-TRAPHANDLER_NOEC(t_syscall, T_SYSCALL) 		# 48: device not available
 
+
+TRAPHANDLER_NOEC(t_timer,IRQ_OFFSET + IRQ_TIMER);			# 32 		
+TRAPHANDLER_NOEC(t_kbd,IRQ_OFFSET + IRQ_KBD);				# 33
+TRAPHANDLER_NOEC(t_irq2,IRQ_OFFSET + 2);					# 34
+TRAPHANDLER_NOEC(t_irq3,IRQ_OFFSET + 3);					# 35
+TRAPHANDLER_NOEC(t_serial,IRQ_OFFSET + IRQ_SERIAL);			# 36
+TRAPHANDLER_NOEC(t_irq5,IRQ_OFFSET + 5);					# 37
+TRAPHANDLER_NOEC(t_irq6,IRQ_OFFSET + 6);					# 38
+TRAPHANDLER_NOEC(t_spurious,IRQ_OFFSET + IRQ_SPURIOUS);		# 39
+TRAPHANDLER_NOEC(t_irq8,IRQ_OFFSET + 8);					# 40
+TRAPHANDLER_NOEC(t_irq9,IRQ_OFFSET + 9);					# 41
+TRAPHANDLER_NOEC(t_irq10,IRQ_OFFSET + 10);					# 42
+TRAPHANDLER_NOEC(t_irq11,IRQ_OFFSET + 11);					# 43
+TRAPHANDLER_NOEC(t_irq12,IRQ_OFFSET + 12);					# 44
+TRAPHANDLER_NOEC(t_irq13,IRQ_OFFSET + 13);					# 45
+TRAPHANDLER_NOEC(t_ide,IRQ_OFFSET + IRQ_IDE);				# 46
+TRAPHANDLER_NOEC(t_irq15,IRQ_OFFSET + 15);					# 47
+
+TRAPHANDLER_NOEC(t_syscall, T_SYSCALL) 		# 48: device not available
 
 /*
  * Lab 3: Your code here for _alltraps

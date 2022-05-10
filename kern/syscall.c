@@ -347,7 +347,47 @@ static int
 sys_ipc_try_send(envid_t envid, uint32_t value, void *srcva, unsigned perm)
 {
 	// LAB 4: Your code here.
-	panic("sys_ipc_try_send not implemented");
+	struct Env *targetEnv;
+	struct PageInfo *pp;
+	pte_t* pte;
+
+
+	if (targetEnv->env_ipc_recving == 0)
+		return -E_IPC_NOT_RECV;
+
+	if (envid2env(envid, &targetEnv, 0) < 0)
+		return -E_BAD_ENV;
+	
+	if ((uintptr_t) srcva < UTOP){
+		if (PGOFF(srcva) != 0) // not page-aligned
+			return - E_INVAL;
+		else if ((perm & (PTE_U | PTE_P)) != (PTE_U | PTE_P)) // not present or not with user premissions.
+			return - E_INVAL;
+		else if ((perm & (~PTE_SYSCALL)) != 0) // holds invalid bits for syscall
+			return - E_INVAL;
+
+		pp = page_lookup(curenv->env_pgdir, srcva, &pte);
+		if (pp == NULL) // could not find srcva in env pgdir 
+			return - E_INVAL;
+
+		if ((perm & PTE_W) && !(*pte & PTE_W)) // asked for writable permissions but srcva is read_only
+			return -E_INVAL;
+		
+		int res = page_insert(targetEnv->env_pgdir, pp, targetEnv->env_ipc_dstva, perm);
+		if (res < 0)
+			return -E_NO_MEM;
+		
+		targetEnv->env_ipc_perm = perm;
+	}
+	else
+		targetEnv->env_ipc_perm = 0; // no page mapping is sent
+
+	targetEnv->env_ipc_recving = 0;
+	targetEnv->env_ipc_from = curenv->env_id;
+	targetEnv->env_ipc_value = value;
+	targetEnv->env_status = ENV_RUNNABLE;
+
+	return 0;
 }
 
 // Block until a value is ready.  Record that you want to receive
@@ -365,7 +405,13 @@ static int
 sys_ipc_recv(void *dstva)
 {
 	// LAB 4: Your code here.
-	panic("sys_ipc_recv not implemented");
+	if (((uintptr_t) dstva < UTOP) && (PGOFF(dstva) != 0)) // valid addr but not page-aligned
+		return -E_INVAL;
+
+	curenv->env_ipc_recving = 1;
+	curenv->env_ipc_dstva = dstva;
+	curenv->env_status = ENV_NOT_RUNNABLE;
+	sys_yield(); 
 	return 0;
 }
 
