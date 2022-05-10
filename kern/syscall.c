@@ -351,29 +351,31 @@ sys_ipc_try_send(envid_t envid, uint32_t value, void *srcva, unsigned perm)
 	struct PageInfo *pp;
 	pte_t* pte;
 
+	int res = envid2env(envid, &targetEnv, 0);
+	if (res < 0)
+		return -E_BAD_ENV;
 
 	if (targetEnv->env_ipc_recving == 0)
 		return -E_IPC_NOT_RECV;
 
-	if (envid2env(envid, &targetEnv, 0) < 0)
-		return -E_BAD_ENV;
-	
 	if ((uintptr_t) srcva < UTOP){
-		if (PGOFF(srcva) != 0) // not page-aligned
-			return - E_INVAL;
+		if (PGOFF(srcva) != 0)// not page-aligned
+			return -E_INVAL;
+		
 		else if ((perm & (PTE_U | PTE_P)) != (PTE_U | PTE_P)) // not present or not with user premissions.
-			return - E_INVAL;
+			return -E_INVAL;
+
 		else if ((perm & (~PTE_SYSCALL)) != 0) // holds invalid bits for syscall
-			return - E_INVAL;
+			return -E_INVAL;
 
 		pp = page_lookup(curenv->env_pgdir, srcva, &pte);
 		if (pp == NULL) // could not find srcva in env pgdir 
-			return - E_INVAL;
+			return -E_INVAL;
 
 		if ((perm & PTE_W) && !(*pte & PTE_W)) // asked for writable permissions but srcva is read_only
 			return -E_INVAL;
 		
-		int res = page_insert(targetEnv->env_pgdir, pp, targetEnv->env_ipc_dstva, perm);
+		res = page_insert(targetEnv->env_pgdir, pp, targetEnv->env_ipc_dstva, perm);
 		if (res < 0)
 			return -E_NO_MEM;
 		
@@ -410,8 +412,8 @@ sys_ipc_recv(void *dstva)
 
 	curenv->env_ipc_recving = 1;
 	curenv->env_ipc_dstva = dstva;
-	curenv->env_status = ENV_NOT_RUNNABLE;
-	sys_yield(); 
+	curenv->env_status = ENV_NOT_RUNNABLE; //no need to yield - the clock interupt will cause returning from trap and yielding
+	
 	return 0;
 }
 
@@ -448,7 +450,10 @@ syscall(uint32_t syscallno, uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4, 
 			return sys_page_unmap((envid_t)a1, (void*)a2);
 		case SYS_env_set_pgfault_upcall:
 			return sys_env_set_pgfault_upcall((envid_t) a1, (void*) a2);
-
+		case SYS_ipc_try_send:
+			return sys_ipc_try_send((envid_t) a1, (uint32_t) a2, (void*) a3, (unsigned int) a4);
+		case SYS_ipc_recv:
+			return sys_ipc_recv((void*) a1);
 		default:
 			return -E_INVAL; // todo: was return -E_NO_SYS;
 			
