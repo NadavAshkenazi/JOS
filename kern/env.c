@@ -126,6 +126,7 @@ env_init(void)
 		e->env_id = 0;
 		e->env_link = env_free_list;
 		env_free_list = e;
+		e->priority = 0;
 	}
 
 	// Per-CPU part of the initialization

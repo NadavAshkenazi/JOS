@@ -165,3 +165,67 @@ sfork(void)
 	panic("sfork not implemented");
 	return -E_INVAL;
 }
+
+// envid_t
+// priorityFork(int pr)
+// {
+// 	extern void _pgfault_upcall(void); //Set up our page fault handler
+// 	set_pgfault_handler(pgfault);
+
+// 	envid_t envid;
+// 	uint32_t addr;
+// 	envid = sys_exofork();
+// 	if (envid == 0) {
+// 		thisenv = &envs[ENVX(sys_getenvid())];
+// 		sys_set_priority(pr);
+// 		return 0;
+// 	}
+
+// 	if (envid < 0)
+// 		panic("sys_exofork: %e", envid);
+
+// 	for (addr = 0; addr < USTACKTOP; addr += PGSIZE)
+// 		if ((uvpd[PDX(addr)] & PTE_P) && (uvpt[PGNUM(addr)] & PTE_P)
+// 			&& (uvpt[PGNUM(addr)] & PTE_U)) {
+// 			duppage(envid, PGNUM(addr));
+// 		}
+
+// 	if (sys_page_alloc(envid, (void *)(UXSTACKTOP-PGSIZE), PTE_U|PTE_W|PTE_P) < 0)
+// 		panic("1");
+// 	extern void _pgfault_upcall();
+// 	sys_env_set_pgfault_upcall(envid, _pgfault_upcall);
+
+// 	if (sys_env_set_status(envid, ENV_RUNNABLE) < 0)
+// 		panic("sys_env_set_status");
+
+// 	return envid;
+// 	panic("fork not implemented");
+// }
+
+ envid_t
+priorityFork(int priority){
+	extern void _pgfault_upcall(void); //Set up our page fault handler
+	set_pgfault_handler(pgfault);
+	int envid = sys_exofork(); //Create a child
+	if (envid <0)
+		panic("fork: sys_exfork faild - %e\n", envid);
+
+	if (envid == 0){
+		sys_set_priority(priority);
+		thisenv = &envs[ENVX(sys_getenvid())]; // setup thisenv extern val
+	}
+
+	
+	else
+		prepareChild(envid);
+
+
+
+	// if (envid != 0) // parent - should copy mappings of parent to child
+	// 	prepareChild(envid);
+	
+	// else  //child
+	// 	thisenv = &envs[ENVX(sys_getenvid())]; // setup thisenv extern val
+	
+	return envid; // child id for parent, 0 for child
+}

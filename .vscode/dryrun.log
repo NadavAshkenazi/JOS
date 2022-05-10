@@ -1,5 +1,6 @@
 make --dry-run --always-make --keep-going --print-directory
 make: Entering directory `/home/nadavash/Desktop/OSE/lab'
+ 
 make: Leaving directory `/home/nadavash/Desktop/OSE/lab'
  
 make: Entering directory `/home/nadavash/Desktop/OSE/lab'
@@ -59,7 +60,6 @@ gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -W
 echo + cc lib/string.c
 mkdir -p obj/kern
 gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs -c -o obj/kern/string.o lib/string.c
- 
 echo + as kern/mpentry.S
 mkdir -p obj/kern
 gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs -c -o obj/kern/mpentry.o kern/mpentry.S
@@ -190,7 +190,6 @@ nm -n obj/user/faultread > obj/user/faultread.sym
 echo + cc[USER] user/faultreadkernel.c
 mkdir -p obj/user
 gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/faultreadkernel.o user/faultreadkernel.c
- 
 echo + ld obj/user/faultreadkernel
 ld -o obj/user/faultreadkernel -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/faultreadkernel.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
 objdump -S obj/user/faultreadkernel > obj/user/faultreadkernel.asm
@@ -366,7 +365,6 @@ objcopy -S -O binary -j .text obj/boot/boot.out obj/boot/boot
 perl boot/sign.pl obj/boot/boot
 echo + mk obj/kern/kernel.img
 dd if=/dev/zero of=obj/kern/kernel.img~ count=10000 2>/dev/null
- 
 dd if=obj/boot/boot of=obj/kern/kernel.img~ conv=notrunc 2>/dev/null
 dd if=obj/kern/kernel of=obj/kern/kernel.img~ seek=1 conv=notrunc 2>/dev/null
 mv obj/kern/kernel.img~ obj/kern/kernel.img

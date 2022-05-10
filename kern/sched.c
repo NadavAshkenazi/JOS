@@ -33,6 +33,7 @@ sched_yield(void)
 
 	uint32_t interator, currnetIndex;
 	idle = curenv;
+	struct Env *envToRun = NULL;
 
 	if (idle)
 		currnetIndex = ENVX(idle->env_id);
@@ -40,17 +41,29 @@ sched_yield(void)
 		currnetIndex = 0;
 	
 	for (interator = currnetIndex; interator <NENV; interator++){ //move right
-		if (envs[interator].env_status == ENV_RUNNABLE)
-			env_run(&envs[interator]);
+		if (envs[interator].env_status == ENV_RUNNABLE){
+			if (envToRun==NULL || envs[interator].priority < envToRun->priority){
+				envToRun = &envs[interator];
+			}
+		}
+
 	}
 
-	for (interator = 0; interator < currnetIndex; interator++){ //return cycliclly
-		if (envs[interator].env_status == ENV_RUNNABLE)
-			env_run(&envs[interator]);
+	if (envToRun == NULL){
+		for (interator = 0; interator < currnetIndex; interator++){ //return cycliclly
+			if (envs[interator].env_status == ENV_RUNNABLE){
+				if (envToRun==NULL || envs[interator].priority < envToRun->priority){
+					envToRun = &envs[interator];
+				}
+			}
+		}
 	}
 
-	if (idle && idle->env_status == ENV_RUNNING)
+	if (idle && (idle->env_status == ENV_RUNNING) && ((envToRun == NULL) || (idle->priority < envToRun->priority)))
 		env_run(idle);
+	
+	else if (envToRun != NULL)
+		env_run(envToRun);	
 
 	// sched_halt never returns
 	sched_halt();
