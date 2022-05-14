@@ -412,11 +412,6 @@ load_icode(struct Env *e, uint8_t *binary)
 void
 env_create(uint8_t *binary, enum EnvType type)
 {
-	// LAB 3: Your code here.
-
-
-	// If this is the file server (type == ENV_TYPE_FS) give it I/O privileges.
-	// LAB 5: Your code here.
 
 	struct Env* e;
 	int res = env_alloc(&e, 0);
@@ -425,6 +420,11 @@ env_create(uint8_t *binary, enum EnvType type)
 	
 	load_icode(e, binary); //load binary to new env
 	e->env_type = type; // set env type
+
+	// If this is the file server (type == ENV_TYPE_FS) give it I/O privileges.
+	// LAB 5: Your code here.
+	if (type == ENV_TYPE_FS)
+		e->env_tf.tf_eflags |= FL_IOPL_MASK;
 
 }
 
