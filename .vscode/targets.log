@@ -1,0 +1,4490 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 3.81
+# Copyright (C) 2006  Free Software Foundation, Inc.
+# This is free software; see the source for copying conditions.
+# There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
+
+# This program built for i686-pc-linux-gnu
+ 
+
+# Make data base, printed on Tue May 10 12:55:53 2022
+
+# Variables
+
+# makefile (from `GNUmakefile', line 148)
+QEMUOPTS = -hda $(OBJDIR)/kern/kernel.img -serial mon:stdio -gdb tcp::$(GDBPORT) $(shell if $(QEMU) -nographic -help | grep -q '^-D '; then echo '-D qemu.log'; fi) -smp $(CPUS) $(QEMUEXTRA)
+# environment
+SELINUX_INIT = YES
+# automatic
+?F = $(notdir $?)
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# environment
+DESKTOP_SESSION = ubuntu
+# makefile (from `GNUmakefile', line 52)
+QEMU := qemu
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# environment
+XAUTHORITY = /home/nadavash/.Xauthority
+# environment
+GDMSESSION = ubuntu
+# environment
+XMODIFIERS = @im=ibus
+# makefile
+CURDIR := /home/nadavash/Desktop/OSE/lab
+# makefile (from `conf/lab.mk', line 2)
+PACKAGEDATE = Wed Oct 8 09:40:26 EDT 2014
+# makefile
+SHELL = /bin/sh
+# makefile (from `GNUmakefile', line 75)
+NM := nm
+# makefile (from `GNUmakefile', line 122)
+USER_CFLAGS :=    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs
+# environment
+GDM_LANG = en_US
+# makefile (from `conf/env.mk', line 9)
+ 
+V = @
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+# environment
+_ = /usr/share/code/code
+# makefile (from `GNUmakefile', line 94)
+CFLAGS :=    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector
+# environment
+XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/usr/share/upstart/xdg:/etc/xdg
+# makefile (from `GNUmakefile', line 67)
+GDBPORT := 26000
+# makefile (from `GNUmakefile', line 146)
+IMAGES = $(OBJDIR)/kern/kernel.img
+# makefile (from `GNUmakefile', line 100)
+ULDFLAGS := -T user/user.ld
+# makefile (from `obj/.deps', line 1)
+MAKEFILE_LIST :=  GNUmakefile conf/lab.mk conf/env.mk boot/Makefrag kern/Makefrag lib/Makefrag user/Makefrag obj/.deps
+# automatic
+@F = $(notdir $@)
+# environment
+GIO_LAUNCHED_DESKTOP_FILE = /usr/share/applications/code.desktop
+# environment
+SESSIONTYPE = gnome-session
+# makefile (from `GNUmakefile', line 24)
+TOP = .
+# environment
+MANDATORY_PATH = /usr/share/gconf/ubuntu.mandatory.path
+# environment
+XDG_DATA_DIRS = /usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/
+# environment
+DBUS_SESSION_BUS_ADDRESS = unix:abstract=/tmp/dbus-zOfwTYoDki
+# makefile (from `lib/Makefrag', line 13)
+LIB_SRCFILES := lib/console.c lib/libmain.c lib/exit.c lib/panic.c lib/printf.c lib/printfmt.c lib/readline.c lib/string.c lib/syscall.c lib/pgfault.c lib/pfentry.S lib/fork.c lib/ipc.c
+# makefile (from `GNUmakefile', line 70)
+AS := as
+# environment
+VSCODE_LOGS = /home/nadavash/.config/Code/logs/20220510T125541
+# makefile (from `GNUmakefile', line 78)
+NCC := gcc  -pipe
+# makefile (from `boot/Makefrag', line 10)
+BOOT_OBJS := obj/boot/boot.o obj/boot/main.o
+# environment
+CLUTTER_IM_MODULE = xim
+# makefile (from `lib/Makefrag', line 22)
+LIB_OBJFILES := obj/lib/console.o obj/lib/libmain.o obj/lib/exit.o obj/lib/panic.o obj/lib/printf.o obj/lib/printfmt.o obj/lib/readline.o obj/lib/string.o obj/lib/syscall.o obj/lib/pgfault.o  obj/lib/pfentry.o obj/lib/fork.o obj/lib/ipc.o
+# environment
+LESSOPEN = | /usr/bin/lesspipe %s
+# environment
+XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session0
+# environment
+PATH = /home/nadavash/bin:/home/nadavash/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+# makefile (from `GNUmakefile', line 72)
+LD := ld
+# makefile (from `GNUmakefile', line 79)
+NATIVE_CFLAGS :=    -I. -MD -Wall
+# environment
+GPG_AGENT_INFO = /run/user/1000/keyring-E4xE1S/gpg:0:1
+# environment
+SESSION_MANAGER = local/ubuntu:@/tmp/.ICE-unix/1912,unix/ubuntu:/tmp/.ICE-unix/1912
+# environment
+XDG_RUNTIME_DIR = /run/user/1000
+# environment
+TEXTDOMAIN = im-config
+# makefile (from `GNUmakefile', line 142)
+CPUS = 1
+# makefile (from `GNUmakefile', line 71)
+AR := ar
+# environment
+XDG_MENU_PREFIX = gnome-
+# environment
+VSCODE_LOG_STACK = false
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# makefile (from `GNUmakefile', line 97)
+LDFLAGS := -m elf_i386
+# default
+.FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
+# environment
+SESSION = ubuntu
+# environment
+XDG_GREETER_DATA_DIR = /var/lib/lightdm-data/nadavash
+# environment
+LS_COLORS = 
+# environment
+JOB = dbus
+# environment
+SSH_AUTH_SOCK = /run/user/1000/keyring-E4xE1S/ssh
+# environment
+GIO_LAUNCHED_DESKTOP_FILE_PID = 2300
+# automatic
+%F = $(notdir $%)
+# environment
+DISPLAY = :0
+# makefile (from `user/Makefrag', line 4)
+USERLIBS = jos
+# environment
+GTK_IM_MODULE = ibus
+# environment
+PWD = /home/nadavash/Desktop/OSE/lab
+# makefile (from `GNUmakefile', line 102)
+GCC_LIB := /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+# environment
+QT_QPA_PLATFORMTHEME = appmenu-qt5
+# environment
+XDG_SEAT = seat0
+# makefile (from `GNUmakefile', line 121)
+KERN_CFLAGS :=    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs
+# environment
+GTK_MODULES = overlay-scrollbar:unity-gtk-module
+# makefile (from `conf/lab.mk', line 1)
+LAB = 4
+# makefile (from `user/Makefrag', line 1)
+OBJDIRS :=  boot kern lib user
+# environment
+HOME = /home/nadavash
+# environment
+LESSCLOSE = /usr/bin/lesspipe %s %s
+# makefile (from `GNUmakefile', line 80)
+TAR := gtar
+# environment
+LOGNAME = nadavash
+# makefile (from `kern/Makefrag', line 42)
+KERN_SRCFILES := kern/entry.S kern/entrypgdir.c kern/init.c kern/console.c kern/monitor.c kern/pmap.c kern/env.c kern/kclock.c kern/picirq.c kern/printf.c kern/trap.c kern/trapentry.S kern/sched.c kern/syscall.c kern/kdebug.c lib/printfmt.c lib/readline.c lib/string.c kern/mpentry.S kern/mpconfig.c kern/lapic.c kern/spinlock.c
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# default
+MAKE_VERSION := 3.81
+# environment
+GNOME_DESKTOP_SESSION_ID = this-is-deprecated
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+XDG_VTNR = 7
+# makefile (from `kern/Makefrag', line 83)
+KERN_OBJFILES := obj/kern/entry.o obj/kern/entrypgdir.o obj/kern/init.o obj/kern/console.o obj/kern/monitor.o obj/kern/pmap.o obj/kern/env.o obj/kern/kclock.o obj/kern/picirq.o obj/kern/printf.o obj/kern/trap.o obj/kern/trapentry.o obj/kern/sched.o obj/kern/syscall.o obj/kern/kdebug.o  obj/kern/printfmt.o  obj/kern/readline.o  obj/kern/string.o obj/kern/mpentry.o obj/kern/mpconfig.o obj/kern/lapic.o obj/kern/spinlock.o
+# environment
+VERBOSE_LOGGING = true
+# default
+MAKE = $(MAKE_COMMAND)
+# default
+MAKECMDGOALS := all
+# environment
+QT_IM_MODULE = ibus
+# environment
+SHLVL = 1
+# makefile (from `GNUmakefile', line 69)
+CC := gcc -pipe
+# environment
+IM_CONFIG_PHASE = 1
+# environment
+VSCODE_IPC_HOOK_EXTHOST = /tmp/vscode-ipc-f5013c44-2647-4047-9933-7f8dc9e7026e.sock
+# environment
+COMPIZ_CONFIG_PROFILE = ubuntu
+# environment
+XDG_SESSION_ID = c2
+# environment
+AMD_ENTRYPOINT = vs/workbench/services/extensions/node/extensionHostProcess
+# environment
+USER = nadavash
+# makefile
+.DEFAULT_GOAL := all
+# environment
+XDG_CURRENT_DESKTOP = Unity
+# environment
+PIPE_LOGGING = true
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# environment
+GNOME_KEYRING_PID = 1735
+# environment
+VSCODE_PREVENT_FOREIGN_INSPECT = true
+# makefile (from `GNUmakefile', line 36)
+GCCPREFIX := 
+# default
+MAKE_COMMAND := make
+# environment
+VSCODE_NODE_CACHED_DATA_DIR = /home/nadavash/.config/Code/CachedData/c7d83e57cd18f18026a8162d042843bda1bcf21f
+# default
+.VARIABLES := 
+# automatic
+*F = $(notdir $*)
+# environment
+LANGUAGE = en_US
+# environment
+XDG_SEAT_PATH = /org/freedesktop/DisplayManager/Seat0
+# environment
+VSCODE_IPC_HOOK = /run/user/1000/vscode-c0fc6d3a-1.35.1-main.sock
+# environment
+GNOME_KEYRING_CONTROL = /run/user/1000/keyring-E4xE1S
+# makefile
+MAKEFLAGS = Rrp
+# environment
+MFLAGS = -Rrp
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# makefile (from `GNUmakefile', line 74)
+OBJDUMP := objdump
+# makefile (from `GNUmakefile', line 22)
+LABSETUP = ./
+# automatic
++F = $(notdir $+)
+# environment
+NO_AT_BRIDGE = 1
+# environment
+COMPIZ_BIN_PATH = /usr/bin/
+# environment
+DEFAULTS_PATH = /usr/share/gconf/ubuntu.default.path
+# environment
+TEXTDOMAINDIR = /usr/share/locale/
+# default
+MAKEFILES := 
+# environment
+UPSTART_SESSION = unix:abstract=/com/ubuntu/upstart-session/1000/1739
+# automatic
+<F = $(notdir $<)
+# makefile (from `GNUmakefile', line 8)
+OBJDIR := obj
+# environment
+INSTANCE = 
+# makefile (from `GNUmakefile', line 81)
+PERL := perl
+# environment
+LC_ALL = C
+# makefile (from `kern/Makefrag', line 85)
+KERN_BINFILES :=  obj/user/hello  obj/user/buggyhello  obj/user/buggyhello2  obj/user/evilhello  obj/user/testbss  obj/user/divzero  obj/user/breakpoint  obj/user/softint  obj/user/badsegment  obj/user/faultread  obj/user/faultreadkernel  obj/user/faultwrite  obj/user/faultwritekernel  obj/user/stepIntoTest  obj/user/continueTest  obj/user/idle  obj/user/yield  obj/user/dumbfork  obj/user/stresssched  obj/user/faultdie  obj/user/faultregs  obj/user/faultalloc  obj/user/faultallocbad  obj/user/faultnostack  obj/user/faultbadhandler  obj/user/faultevilhandler  obj/user/forktree  obj/user/sendpage  obj/user/spin  obj/user/fairness  obj/user/pingpong  obj/user/pingpongs  obj/user/primes
+# environment
+QT4_IM_MODULE = xim
+# automatic
+^F = $(notdir $^)
+# makefile (from `GNUmakefile', line 73)
+OBJCOPY := objcopy
+# default
+SUFFIXES := 
+# environment
+CHROME_DESKTOP = code-url-handler.desktop
+# default
+.INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+# environment
+MAKELEVEL := 0
+# makefile (from `kern/Makefrag', line 10)
+KERN_LDFLAGS := -m elf_i386 -T kern/kernel.ld -nostdlib
+# environment
+LANG = C
+# environment
+VSCODE_PID = 2300
+# variable set hash-table stats:
+# Load=142/1024=14%, Rehash=0, Collisions=29/338=9%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# lib (device 2049, inode 2624270): 16 files, no impossibilities so far.
+# obj/kern (device 2049, inode 2625261): 23 files, no impossibilities.
+# . (device 2049, inode 2623717): 16 files, no impossibilities so far.
+# kern (device 2049, inode 2624256): 33 files, no impossibilities so far.
+# boot (device 2049, inode 2624230): No files, no impossibilities so far.
+# obj/user: could not be stat'd.
+# obj/lib: could not be stat'd.
+# obj/boot: could not be stat'd.
+
+# 88 files, no impossibilities in 8 directories.
+
+# Implicit Rules
+
+obj/.vars.%: FORCE
+#  commands to execute (from `GNUmakefile', line 130):
+	$(V)echo "$($*)" | cmp -s $@ || echo "$($*)" > $@
+	
+
+obj/boot/%.o: boot/%.c
+#  commands to execute (from `boot/Makefrag', line 13):
+	@echo + cc -Os $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(KERN_CFLAGS) -Os -c -o $@ $<
+	
+
+obj/boot/%.o: boot/%.S
+#  commands to execute (from `boot/Makefrag', line 18):
+	@echo + as $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(KERN_CFLAGS) -c -o $@ $<
+	
+
+obj/kern/%.o: kern/%.c obj/.vars.KERN_CFLAGS
+#  commands to execute (from `kern/Makefrag', line 89):
+	@echo + cc $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(KERN_CFLAGS) -c -o $@ $<
+	
+
+obj/kern/%.o: kern/%.S obj/.vars.KERN_CFLAGS
+#  commands to execute (from `kern/Makefrag', line 94):
+	@echo + as $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(KERN_CFLAGS) -c -o $@ $<
+	
+
+obj/kern/%.o: lib/%.c obj/.vars.KERN_CFLAGS
+#  commands to execute (from `kern/Makefrag', line 99):
+	@echo + cc $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(KERN_CFLAGS) -c -o $@ $<
+	
+
+obj/lib/%.o: lib/%.c obj/.vars.USER_CFLAGS
+#  commands to execute (from `lib/Makefrag', line 25):
+	@echo + cc[USER] $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(USER_CFLAGS) -c -o $@ $<
+	
+
+obj/lib/%.o: lib/%.S obj/.vars.USER_CFLAGS
+#  commands to execute (from `lib/Makefrag', line 30):
+	@echo + as[USER] $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(USER_CFLAGS) -c -o $@ $<
+	
+
+obj/user/%.o: user/%.c obj/.vars.USER_CFLAGS
+#  commands to execute (from `user/Makefrag', line 7):
+	@echo + cc[USER] $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(USER_CFLAGS) -c -o $@ $<
+	
+
+obj/user/%: obj/user/%.o obj/lib/entry.o obj/lib/libjos.a user/user.ld
+#  commands to execute (from `user/Makefrag', line 12):
+	@echo + ld $@
+	$(V)$(LD) -o $@ $(ULDFLAGS) $(LDFLAGS) -nostdlib $(OBJDIR)/lib/entry.o $@.o -L$(OBJDIR)/lib $(USERLIBS:%=-l%) $(GCC_LIB)
+	$(V)$(OBJDUMP) -S $@ > $@.asm
+	$(V)$(NM) -n $@ > $@.sym
+	
+
+prep-%:
+#  commands to execute (from `GNUmakefile', line 216):
+	$(V)$(MAKE) "INIT_CFLAGS=${INIT_CFLAGS} -DTEST=`case $* in *_*) echo $*;; *) echo user_$*;; esac`" $(IMAGES)
+	
+
+run-%-nox-gdb: prep-% pre-qemu
+#  commands to execute (from `GNUmakefile', line 219):
+	$(QEMU) -nographic $(QEMUOPTS) -S
+ 
+	
+
+run-%-gdb: prep-% pre-qemu
+#  commands to execute (from `GNUmakefile', line 222):
+	$(QEMU) $(QEMUOPTS) -S
+	
+
+run-%-nox: prep-% pre-qemu
+#  commands to execute (from `GNUmakefile', line 225):
+	$(QEMU) -nographic $(QEMUOPTS)
+	
+
+run-%: prep-% pre-qemu
+#  commands to execute (from `GNUmakefile', line 228):
+	$(QEMU) $(QEMUOPTS)
+	
+
+# 15 implicit rules, 0 (0.0%) terminal.
+
+# Files
+
+# Not a target:
+obj/net/%.o:
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+handin: tarball
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 208):
+	@echo Please submit lab$(LAB)-handin.tar.gz file!
+	
+
+# Not a target:
+obj/user/buggyhello2:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/lib/panic.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+qemu: obj/kern/kernel.img pre-qemu
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 159):
+	$(QEMU) $(QEMUOPTS)
+	
+
+# Not a target:
+obj/kern/entrypgdir.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/monitor.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-10 12:55:52.61772376
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+lib/Makefrag:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-01 08:44:04.619324614
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+obj/kern/kernel.img: obj/kern/kernel obj/boot/boot
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `kern/Makefrag', line 117):
+	@echo + mk $@
+	$(V)dd if=/dev/zero of=$(OBJDIR)/kern/kernel.img~ count=10000 2>/dev/null
+	$(V)dd if=$(OBJDIR)/boot/boot of=$(OBJDIR)/kern/kernel.img~ conv=notrunc 2>/dev/null
+	$(V)dd if=$(OBJDIR)/kern/kernel of=$(OBJDIR)/kern/kernel.img~ seek=1 conv=notrunc 2>/dev/null
+	$(V)mv $(OBJDIR)/kern/kernel.img~ $(OBJDIR)/kern/kernel.img
+	
+
+# Not a target:
+obj/lib/libmain.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/fairness:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+gdb:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 154):
+	gdb -x .gdbinit
+	
+
+all: obj/kern/kernel.img
+#  Phony target (prerequisite of .PHONY).
+#  Command-line target.
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+obj/lib/printfmt.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+%.o:
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+FORCE:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+obj/user/forktree:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/sched.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/init.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-10 12:55:52.357853762
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+.PHONY: FORCE all always handin tarball clean realclean distclean grade handin-prep handin-check
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+pre-qemu: .gdbinit
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/stresssched:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/kdebug.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+handin-check:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+obj/user/faultwritekernel:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+.PRECIOUS: %.o obj/boot/%.o obj/kern/%.o obj/lib/%.o obj/fs/%.o obj/net/%.o obj/user/%.o obj/.vars.%
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+handin-prep:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/readline.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/syscall.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+distclean: realclean
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 195):
+	rm -rf conf/gcc.mk
+	
+
+print-gdbport:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 183):
+	@echo $(GDBPORT)
+	
+
+# Not a target:
+obj/user/faultregs:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/sendpage:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/printf.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+.SUFFIXES:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/mpconfig.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/picirq.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/.vars.%:
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+realclean: clean
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 190):
+	rm -rf lab$(LAB).tar.gz \
+	jos.out $(wildcard jos.out.*) \
+	qemu.pcap $(wildcard qemu.pcap.*)
+	
+
+always:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 241):
+	@:
+	
+
+print-qemu:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 180):
+	@echo $(QEMU)
+	
+
+obj/lib/libjos.a: obj/lib/console.o obj/lib/libmain.o obj/lib/exit.o obj/lib/panic.o obj/lib/printf.o obj/lib/printfmt.o obj/lib/readline.o obj/lib/string.o obj/lib/syscall.o obj/lib/pgfault.o obj/lib/pfentry.o obj/lib/fork.o obj/lib/ipc.o
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `lib/Makefrag', line 35):
+	@echo + ar $@
+	$(V)$(AR) r $@ $(LIB_OBJFILES)
+	
+
+# Not a target:
+obj/kern/mpentry.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/lib/exit.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/lib/string.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.gdbinit.tmpl:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+conf/env.mk:
+#  A default, MAKEFILES, or -include/sinclude makefile.
+#  Implicit rule search has been done.
+#  Last modified 2022-04-01 07:10:00.805290995
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+obj/kern/env.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-10 12:55:53.033515757
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+obj/kern/pmap.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-10 12:55:52.881591759
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+ 
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+ 
+
+tarball: realclean
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 211):
+	tar cf - `find . -type f | grep -v '^\.*$$' | grep -v '/CVS/' | grep -v '/\.svn/' | grep -v '/\.git/' | grep -v 'lab[0-9].*\.tar\.gz'` | gzip > lab$(LAB)-handin.tar.gz
+	
+
+# Not a target:
+obj/lib/pgfault.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/monitor.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/lib/pfentry.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/.deps: obj/kern/console.d obj/kern/entry.d obj/kern/entrypgdir.d obj/kern/env.d obj/kern/init.d obj/kern/kclock.d obj/kern/monitor.d obj/kern/picirq.d obj/kern/pmap.d obj/kern/printf.d
+#  A default, MAKEFILES, or -include/sinclude makefile.
+ 
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: `'
+#  Last modified 2022-05-10 12:55:53.449307756
+#  File has been updated.
+#  Successfully updated.
+# automatic
+# @ := obj/.deps
+# automatic
+# % := 
+# automatic
+# * := 
+# automatic
+# + := obj/kern/console.d obj/kern/entry.d obj/kern/entrypgdir.d obj/kern/env.d obj/kern/init.d obj/kern/kclock.d obj/kern/monitor.d obj/kern/picirq.d obj/kern/pmap.d obj/kern/printf.d
+# automatic
+# | := 
+# automatic
+# < := obj/kern/console.d
+# automatic
+# ^ := obj/kern/console.d obj/kern/entry.d obj/kern/entrypgdir.d obj/kern/env.d obj/kern/init.d obj/kern/kclock.d obj/kern/monitor.d obj/kern/picirq.d obj/kern/pmap.d obj/kern/printf.d
+# automatic
+# ? := obj/kern/console.d obj/kern/entry.d obj/kern/entrypgdir.d obj/kern/env.d obj/kern/init.d obj/kern/kclock.d obj/kern/monitor.d obj/kern/picirq.d obj/kern/pmap.d obj/kern/printf.d
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=2/17=12%
+#  commands to execute (from `GNUmakefile', line 235):
+	@mkdir -p $(@D)
+	@$(PERL) mergedep.pl $@ $^
+	
+
+grade:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 202):
+	@echo $(MAKE) clean
+	@$(MAKE) clean || \
+	(echo "'make clean' failed.  HINT: Do you have another running instance of JOS?" && exit 1)
+	./grade-lab$(LAB) $(GRADEFLAGS)
+	
+
+# Not a target:
+obj/user/pingpongs:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/boot/boot.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/%.o:
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/boot/boot: obj/boot/boot.o obj/boot/main.o
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `boot/Makefrag', line 27):
+	@echo + ld boot/boot
+	$(V)$(LD) $(LDFLAGS) -N -e start -Ttext 0x7C00 -o $@.out $^
+	$(V)$(OBJDUMP) -S $@.out >$@.asm
+	$(V)$(OBJCOPY) -S -O binary -j .text $@.out $@
+	$(V)perl boot/sign.pl $(OBJDIR)/boot/boot
+	
+
+# Not a target:
+boot/Makefrag:
+#  Implicit rule search has been done.
+#  Last modified 2022-04-01 07:10:00.805290995
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+kern/Makefrag:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-01 09:03:23.787316842
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+obj/user/faultevilhandler:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/lib/printf.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/lapic.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+qemu-nox-gdb: obj/kern/kernel.img pre-qemu
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 174):
+	@echo "***"
+	@echo "*** Now run 'make gdb'." 1>&2
+	@echo "***"
+	$(QEMU) -nographic $(QEMUOPTS) -S
+	
+
+# Not a target:
+obj/user/faultnostack:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/divzero:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/idle:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/init.o: obj/.vars.INIT_CFLAGS
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+# `override' directive (from `kern/Makefrag', line 104)
+# KERN_CFLAGS += $(INIT_CFLAGS)
+# variable set hash-table stats:
+# Load=1/32=3%, Rehash=0, Collisions=0/2=0%
+
+# Not a target:
+obj/lib/ipc.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/printfmt.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/printf.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-10 12:55:53.153455757
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+obj/jos-grub: obj/kern/kernel
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `kern/Makefrag', line 128):
+	@echo + oc $@
+	$(V)$(OBJCOPY) --adjust-vma=0x10000000 $^ $@
+	
+
+# Not a target:
+obj/user/spin:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/kernel: obj/kern/entry.o obj/kern/entrypgdir.o obj/kern/init.o obj/kern/console.o obj/kern/monitor.o obj/kern/pmap.o obj/kern/env.o obj/kern/kclock.o obj/kern/picirq.o obj/kern/printf.o obj/kern/trap.o obj/kern/trapentry.o obj/kern/sched.o obj/kern/syscall.o obj/kern/kdebug.o obj/kern/printfmt.o obj/kern/readline.o obj/kern/string.o obj/kern/mpentry.o obj/kern/mpconfig.o obj/kern/lapic.o obj/kern/spinlock.o obj/user/hello obj/user/buggyhello obj/user/buggyhello2 obj/user/evilhello obj/user/testbss obj/user/divzero obj/user/breakpoint obj/user/softint obj/user/badsegment obj/user/faultread obj/user/faultreadkernel obj/user/faultwrite obj/user/faultwritekernel obj/user/stepIntoTest obj/user/continueTest obj/user/idle obj/user/yield obj/user/dumbfork obj/user/stresssched obj/user/faultdie obj/user/faultregs obj/user/faultalloc obj/user/faultallocbad obj/user/faultnostack obj/user/faultbadhandler obj/user/faultevilhandler obj/user/forktree obj/user/sendpage obj/user/spin obj/user/fairness obj/user/pingpong obj/user/pingpongs obj/user/primes kern/kernel.ld obj/.vars.KERN_LDFLAGS
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `kern/Makefrag', line 110):
+	@echo + ld $@
+	$(V)$(LD) -o $@ $(KERN_LDFLAGS) $(KERN_OBJFILES) $(GCC_LIB) -b binary $(KERN_BINFILES)
+	$(V)$(OBJDUMP) -S $@ > $@.asm
+	$(V)$(NM) -n $@ > $@.sym
+	
+
+# Not a target:
+obj/kern/trapentry.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/stepIntoTest:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/faultread:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+.gdbinit: .gdbinit.tmpl
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 151):
+	sed "s/localhost:1234/localhost:$(GDBPORT)/" < $^ > $@
+	
+
+grub: obj/jos-grub
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/softint:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/pingpong:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/lib/fork.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/lib/console.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/Makefrag:
+#  Implicit rule search has been done.
+#  Last modified 2022-04-24 12:09:16.737279686
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+ 
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+obj/user/breakpoint:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+conf/lab.mk:
+#  A default, MAKEFILES, or -include/sinclude makefile.
+#  Implicit rule search has been done.
+#  Last modified 2022-05-01 08:44:04.587324615
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+obj/kern/console.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-10 12:55:52.477793762
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/primes:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/faultbadhandler:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/env.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/spinlock.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/entry.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-10 12:55:52.185939764
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+obj/kern/pmap.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/string.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+qemu-gdb: obj/kern/kernel.img pre-qemu
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 168):
+	@echo "***"
+	@echo "*** Now run 'make gdb'." 1>&2
+	@echo "***"
+	$(QEMU) $(QEMUOPTS) -S
+	
+
+# Not a target:
+obj/user/buggyhello:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/faultreadkernel:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+clean:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 187):
+	rm -rf $(OBJDIR) .gdbinit jos.in qemu.log
+	
+
+# Not a target:
+obj/kern/kclock.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-10 12:55:53.073495758
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+kern/kernel.ld:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/lib/%.o:
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/fs/%.o:
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/%.o:
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/dumbfork:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/entrypgdir.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-10 12:55:52.261901763
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+obj/.vars.KERN_LDFLAGS:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GNUmakefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-01 08:44:04.587324615
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+obj/kern/trap.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/.vars.INIT_CFLAGS:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+qemu-nox: obj/kern/kernel.img pre-qemu
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 162):
+	@echo "***"
+	@echo "*** Use Ctrl-a x to exit qemu"
+	@echo "***"
+	$(QEMU) -nographic $(QEMUOPTS)
+	
+
+# Not a target:
+obj/lib/readline.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/faultalloc:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/faultdie:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/lib/syscall.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+.DELETE_ON_ERROR:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/yield:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/console.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/continueTest:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+boot/main.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/hello:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/entry.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/boot/%.o:
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/badsegment:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/evilhello:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/faultallocbad:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/boot/main.o: boot/main.c
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `boot/Makefrag', line 23):
+	@echo + cc -Os $<
+	$(V)$(CC) -nostdinc $(KERN_CFLAGS) -Os -c -o $(OBJDIR)/boot/main.o boot/main.c
+	
+
+# Not a target:
+obj/user/testbss:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/kclock.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/picirq.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-10 12:55:53.121471757
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+obj/user/faultwrite:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# files hash-table stats:
+# Load=132/1024=13%, Rehash=0, Collisions=17/280=6%
+# VPATH Search Paths
+
+# No `vpath' search paths.
+
+# No general (`VPATH' variable) search path.
+
+# # of strings in strcache: 8
+# # of strcache buffers: 1
+# strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
+# strcache free: total = 3995 / max = 3995 / min = 3995 / avg = 3995
+
+# Finished Make data base on Tue May 10 12:55:53 2022
+
+ 
+# GNU Make 3.81
+ 
+# Copyright (C) 2006  Free Software Foundation, Inc.
+ 
+# This is free software; see the source for copying conditions.
+ 
+# There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
+
+# This program built for i686-pc-linux-gnu
+ 
+
+# Make data base, printed on Tue May 10 12:55:53 2022
+
+# Variables
+
+# makefile (from `GNUmakefile', line 148)
+QEMUOPTS = -hda $(OBJDIR)/kern/kernel.img -serial mon:stdio -gdb tcp::$(GDBPORT) $(shell if $(QEMU) -nographic -help | grep -q '^-D '; then echo '-D qemu.log'; fi) -smp $(CPUS) $(QEMUEXTRA)
+# environment
+SELINUX_INIT = YES
+# automatic
+?F = $(notdir $?)
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# environment
+DESKTOP_SESSION = ubuntu
+# makefile (from `GNUmakefile', line 52)
+QEMU := qemu
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# environment
+XAUTHORITY = /home/nadavash/.Xauthority
+# environment
+GDMSESSION = ubuntu
+# environment
+XMODIFIERS = @im=ibus
+# makefile
+CURDIR := /home/nadavash/Desktop/OSE/lab
+# makefile (from `conf/lab.mk', line 2)
+PACKAGEDATE = Wed Oct 8 09:40:26 EDT 2014
+# makefile
+SHELL = /bin/sh
+# makefile (from `GNUmakefile', line 75)
+NM := nm
+# makefile (from `GNUmakefile', line 122)
+USER_CFLAGS :=    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs
+# environment
+GDM_LANG = en_US
+# makefile (from `conf/env.mk', line 9)
+V = @
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+# environment
+_ = /usr/share/code/code
+# makefile (from `GNUmakefile', line 94)
+CFLAGS :=    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector
+# environment
+XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/usr/share/upstart/xdg:/etc/xdg
+# makefile (from `GNUmakefile', line 67)
+GDBPORT := 26000
+# makefile (from `GNUmakefile', line 146)
+IMAGES = $(OBJDIR)/kern/kernel.img
+# makefile (from `GNUmakefile', line 100)
+ULDFLAGS := -T user/user.ld
+# makefile (from `obj/.deps', line 1)
+MAKEFILE_LIST :=  GNUmakefile conf/lab.mk conf/env.mk boot/Makefrag kern/Makefrag lib/Makefrag user/Makefrag obj/.deps
+# automatic
+@F = $(notdir $@)
+# environment
+GIO_LAUNCHED_DESKTOP_FILE = /usr/share/applications/code.desktop
+# environment
+SESSIONTYPE = gnome-session
+# makefile (from `GNUmakefile', line 24)
+TOP = .
+# environment
+MANDATORY_PATH = /usr/share/gconf/ubuntu.mandatory.path
+# environment
+XDG_DATA_DIRS = /usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/
+# environment
+DBUS_SESSION_BUS_ADDRESS = unix:abstract=/tmp/dbus-zOfwTYoDki
+# makefile (from `lib/Makefrag', line 13)
+LIB_SRCFILES := lib/console.c lib/libmain.c lib/exit.c lib/panic.c lib/printf.c lib/printfmt.c lib/readline.c lib/string.c lib/syscall.c lib/pgfault.c lib/pfentry.S lib/fork.c lib/ipc.c
+# makefile (from `GNUmakefile', line 70)
+AS := as
+# environment
+VSCODE_LOGS = /home/nadavash/.config/Code/logs/20220510T125541
+# makefile (from `GNUmakefile', line 78)
+NCC := gcc  -pipe
+# makefile (from `boot/Makefrag', line 10)
+BOOT_OBJS := obj/boot/boot.o obj/boot/main.o
+# environment
+CLUTTER_IM_MODULE = xim
+# makefile (from `lib/Makefrag', line 22)
+LIB_OBJFILES := obj/lib/console.o obj/lib/libmain.o obj/lib/exit.o obj/lib/panic.o obj/lib/printf.o obj/lib/printfmt.o obj/lib/readline.o obj/lib/string.o obj/lib/syscall.o obj/lib/pgfault.o  obj/lib/pfentry.o obj/lib/fork.o obj/lib/ipc.o
+# environment
+LESSOPEN = | /usr/bin/lesspipe %s
+# environment
+XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session0
+# environment
+PATH = /home/nadavash/bin:/home/nadavash/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+# makefile (from `GNUmakefile', line 72)
+LD := ld
+# makefile (from `GNUmakefile', line 79)
+NATIVE_CFLAGS :=    -I. -MD -Wall
+# environment
+GPG_AGENT_INFO = /run/user/1000/keyring-E4xE1S/gpg:0:1
+# environment
+SESSION_MANAGER = local/ubuntu:@/tmp/.ICE-unix/1912,unix/ubuntu:/tmp/.ICE-unix/1912
+# environment
+XDG_RUNTIME_DIR = /run/user/1000
+# environment
+TEXTDOMAIN = im-config
+# makefile (from `GNUmakefile', line 142)
+CPUS = 1
+# makefile (from `GNUmakefile', line 71)
+AR := ar
+# environment
+XDG_MENU_PREFIX = gnome-
+# environment
+VSCODE_LOG_STACK = false
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# makefile (from `GNUmakefile', line 97)
+LDFLAGS := -m elf_i386
+# default
+.FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
+# environment
+SESSION = ubuntu
+# environment
+XDG_GREETER_DATA_DIR = /var/lib/lightdm-data/nadavash
+# environment
+LS_COLORS = 
+# environment
+JOB = dbus
+# environment
+SSH_AUTH_SOCK = /run/user/1000/keyring-E4xE1S/ssh
+# environment
+GIO_LAUNCHED_DESKTOP_FILE_PID = 2300
+# automatic
+%F = $(notdir $%)
+# environment
+DISPLAY = :0
+# makefile (from `user/Makefrag', line 4)
+USERLIBS = jos
+# environment
+GTK_IM_MODULE = ibus
+# environment
+PWD = /home/nadavash/Desktop/OSE/lab
+# makefile (from `GNUmakefile', line 102)
+GCC_LIB := /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+# environment
+QT_QPA_PLATFORMTHEME = appmenu-qt5
+# environment
+XDG_SEAT = seat0
+# makefile (from `GNUmakefile', line 121)
+KERN_CFLAGS :=    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs
+# environment
+GTK_MODULES = overlay-scrollbar:unity-gtk-module
+# makefile (from `conf/lab.mk', line 1)
+LAB = 4
+# makefile (from `user/Makefrag', line 1)
+OBJDIRS :=  boot kern lib user
+# environment
+HOME = /home/nadavash
+# environment
+LESSCLOSE = /usr/bin/lesspipe %s %s
+# makefile (from `GNUmakefile', line 80)
+TAR := gtar
+# environment
+LOGNAME = nadavash
+# makefile (from `kern/Makefrag', line 42)
+KERN_SRCFILES := kern/entry.S kern/entrypgdir.c kern/init.c kern/console.c kern/monitor.c kern/pmap.c kern/env.c kern/kclock.c kern/picirq.c kern/printf.c kern/trap.c kern/trapentry.S kern/sched.c kern/syscall.c kern/kdebug.c lib/printfmt.c lib/readline.c lib/string.c kern/mpentry.S kern/mpconfig.c kern/lapic.c kern/spinlock.c
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# default
+MAKE_VERSION := 3.81
+# environment
+GNOME_DESKTOP_SESSION_ID = this-is-deprecated
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+XDG_VTNR = 7
+# makefile (from `kern/Makefrag', line 83)
+KERN_OBJFILES := obj/kern/entry.o obj/kern/entrypgdir.o obj/kern/init.o obj/kern/console.o obj/kern/monitor.o obj/kern/pmap.o obj/kern/env.o obj/kern/kclock.o obj/kern/picirq.o obj/kern/printf.o obj/kern/trap.o obj/kern/trapentry.o obj/kern/sched.o obj/kern/syscall.o obj/kern/kdebug.o  obj/kern/printfmt.o  obj/kern/readline.o  obj/kern/string.o obj/kern/mpentry.o obj/kern/mpconfig.o obj/kern/lapic.o obj/kern/spinlock.o
+# environment
+VERBOSE_LOGGING = true
+# default
+MAKE = $(MAKE_COMMAND)
+# default
+MAKECMDGOALS := all
+# environment
+QT_IM_MODULE = ibus
+# environment
+SHLVL = 1
+# makefile (from `GNUmakefile', line 69)
+CC := gcc -pipe
+# environment
+IM_CONFIG_PHASE = 1
+# environment
+VSCODE_IPC_HOOK_EXTHOST = /tmp/vscode-ipc-f5013c44-2647-4047-9933-7f8dc9e7026e.sock
+# environment
+COMPIZ_CONFIG_PROFILE = ubuntu
+# environment
+XDG_SESSION_ID = c2
+# environment
+AMD_ENTRYPOINT = vs/workbench/services/extensions/node/extensionHostProcess
+# environment
+USER = nadavash
+# makefile
+.DEFAULT_GOAL := all
+# environment
+XDG_CURRENT_DESKTOP = Unity
+# environment
+PIPE_LOGGING = true
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# environment
+GNOME_KEYRING_PID = 1735
+# environment
+VSCODE_PREVENT_FOREIGN_INSPECT = true
+# makefile (from `GNUmakefile', line 36)
+GCCPREFIX := 
+# default
+MAKE_COMMAND := make
+# environment
+VSCODE_NODE_CACHED_DATA_DIR = /home/nadavash/.config/Code/CachedData/c7d83e57cd18f18026a8162d042843bda1bcf21f
+# default
+.VARIABLES := 
+# automatic
+*F = $(notdir $*)
+# environment
+LANGUAGE = en_US
+# environment
+XDG_SEAT_PATH = /org/freedesktop/DisplayManager/Seat0
+# environment
+VSCODE_IPC_HOOK = /run/user/1000/vscode-c0fc6d3a-1.35.1-main.sock
+# environment
+MAKE_RESTARTS = 1
+# environment
+GNOME_KEYRING_CONTROL = /run/user/1000/keyring-E4xE1S
+# makefile
+MAKEFLAGS = Rrp
+# environment
+MFLAGS = -Rrp
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# makefile (from `GNUmakefile', line 74)
+OBJDUMP := objdump
+# makefile (from `GNUmakefile', line 22)
+LABSETUP = ./
+# automatic
++F = $(notdir $+)
+# environment
+NO_AT_BRIDGE = 1
+# environment
+COMPIZ_BIN_PATH = /usr/bin/
+# environment
+DEFAULTS_PATH = /usr/share/gconf/ubuntu.default.path
+# environment
+TEXTDOMAINDIR = /usr/share/locale/
+# default
+MAKEFILES := 
+# environment
+UPSTART_SESSION = unix:abstract=/com/ubuntu/upstart-session/1000/1739
+# automatic
+<F = $(notdir $<)
+# makefile (from `GNUmakefile', line 8)
+OBJDIR := obj
+# environment
+INSTANCE = 
+# makefile (from `GNUmakefile', line 81)
+PERL := perl
+# environment
+LC_ALL = C
+# makefile (from `kern/Makefrag', line 85)
+KERN_BINFILES :=  obj/user/hello  obj/user/buggyhello  obj/user/buggyhello2  obj/user/evilhello  obj/user/testbss  obj/user/divzero  obj/user/breakpoint  obj/user/softint  obj/user/badsegment  obj/user/faultread  obj/user/faultreadkernel  obj/user/faultwrite  obj/user/faultwritekernel  obj/user/stepIntoTest  obj/user/continueTest  obj/user/idle  obj/user/yield  obj/user/dumbfork  obj/user/stresssched  obj/user/faultdie  obj/user/faultregs  obj/user/faultalloc  obj/user/faultallocbad  obj/user/faultnostack  obj/user/faultbadhandler  obj/user/faultevilhandler  obj/user/forktree  obj/user/sendpage  obj/user/spin  obj/user/fairness  obj/user/pingpong  obj/user/pingpongs  obj/user/primes
+# environment
+QT4_IM_MODULE = xim
+# automatic
+^F = $(notdir $^)
+# makefile (from `GNUmakefile', line 73)
+OBJCOPY := objcopy
+# default
+SUFFIXES := 
+# environment
+CHROME_DESKTOP = code-url-handler.desktop
+# default
+.INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+# environment
+MAKELEVEL := 0
+# makefile (from `kern/Makefrag', line 10)
+KERN_LDFLAGS := -m elf_i386 -T kern/kernel.ld -nostdlib
+# environment
+LANG = C
+# environment
+VSCODE_PID = 2300
+# variable set hash-table stats:
+# Load=143/1024=14%, Rehash=0, Collisions=29/339=9%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# lib (device 2049, inode 2624270): 16 files, no impossibilities so far.
+# obj/kern (device 2049, inode 2625261): 19 files, no impossibilities.
+# . (device 2049, inode 2623717): 16 files, no impossibilities so far.
+# kern (device 2049, inode 2624256): 33 files, no impossibilities so far.
+# boot (device 2049, inode 2624230): No files, no impossibilities so far.
+# obj/user: could not be stat'd.
+# obj/lib: could not be stat'd.
+# obj/boot: could not be stat'd.
+
+# 84 files, no impossibilities in 8 directories.
+
+# Implicit Rules
+
+obj/.vars.%: FORCE
+#  commands to execute (from `GNUmakefile', line 130):
+	$(V)echo "$($*)" | cmp -s $@ || echo "$($*)" > $@
+	
+
+obj/boot/%.o: boot/%.c
+#  commands to execute (from `boot/Makefrag', line 13):
+	@echo + cc -Os $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(KERN_CFLAGS) -Os -c -o $@ $<
+	
+
+obj/boot/%.o: boot/%.S
+#  commands to execute (from `boot/Makefrag', line 18):
+	@echo + as $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(KERN_CFLAGS) -c -o $@ $<
+	
+
+obj/kern/%.o: kern/%.c obj/.vars.KERN_CFLAGS
+#  commands to execute (from `kern/Makefrag', line 89):
+	@echo + cc $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(KERN_CFLAGS) -c -o $@ $<
+	
+
+obj/kern/%.o: kern/%.S obj/.vars.KERN_CFLAGS
+#  commands to execute (from `kern/Makefrag', line 94):
+	@echo + as $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(KERN_CFLAGS) -c -o $@ $<
+	
+
+obj/kern/%.o: lib/%.c obj/.vars.KERN_CFLAGS
+#  commands to execute (from `kern/Makefrag', line 99):
+	@echo + cc $<
+ 
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(KERN_CFLAGS) -c -o $@ $<
+	
+
+obj/lib/%.o: lib/%.c obj/.vars.USER_CFLAGS
+#  commands to execute (from `lib/Makefrag', line 25):
+	@echo + cc[USER] $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(USER_CFLAGS) -c -o $@ $<
+	
+
+obj/lib/%.o: lib/%.S obj/.vars.USER_CFLAGS
+#  commands to execute (from `lib/Makefrag', line 30):
+	@echo + as[USER] $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(USER_CFLAGS) -c -o $@ $<
+	
+
+obj/user/%.o: user/%.c obj/.vars.USER_CFLAGS
+#  commands to execute (from `user/Makefrag', line 7):
+	@echo + cc[USER] $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(USER_CFLAGS) -c -o $@ $<
+	
+
+obj/user/%: obj/user/%.o obj/lib/entry.o obj/lib/libjos.a user/user.ld
+#  commands to execute (from `user/Makefrag', line 12):
+	@echo + ld $@
+	$(V)$(LD) -o $@ $(ULDFLAGS) $(LDFLAGS) -nostdlib $(OBJDIR)/lib/entry.o $@.o -L$(OBJDIR)/lib $(USERLIBS:%=-l%) $(GCC_LIB)
+	$(V)$(OBJDUMP) -S $@ > $@.asm
+	$(V)$(NM) -n $@ > $@.sym
+	
+
+prep-%:
+#  commands to execute (from `GNUmakefile', line 216):
+	$(V)$(MAKE) "INIT_CFLAGS=${INIT_CFLAGS} -DTEST=`case $* in *_*) echo $*;; *) echo user_$*;; esac`" $(IMAGES)
+	
+
+run-%-nox-gdb: prep-% pre-qemu
+#  commands to execute (from `GNUmakefile', line 219):
+	$(QEMU) -nographic $(QEMUOPTS) -S
+	
+
+run-%-gdb: prep-% pre-qemu
+#  commands to execute (from `GNUmakefile', line 222):
+	$(QEMU) $(QEMUOPTS) -S
+	
+
+run-%-nox: prep-% pre-qemu
+#  commands to execute (from `GNUmakefile', line 225):
+	$(QEMU) -nographic $(QEMUOPTS)
+	
+
+run-%: prep-% pre-qemu
+#  commands to execute (from `GNUmakefile', line 228):
+	$(QEMU) $(QEMUOPTS)
+	
+
+# 15 implicit rules, 0 (0.0%) terminal.
+
+# Files
+
+# Not a target:
+obj/net/%.o:
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+handin: tarball
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 208):
+	@echo Please submit lab$(LAB)-handin.tar.gz file!
+	
+
+# Not a target:
+obj/user/buggyhello2:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/lib/panic.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/kclock.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/lib/%.o:
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+qemu: obj/kern/kernel.img pre-qemu
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 159):
+	$(QEMU) $(QEMUOPTS)
+	
+
+# Not a target:
+obj/user/breakpoint:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/entrypgdir.o: kern/entrypgdir.c inc/mmu.h inc/types.h inc/memlayout.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+lib/Makefrag:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-01 08:44:04.619324614
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+obj/kern/kernel.img: obj/kern/kernel obj/boot/boot
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `kern/Makefrag', line 117):
+	@echo + mk $@
+	$(V)dd if=/dev/zero of=$(OBJDIR)/kern/kernel.img~ count=10000 2>/dev/null
+	$(V)dd if=$(OBJDIR)/boot/boot of=$(OBJDIR)/kern/kernel.img~ conv=notrunc 2>/dev/null
+	$(V)dd if=$(OBJDIR)/kern/kernel of=$(OBJDIR)/kern/kernel.img~ seek=1 conv=notrunc 2>/dev/null
+	$(V)mv $(OBJDIR)/kern/kernel.img~ $(OBJDIR)/kern/kernel.img
+	
+
+# Not a target:
+obj/lib/libmain.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/fairness:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+gdb:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 154):
+	gdb -x .gdbinit
+	
+
+all: obj/kern/kernel.img
+#  Phony target (prerequisite of .PHONY).
+#  Command-line target.
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+obj/lib/printfmt.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+%.o:
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+FORCE:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+obj/user/forktree:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/sched.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+.PHONY: FORCE all always handin tarball clean realclean distclean grade handin-prep handin-check
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+pre-qemu: .gdbinit
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/stresssched:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/colors.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/kdebug.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/trapentry.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-10 12:55:53.469297755
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+handin-check:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+obj/user/faultwritekernel:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+.PRECIOUS: %.o obj/boot/%.o obj/kern/%.o obj/lib/%.o obj/fs/%.o obj/net/%.o obj/user/%.o obj/.vars.%
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+handin-prep:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/readline.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/sched.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/syscall.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/picirq.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/console.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+distclean: realclean
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 195):
+	rm -rf conf/gcc.mk
+	
+
+print-gdbport:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 183):
+	@echo $(GDBPORT)
+	
+
+# Not a target:
+obj/user/faultregs:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/kdebug.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/sendpage:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+.SUFFIXES:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/stdarg.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/error.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/monitor.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/picirq.o: kern/picirq.c inc/assert.h inc/stdio.h inc/stdarg.h inc/trap.h inc/types.h kern/picirq.h inc/x86.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/.vars.%:
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+ 
+
+realclean: clean
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 190):
+	rm -rf lab$(LAB).tar.gz \
+	jos.out $(wildcard jos.out.*) \
+	qemu.pcap $(wildcard qemu.pcap.*)
+	
+
+always:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 241):
+	@:
+	
+
+print-qemu:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 180):
+	@echo $(QEMU)
+	
+
+# Not a target:
+kern/cpu.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/lib/libjos.a: obj/lib/console.o obj/lib/libmain.o obj/lib/exit.o obj/lib/panic.o obj/lib/printf.o obj/lib/printfmt.o obj/lib/readline.o obj/lib/string.o obj/lib/syscall.o obj/lib/pgfault.o obj/lib/pfentry.o obj/lib/fork.o obj/lib/ipc.o
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `lib/Makefrag', line 35):
+	@echo + ar $@
+	$(V)$(AR) r $@ $(LIB_OBJFILES)
+	
+
+# Not a target:
+obj/kern/mpentry.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/lib/exit.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/lib/string.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.gdbinit.tmpl:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+conf/env.mk:
+#  A default, MAKEFILES, or -include/sinclude makefile.
+#  Implicit rule search has been done.
+#  Last modified 2022-04-01 07:10:00.805290995
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+ 
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+kern/init.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/picirq.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+tarball: realclean
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 211):
+	tar cf - `find . -type f | grep -v '^\.*$$' | grep -v '/CVS/' | grep -v '/\.svn/' | grep -v '/\.git/' | grep -v 'lab[0-9].*\.tar\.gz'` | gzip > lab$(LAB)-handin.tar.gz
+	
+
+# Not a target:
+obj/lib/pgfault.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/monitor.o: kern/monitor.c inc/stdio.h inc/stdarg.h inc/string.h inc/types.h inc/memlayout.h inc/mmu.h inc/assert.h inc/x86.h kern/console.h kern/monitor.h kern/kdebug.h kern/pmap.h kern/trap.h inc/trap.h kern/env.h inc/env.h kern/cpu.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/lib/pfentry.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/.deps: obj/kern/sched.d obj/kern/trap.d obj/kern/trapentry.d
+#  A default, MAKEFILES, or -include/sinclude makefile.
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: `'
+#  Last modified 2022-05-10 12:55:53.553255754
+#  File has been updated.
+#  Successfully updated.
+# automatic
+# @ := obj/.deps
+# automatic
+# % := 
+# automatic
+# * := 
+# automatic
+# + := obj/kern/sched.d obj/kern/trap.d obj/kern/trapentry.d
+# automatic
+# | := 
+# automatic
+# < := obj/kern/sched.d
+# automatic
+# ^ := obj/kern/sched.d obj/kern/trap.d obj/kern/trapentry.d
+# automatic
+# ? := obj/kern/sched.d obj/kern/trapentry.d
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=2/17=12%
+#  commands to execute (from `GNUmakefile', line 235):
+	@mkdir -p $(@D)
+	@$(PERL) mergedep.pl $@ $^
+	
+
+grade:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 202):
+	@echo $(MAKE) clean
+	@$(MAKE) clean || \
+	(echo "'make clean' failed.  HINT: Do you have another running instance of JOS?" && exit 1)
+	./grade-lab$(LAB) $(GRADEFLAGS)
+	
+
+# Not a target:
+obj/user/pingpongs:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/boot/boot.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/%.o:
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/boot/boot: obj/boot/boot.o obj/boot/main.o
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `boot/Makefrag', line 27):
+	@echo + ld boot/boot
+	$(V)$(LD) $(LDFLAGS) -N -e start -Ttext 0x7C00 -o $@.out $^
+	$(V)$(OBJDUMP) -S $@.out >$@.asm
+	$(V)$(OBJCOPY) -S -O binary -j .text $@.out $@
+	$(V)perl boot/sign.pl $(OBJDIR)/boot/boot
+	
+
+# Not a target:
+boot/Makefrag:
+#  Implicit rule search has been done.
+#  Last modified 2022-04-01 07:10:00.805290995
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+kern/Makefrag:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-01 09:03:23.787316842
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+obj/user/faultevilhandler:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/lib/printf.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/lapic.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+qemu-nox-gdb: obj/kern/kernel.img pre-qemu
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 174):
+	@echo "***"
+	@echo "*** Now run 'make gdb'." 1>&2
+	@echo "***"
+	$(QEMU) -nographic $(QEMUOPTS) -S
+	
+
+# Not a target:
+obj/user/faultnostack:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/monitor.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/divzero:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/idle:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/init.o: obj/.vars.INIT_CFLAGS kern/init.c inc/stdio.h inc/stdarg.h inc/string.h inc/types.h inc/assert.h kern/monitor.h kern/console.h kern/pmap.h inc/memlayout.h inc/mmu.h kern/kclock.h kern/env.h inc/env.h inc/trap.h kern/cpu.h kern/trap.h kern/sched.h kern/picirq.h inc/x86.h kern/spinlock.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+# `override' directive (from `kern/Makefrag', line 104)
+# KERN_CFLAGS += $(INIT_CFLAGS)
+# variable set hash-table stats:
+# Load=1/32=3%, Rehash=0, Collisions=0/2=0%
+
+# Not a target:
+obj/lib/ipc.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/printfmt.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/stdio.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/jos-grub: obj/kern/kernel
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `kern/Makefrag', line 128):
+	@echo + oc $@
+	$(V)$(OBJCOPY) --adjust-vma=0x10000000 $^ $@
+	
+
+# Not a target:
+obj/user/spin:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/kernel: obj/kern/entry.o obj/kern/entrypgdir.o obj/kern/init.o obj/kern/console.o obj/kern/monitor.o obj/kern/pmap.o obj/kern/env.o obj/kern/kclock.o obj/kern/picirq.o obj/kern/printf.o obj/kern/trap.o obj/kern/trapentry.o obj/kern/sched.o obj/kern/syscall.o obj/kern/kdebug.o obj/kern/printfmt.o obj/kern/readline.o obj/kern/string.o obj/kern/mpentry.o obj/kern/mpconfig.o obj/kern/lapic.o obj/kern/spinlock.o obj/user/hello obj/user/buggyhello obj/user/buggyhello2 obj/user/evilhello obj/user/testbss obj/user/divzero obj/user/breakpoint obj/user/softint obj/user/badsegment obj/user/faultread obj/user/faultreadkernel obj/user/faultwrite obj/user/faultwritekernel obj/user/stepIntoTest obj/user/continueTest obj/user/idle obj/user/yield obj/user/dumbfork obj/user/stresssched obj/user/faultdie obj/user/faultregs obj/user/faultalloc obj/user/faultallocbad obj/user/faultnostack obj/user/faultbadhandler obj/user/faultevilhandler obj/user/forktree obj/user/sendpage obj/user/spin obj/user/fairness obj/user/pingpong obj/user/pingpongs obj/user/primes kern/kernel.ld obj/.vars.KERN_LDFLAGS
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `kern/Makefrag', line 110):
+	@echo + ld $@
+	$(V)$(LD) -o $@ $(KERN_LDFLAGS) $(KERN_OBJFILES) $(GCC_LIB) -b binary $(KERN_BINFILES)
+	$(V)$(OBJDUMP) -S $@ > $@.asm
+	$(V)$(NM) -n $@ > $@.sym
+	
+
+# Not a target:
+obj/kern/trapentry.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/stepIntoTest:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/faultread:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/trap.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-10 12:55:53.449307756
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+.gdbinit: .gdbinit.tmpl
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 151):
+	sed "s/localhost:1234/localhost:$(GDBPORT)/" < $^ > $@
+	
+
+grub: obj/jos-grub
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/softint:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/env.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/pmap.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/pingpong:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/lib/fork.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/lib/console.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/Makefrag:
+#  Implicit rule search has been done.
+#  Last modified 2022-04-24 12:09:16.737279686
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+obj/kern/mpconfig.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+conf/lab.mk:
+#  A default, MAKEFILES, or -include/sinclude makefile.
+#  Implicit rule search has been done.
+#  Last modified 2022-05-01 08:44:04.587324615
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/primes:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/types.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/faultbadhandler:
+#  Implicit rule search has not been done.
+ 
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/env.o: kern/env.c inc/x86.h inc/types.h inc/mmu.h inc/error.h inc/string.h inc/assert.h inc/stdio.h inc/stdarg.h inc/elf.h kern/env.h inc/env.h inc/trap.h inc/memlayout.h kern/cpu.h kern/pmap.h kern/trap.h kern/monitor.h kern/sched.h kern/spinlock.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/spinlock.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/pmap.o: kern/pmap.c inc/x86.h inc/types.h inc/mmu.h inc/error.h inc/string.h inc/assert.h inc/stdio.h inc/stdarg.h kern/pmap.h inc/memlayout.h kern/kclock.h kern/env.h inc/env.h inc/trap.h kern/cpu.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/printf.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/string.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+qemu-gdb: obj/kern/kernel.img pre-qemu
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 168):
+	@echo "***"
+	@echo "*** Now run 'make gdb'." 1>&2
+	@echo "***"
+	$(QEMU) $(QEMUOPTS) -S
+	
+
+# Not a target:
+obj/user/buggyhello:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/faultreadkernel:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+clean:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 187):
+	rm -rf $(OBJDIR) .gdbinit jos.in qemu.log
+	
+
+# Not a target:
+kern/env.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/spinlock.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/pmap.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/kernel.ld:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/x86.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/printf.o: kern/printf.c inc/types.h inc/stdio.h inc/stdarg.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/fs/%.o:
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/%.o:
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/dumbfork:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/env.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/.vars.KERN_LDFLAGS:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GNUmakefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-01 08:44:04.587324615
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+obj/kern/trap.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/.vars.INIT_CFLAGS:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/elf.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+qemu-nox: obj/kern/kernel.img pre-qemu
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 162):
+	@echo "***"
+	@echo "*** Use Ctrl-a x to exit qemu"
+	@echo "***"
+	$(QEMU) -nographic $(QEMUOPTS)
+	
+
+# Not a target:
+kern/entry.S:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/string.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/sched.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-10 12:55:53.517273755
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+kern/trap.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/lib/readline.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/faultalloc:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/faultdie:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/lib/syscall.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/mmu.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+.DELETE_ON_ERROR:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/yield:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/memlayout.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/console.o: kern/console.c inc/x86.h inc/types.h inc/memlayout.h inc/mmu.h inc/kbdreg.h inc/string.h inc/assert.h inc/stdio.h inc/stdarg.h inc/colors.h kern/console.h kern/picirq.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/continueTest:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/kclock.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+boot/main.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/hello:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/entry.o: kern/entry.S inc/mmu.h inc/memlayout.h inc/trap.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/boot/%.o:
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/badsegment:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/console.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/evilhello:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/faultallocbad:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/boot/main.o: boot/main.c
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `boot/Makefrag', line 23):
+	@echo + cc -Os $<
+	$(V)$(CC) -nostdinc $(KERN_CFLAGS) -Os -c -o $(OBJDIR)/boot/main.o boot/main.c
+	
+
+# Not a target:
+inc/trap.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/entrypgdir.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/assert.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/testbss:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/kclock.o: kern/kclock.c inc/x86.h inc/types.h kern/kclock.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/kbdreg.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/faultwrite:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# files hash-table stats:
+# Load=160/1024=16%, Rehash=0, Collisions=38/414=9%
+# VPATH Search Paths
+
+# No `vpath' search paths.
+
+# No general (`VPATH' variable) search path.
+ 
+
+# # of strings in strcache: 8
+# # of strcache buffers: 1
+# strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
+# strcache free: total = 3995 / max = 3995 / min = 3995 / avg = 3995
+
+# Finished Make data base on Tue May 10 12:55:53 2022
+
+ 
+# GNU Make 3.81
+# Copyright (C) 2006  Free Software Foundation, Inc.
+# This is free software; see the source for copying conditions.
+# There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
+
+# This program built for i686-pc-linux-gnu
+ 
+
+# Make data base, printed on Tue May 10 12:55:53 2022
+
+# Variables
+
+# makefile (from `GNUmakefile', line 148)
+QEMUOPTS = -hda $(OBJDIR)/kern/kernel.img -serial mon:stdio -gdb tcp::$(GDBPORT) $(shell if $(QEMU) -nographic -help | grep -q '^-D '; then echo '-D qemu.log'; fi) -smp $(CPUS) $(QEMUEXTRA)
+# environment
+SELINUX_INIT = YES
+# automatic
+?F = $(notdir $?)
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# environment
+DESKTOP_SESSION = ubuntu
+# makefile (from `GNUmakefile', line 52)
+QEMU := qemu
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# environment
+XAUTHORITY = /home/nadavash/.Xauthority
+# environment
+GDMSESSION = ubuntu
+# environment
+XMODIFIERS = @im=ibus
+# makefile
+CURDIR := /home/nadavash/Desktop/OSE/lab
+# makefile (from `conf/lab.mk', line 2)
+PACKAGEDATE = Wed Oct 8 09:40:26 EDT 2014
+# makefile
+SHELL = /bin/sh
+# makefile (from `GNUmakefile', line 75)
+NM := nm
+# makefile (from `GNUmakefile', line 122)
+USER_CFLAGS :=    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs
+# environment
+GDM_LANG = en_US
+# makefile (from `conf/env.mk', line 9)
+V = @
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+# environment
+_ = /usr/share/code/code
+# makefile (from `GNUmakefile', line 94)
+CFLAGS :=    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector
+# environment
+XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/usr/share/upstart/xdg:/etc/xdg
+# makefile (from `GNUmakefile', line 67)
+GDBPORT := 26000
+# makefile (from `GNUmakefile', line 146)
+IMAGES = $(OBJDIR)/kern/kernel.img
+# makefile (from `GNUmakefile', line 100)
+ULDFLAGS := -T user/user.ld
+# makefile (from `obj/.deps', line 1)
+MAKEFILE_LIST :=  GNUmakefile conf/lab.mk conf/env.mk boot/Makefrag kern/Makefrag lib/Makefrag user/Makefrag obj/.deps
+# automatic
+@F = $(notdir $@)
+# environment
+GIO_LAUNCHED_DESKTOP_FILE = /usr/share/applications/code.desktop
+# environment
+SESSIONTYPE = gnome-session
+# makefile (from `GNUmakefile', line 24)
+TOP = .
+# environment
+MANDATORY_PATH = /usr/share/gconf/ubuntu.mandatory.path
+# environment
+XDG_DATA_DIRS = /usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/
+# environment
+DBUS_SESSION_BUS_ADDRESS = unix:abstract=/tmp/dbus-zOfwTYoDki
+# makefile (from `lib/Makefrag', line 13)
+LIB_SRCFILES := lib/console.c lib/libmain.c lib/exit.c lib/panic.c lib/printf.c lib/printfmt.c lib/readline.c lib/string.c lib/syscall.c lib/pgfault.c lib/pfentry.S lib/fork.c lib/ipc.c
+# makefile (from `GNUmakefile', line 70)
+AS := as
+# environment
+VSCODE_LOGS = /home/nadavash/.config/Code/logs/20220510T125541
+# makefile (from `GNUmakefile', line 78)
+NCC := gcc  -pipe
+# makefile (from `boot/Makefrag', line 10)
+BOOT_OBJS := obj/boot/boot.o obj/boot/main.o
+# environment
+CLUTTER_IM_MODULE = xim
+# makefile (from `lib/Makefrag', line 22)
+LIB_OBJFILES := obj/lib/console.o obj/lib/libmain.o obj/lib/exit.o obj/lib/panic.o obj/lib/printf.o obj/lib/printfmt.o obj/lib/readline.o obj/lib/string.o obj/lib/syscall.o obj/lib/pgfault.o  obj/lib/pfentry.o obj/lib/fork.o obj/lib/ipc.o
+# environment
+LESSOPEN = | /usr/bin/lesspipe %s
+# environment
+XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session0
+# environment
+PATH = /home/nadavash/bin:/home/nadavash/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+# makefile (from `GNUmakefile', line 72)
+LD := ld
+# makefile (from `GNUmakefile', line 79)
+NATIVE_CFLAGS :=    -I. -MD -Wall
+# environment
+GPG_AGENT_INFO = /run/user/1000/keyring-E4xE1S/gpg:0:1
+# environment
+SESSION_MANAGER = local/ubuntu:@/tmp/.ICE-unix/1912,unix/ubuntu:/tmp/.ICE-unix/1912
+# environment
+XDG_RUNTIME_DIR = /run/user/1000
+# environment
+TEXTDOMAIN = im-config
+# makefile (from `GNUmakefile', line 142)
+CPUS = 1
+# makefile (from `GNUmakefile', line 71)
+AR := ar
+# environment
+XDG_MENU_PREFIX = gnome-
+# environment
+VSCODE_LOG_STACK = false
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# makefile (from `GNUmakefile', line 97)
+LDFLAGS := -m elf_i386
+# default
+.FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
+# environment
+SESSION = ubuntu
+# environment
+XDG_GREETER_DATA_DIR = /var/lib/lightdm-data/nadavash
+# environment
+LS_COLORS = 
+# environment
+JOB = dbus
+# environment
+SSH_AUTH_SOCK = /run/user/1000/keyring-E4xE1S/ssh
+# environment
+GIO_LAUNCHED_DESKTOP_FILE_PID = 2300
+# automatic
+%F = $(notdir $%)
+# environment
+DISPLAY = :0
+# makefile (from `user/Makefrag', line 4)
+USERLIBS = jos
+# environment
+GTK_IM_MODULE = ibus
+# environment
+PWD = /home/nadavash/Desktop/OSE/lab
+# makefile (from `GNUmakefile', line 102)
+GCC_LIB := /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+# environment
+QT_QPA_PLATFORMTHEME = appmenu-qt5
+# environment
+XDG_SEAT = seat0
+# makefile (from `GNUmakefile', line 121)
+KERN_CFLAGS :=    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs
+# environment
+GTK_MODULES = overlay-scrollbar:unity-gtk-module
+# makefile (from `conf/lab.mk', line 1)
+LAB = 4
+# makefile (from `user/Makefrag', line 1)
+OBJDIRS :=  boot kern lib user
+# environment
+HOME = /home/nadavash
+# environment
+LESSCLOSE = /usr/bin/lesspipe %s %s
+# makefile (from `GNUmakefile', line 80)
+TAR := gtar
+# environment
+LOGNAME = nadavash
+# makefile (from `kern/Makefrag', line 42)
+KERN_SRCFILES := kern/entry.S kern/entrypgdir.c kern/init.c kern/console.c kern/monitor.c kern/pmap.c kern/env.c kern/kclock.c kern/picirq.c kern/printf.c kern/trap.c kern/trapentry.S kern/sched.c kern/syscall.c kern/kdebug.c lib/printfmt.c lib/readline.c lib/string.c kern/mpentry.S kern/mpconfig.c kern/lapic.c kern/spinlock.c
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# default
+MAKE_VERSION := 3.81
+# environment
+GNOME_DESKTOP_SESSION_ID = this-is-deprecated
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+XDG_VTNR = 7
+# makefile (from `kern/Makefrag', line 83)
+KERN_OBJFILES := obj/kern/entry.o obj/kern/entrypgdir.o obj/kern/init.o obj/kern/console.o obj/kern/monitor.o obj/kern/pmap.o obj/kern/env.o obj/kern/kclock.o obj/kern/picirq.o obj/kern/printf.o obj/kern/trap.o obj/kern/trapentry.o obj/kern/sched.o obj/kern/syscall.o obj/kern/kdebug.o  obj/kern/printfmt.o  obj/kern/readline.o  obj/kern/string.o obj/kern/mpentry.o obj/kern/mpconfig.o obj/kern/lapic.o obj/kern/spinlock.o
+# environment
+VERBOSE_LOGGING = true
+# default
+MAKE = $(MAKE_COMMAND)
+# default
+MAKECMDGOALS := all
+# environment
+QT_IM_MODULE = ibus
+# environment
+SHLVL = 1
+# makefile (from `GNUmakefile', line 69)
+CC := gcc -pipe
+# environment
+IM_CONFIG_PHASE = 1
+# environment
+VSCODE_IPC_HOOK_EXTHOST = /tmp/vscode-ipc-f5013c44-2647-4047-9933-7f8dc9e7026e.sock
+# environment
+COMPIZ_CONFIG_PROFILE = ubuntu
+# environment
+XDG_SESSION_ID = c2
+# environment
+AMD_ENTRYPOINT = vs/workbench/services/extensions/node/extensionHostProcess
+# environment
+USER = nadavash
+# makefile
+.DEFAULT_GOAL := all
+# environment
+XDG_CURRENT_DESKTOP = Unity
+# environment
+PIPE_LOGGING = true
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# environment
+GNOME_KEYRING_PID = 1735
+# environment
+VSCODE_PREVENT_FOREIGN_INSPECT = true
+# makefile (from `GNUmakefile', line 36)
+GCCPREFIX := 
+# default
+MAKE_COMMAND := make
+# environment
+VSCODE_NODE_CACHED_DATA_DIR = /home/nadavash/.config/Code/CachedData/c7d83e57cd18f18026a8162d042843bda1bcf21f
+# default
+.VARIABLES := 
+# automatic
+*F = $(notdir $*)
+# environment
+LANGUAGE = en_US
+# environment
+XDG_SEAT_PATH = /org/freedesktop/DisplayManager/Seat0
+# environment
+VSCODE_IPC_HOOK = /run/user/1000/vscode-c0fc6d3a-1.35.1-main.sock
+# environment
+MAKE_RESTARTS = 2
+# environment
+GNOME_KEYRING_CONTROL = /run/user/1000/keyring-E4xE1S
+# makefile
+MAKEFLAGS = Rrqp
+# environment
+MFLAGS = -Rrqp
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# makefile (from `GNUmakefile', line 74)
+OBJDUMP := objdump
+# makefile (from `GNUmakefile', line 22)
+LABSETUP = ./
+# automatic
++F = $(notdir $+)
+# environment
+NO_AT_BRIDGE = 1
+# environment
+COMPIZ_BIN_PATH = /usr/bin/
+# environment
+DEFAULTS_PATH = /usr/share/gconf/ubuntu.default.path
+# environment
+TEXTDOMAINDIR = /usr/share/locale/
+# default
+MAKEFILES := 
+# environment
+UPSTART_SESSION = unix:abstract=/com/ubuntu/upstart-session/1000/1739
+# automatic
+<F = $(notdir $<)
+# makefile (from `GNUmakefile', line 8)
+OBJDIR := obj
+# environment
+INSTANCE = 
+# makefile (from `GNUmakefile', line 81)
+PERL := perl
+# environment
+LC_ALL = C
+# makefile (from `kern/Makefrag', line 85)
+KERN_BINFILES :=  obj/user/hello  obj/user/buggyhello  obj/user/buggyhello2  obj/user/evilhello  obj/user/testbss  obj/user/divzero  obj/user/breakpoint  obj/user/softint  obj/user/badsegment  obj/user/faultread  obj/user/faultreadkernel  obj/user/faultwrite  obj/user/faultwritekernel  obj/user/stepIntoTest  obj/user/continueTest  obj/user/idle  obj/user/yield  obj/user/dumbfork  obj/user/stresssched  obj/user/faultdie  obj/user/faultregs  obj/user/faultalloc  obj/user/faultallocbad  obj/user/faultnostack  obj/user/faultbadhandler  obj/user/faultevilhandler  obj/user/forktree  obj/user/sendpage  obj/user/spin  obj/user/fairness  obj/user/pingpong  obj/user/pingpongs  obj/user/primes
+# environment
+QT4_IM_MODULE = xim
+# automatic
+^F = $(notdir $^)
+# makefile (from `GNUmakefile', line 73)
+OBJCOPY := objcopy
+# default
+SUFFIXES := 
+# environment
+CHROME_DESKTOP = code-url-handler.desktop
+# default
+.INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+# environment
+MAKELEVEL := 0
+# makefile (from `kern/Makefrag', line 10)
+KERN_LDFLAGS := -m elf_i386 -T kern/kernel.ld -nostdlib
+# environment
+LANG = C
+# environment
+VSCODE_PID = 2300
+# variable set hash-table stats:
+# Load=143/1024=14%, Rehash=0, Collisions=27/340=8%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# lib (device 2049, inode 2624270): 16 files, no impossibilities so far.
+# obj/kern (device 2049, inode 2625261): 16 files, no impossibilities.
+# obj (device 2049, inode 2622497): 6 files, no impossibilities so far.
+# . (device 2049, inode 2623717): 16 files, no impossibilities so far.
+# kern (device 2049, inode 2624256): 36 files, no impossibilities.
+# boot (device 2049, inode 2624230): No files, no impossibilities so far.
+# obj/user: could not be stat'd.
+# obj/lib: could not be stat'd.
+# obj/boot: could not be stat'd.
+
+# 90 files, no impossibilities in 9 directories.
+
+# Implicit Rules
+
+obj/.vars.%: FORCE
+#  commands to execute (from `GNUmakefile', line 130):
+	$(V)echo "$($*)" | cmp -s $@ || echo "$($*)" > $@
+	
+
+obj/boot/%.o: boot/%.c
+#  commands to execute (from `boot/Makefrag', line 13):
+	@echo + cc -Os $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(KERN_CFLAGS) -Os -c -o $@ $<
+	
+
+obj/boot/%.o: boot/%.S
+#  commands to execute (from `boot/Makefrag', line 18):
+	@echo + as $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(KERN_CFLAGS) -c -o $@ $<
+	
+
+obj/kern/%.o: kern/%.c obj/.vars.KERN_CFLAGS
+#  commands to execute (from `kern/Makefrag', line 89):
+	@echo + cc $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(KERN_CFLAGS) -c -o $@ $<
+	
+
+obj/kern/%.o: kern/%.S obj/.vars.KERN_CFLAGS
+#  commands to execute (from `kern/Makefrag', line 94):
+	@echo + as $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(KERN_CFLAGS) -c -o $@ $<
+	
+
+obj/kern/%.o: lib/%.c obj/.vars.KERN_CFLAGS
+#  commands to execute (from `kern/Makefrag', line 99):
+ 
+	@echo + cc $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(KERN_CFLAGS) -c -o $@ $<
+	
+
+obj/lib/%.o: lib/%.c obj/.vars.USER_CFLAGS
+#  commands to execute (from `lib/Makefrag', line 25):
+	@echo + cc[USER] $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(USER_CFLAGS) -c -o $@ $<
+	
+
+obj/lib/%.o: lib/%.S obj/.vars.USER_CFLAGS
+#  commands to execute (from `lib/Makefrag', line 30):
+	@echo + as[USER] $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(USER_CFLAGS) -c -o $@ $<
+	
+
+obj/user/%.o: user/%.c obj/.vars.USER_CFLAGS
+#  commands to execute (from `user/Makefrag', line 7):
+	@echo + cc[USER] $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(USER_CFLAGS) -c -o $@ $<
+	
+
+obj/user/%: obj/user/%.o obj/lib/entry.o obj/lib/libjos.a user/user.ld
+#  commands to execute (from `user/Makefrag', line 12):
+	@echo + ld $@
+	$(V)$(LD) -o $@ $(ULDFLAGS) $(LDFLAGS) -nostdlib $(OBJDIR)/lib/entry.o $@.o -L$(OBJDIR)/lib $(USERLIBS:%=-l%) $(GCC_LIB)
+	$(V)$(OBJDUMP) -S $@ > $@.asm
+	$(V)$(NM) -n $@ > $@.sym
+	
+
+prep-%:
+#  commands to execute (from `GNUmakefile', line 216):
+	$(V)$(MAKE) "INIT_CFLAGS=${INIT_CFLAGS} -DTEST=`case $* in *_*) echo $*;; *) echo user_$*;; esac`" $(IMAGES)
+	
+
+run-%-nox-gdb: prep-% pre-qemu
+#  commands to execute (from `GNUmakefile', line 219):
+	$(QEMU) -nographic $(QEMUOPTS) -S
+	
+
+run-%-gdb: prep-% pre-qemu
+#  commands to execute (from `GNUmakefile', line 222):
+	$(QEMU) $(QEMUOPTS) -S
+	
+
+run-%-nox: prep-% pre-qemu
+#  commands to execute (from `GNUmakefile', line 225):
+	$(QEMU) -nographic $(QEMUOPTS)
+	
+
+run-%: prep-% pre-qemu
+#  commands to execute (from `GNUmakefile', line 228):
+	$(QEMU) $(QEMUOPTS)
+	
+
+# 15 implicit rules, 0 (0.0%) terminal.
+
+# Files
+
+# Not a target:
+obj/net/%.o:
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+handin: tarball
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 208):
+	@echo Please submit lab$(LAB)-handin.tar.gz file!
+	
+
+# Not a target:
+obj/user/buggyhello2:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/lib/panic.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/sched.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/kclock.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/lib/%.o:
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+qemu: obj/kern/kernel.img pre-qemu
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 159):
+	$(QEMU) $(QEMUOPTS)
+	
+
+# Not a target:
+obj/user/breakpoint:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/entrypgdir.o: kern/entrypgdir.c inc/mmu.h inc/types.h inc/memlayout.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+lib/Makefrag:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-01 08:44:04.619324614
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+obj/kern/kernel.img: obj/kern/kernel obj/boot/boot
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/5=0%
+#  commands to execute (from `kern/Makefrag', line 117):
+	@echo + mk $@
+	$(V)dd if=/dev/zero of=$(OBJDIR)/kern/kernel.img~ count=10000 2>/dev/null
+	$(V)dd if=$(OBJDIR)/boot/boot of=$(OBJDIR)/kern/kernel.img~ conv=notrunc 2>/dev/null
+	$(V)dd if=$(OBJDIR)/kern/kernel of=$(OBJDIR)/kern/kernel.img~ seek=1 conv=notrunc 2>/dev/null
+	$(V)mv $(OBJDIR)/kern/kernel.img~ $(OBJDIR)/kern/kernel.img
+	
+
+# Not a target:
+obj/lib/libmain.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/fairness:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+gdb:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 154):
+	gdb -x .gdbinit
+	
+
+all: obj/kern/kernel.img
+#  Phony target (prerequisite of .PHONY).
+#  Command-line target.
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/5=0%
+
+# Not a target:
+obj/lib/printfmt.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+%.o:
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+FORCE:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+obj/user/forktree:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/sched.o: kern/sched.c inc/assert.h inc/stdio.h inc/stdarg.h inc/x86.h inc/types.h kern/spinlock.h kern/env.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h kern/cpu.h kern/pmap.h kern/monitor.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+.PHONY: FORCE all always handin tarball clean realclean distclean grade handin-prep handin-check
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+pre-qemu: .gdbinit
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/stresssched:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/colors.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/kdebug.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+handin-check:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+obj/user/faultwritekernel:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+.PRECIOUS: %.o obj/boot/%.o obj/kern/%.o obj/lib/%.o obj/fs/%.o obj/net/%.o obj/user/%.o obj/.vars.%
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+handin-prep:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/readline.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/sched.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/syscall.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/picirq.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/console.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+distclean: realclean
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 195):
+	rm -rf conf/gcc.mk
+	
+
+print-gdbport:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 183):
+	@echo $(GDBPORT)
+	
+
+# Not a target:
+obj/user/faultregs:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/kdebug.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/sendpage:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/syscall.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+.SUFFIXES:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/stdarg.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/error.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/monitor.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+ 
+kern/trap.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/picirq.o: kern/picirq.c inc/assert.h inc/stdio.h inc/stdarg.h inc/trap.h inc/types.h kern/picirq.h inc/x86.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/.vars.%:
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+realclean: clean
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 190):
+	rm -rf lab$(LAB).tar.gz \
+	jos.out $(wildcard jos.out.*) \
+	qemu.pcap $(wildcard qemu.pcap.*)
+	
+
+always:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 241):
+	@:
+	
+
+print-qemu:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 180):
+	@echo $(QEMU)
+	
+
+# Not a target:
+kern/cpu.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/lib/libjos.a: obj/lib/console.o obj/lib/libmain.o obj/lib/exit.o obj/lib/panic.o obj/lib/printf.o obj/lib/printfmt.o obj/lib/readline.o obj/lib/string.o obj/lib/syscall.o obj/lib/pgfault.o obj/lib/pfentry.o obj/lib/fork.o obj/lib/ipc.o
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `lib/Makefrag', line 35):
+	@echo + ar $@
+	$(V)$(AR) r $@ $(LIB_OBJFILES)
+	
+
+# Not a target:
+obj/kern/mpentry.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/lib/exit.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/lib/string.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.gdbinit.tmpl:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+conf/env.mk:
+#  A default, MAKEFILES, or -include/sinclude makefile.
+#  Implicit rule search has been done.
+#  Last modified 2022-04-01 07:10:00.805290995
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+kern/init.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/picirq.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+tarball: realclean
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 211):
+	tar cf - `find . -type f | grep -v '^\.*$$' | grep -v '/CVS/' | grep -v '/\.svn/' | grep -v '/\.git/' | grep -v 'lab[0-9].*\.tar\.gz'` | gzip > lab$(LAB)-handin.tar.gz
+	
+
+# Not a target:
+obj/lib/pgfault.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/monitor.o: kern/monitor.c inc/stdio.h inc/stdarg.h inc/string.h inc/types.h inc/memlayout.h inc/mmu.h inc/assert.h inc/x86.h kern/console.h kern/monitor.h kern/kdebug.h kern/pmap.h kern/trap.h inc/trap.h kern/env.h inc/env.h kern/cpu.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/trapentry.S:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/lib/pfentry.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/.deps:
+#  A default, MAKEFILES, or -include/sinclude makefile.
+#  Implicit rule search has not been done.
+#  Last modified 2022-05-10 12:55:53.553255754
+#  File has been updated.
+#  Successfully updated.
+#  commands to execute (from `GNUmakefile', line 235):
+	@mkdir -p $(@D)
+ 
+	@$(PERL) mergedep.pl $@ $^
+	
+
+grade:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 202):
+	@echo $(MAKE) clean
+	@$(MAKE) clean || \
+	(echo "'make clean' failed.  HINT: Do you have another running instance of JOS?" && exit 1)
+	./grade-lab$(LAB) $(GRADEFLAGS)
+	
+
+# Not a target:
+inc/syscall.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/pingpongs:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/boot/boot.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/%.o:
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/boot/boot: obj/boot/boot.o obj/boot/main.o
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `boot/Makefrag', line 27):
+	@echo + ld boot/boot
+	$(V)$(LD) $(LDFLAGS) -N -e start -Ttext 0x7C00 -o $@.out $^
+	$(V)$(OBJDUMP) -S $@.out >$@.asm
+	$(V)$(OBJCOPY) -S -O binary -j .text $@.out $@
+	$(V)perl boot/sign.pl $(OBJDIR)/boot/boot
+	
+
+# Not a target:
+boot/Makefrag:
+#  Implicit rule search has been done.
+#  Last modified 2022-04-01 07:10:00.805290995
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+kern/Makefrag:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-01 09:03:23.787316842
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+obj/user/faultevilhandler:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/lib/printf.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/lapic.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+qemu-nox-gdb: obj/kern/kernel.img pre-qemu
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 174):
+	@echo "***"
+	@echo "*** Now run 'make gdb'." 1>&2
+	@echo "***"
+	$(QEMU) -nographic $(QEMUOPTS) -S
+	
+
+# Not a target:
+obj/user/faultnostack:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/monitor.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/divzero:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/idle:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/init.o: obj/.vars.INIT_CFLAGS kern/init.c inc/stdio.h inc/stdarg.h inc/string.h inc/types.h inc/assert.h kern/monitor.h kern/console.h kern/pmap.h inc/memlayout.h inc/mmu.h kern/kclock.h kern/env.h inc/env.h inc/trap.h kern/cpu.h kern/trap.h kern/sched.h kern/picirq.h inc/x86.h kern/spinlock.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+# `override' directive (from `kern/Makefrag', line 104)
+# KERN_CFLAGS += $(INIT_CFLAGS)
+# variable set hash-table stats:
+# Load=1/32=3%, Rehash=0, Collisions=0/2=0%
+
+# Not a target:
+obj/lib/ipc.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/printfmt.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/stdio.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/jos-grub: obj/kern/kernel
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `kern/Makefrag', line 128):
+	@echo + oc $@
+	$(V)$(OBJCOPY) --adjust-vma=0x10000000 $^ $@
+	
+
+# Not a target:
+obj/user/spin:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/kernel: obj/kern/entry.o obj/kern/entrypgdir.o obj/kern/init.o obj/kern/console.o obj/kern/monitor.o obj/kern/pmap.o obj/kern/env.o obj/kern/kclock.o obj/kern/picirq.o obj/kern/printf.o obj/kern/trap.o obj/kern/trapentry.o obj/kern/sched.o obj/kern/syscall.o obj/kern/kdebug.o obj/kern/printfmt.o obj/kern/readline.o obj/kern/string.o obj/kern/mpentry.o obj/kern/mpconfig.o obj/kern/lapic.o obj/kern/spinlock.o obj/user/hello obj/user/buggyhello obj/user/buggyhello2 obj/user/evilhello obj/user/testbss obj/user/divzero obj/user/breakpoint obj/user/softint obj/user/badsegment obj/user/faultread obj/user/faultreadkernel obj/user/faultwrite obj/user/faultwritekernel obj/user/stepIntoTest obj/user/continueTest obj/user/idle obj/user/yield obj/user/dumbfork obj/user/stresssched obj/user/faultdie obj/user/faultregs obj/user/faultalloc obj/user/faultallocbad obj/user/faultnostack obj/user/faultbadhandler obj/user/faultevilhandler obj/user/forktree obj/user/sendpage obj/user/spin obj/user/fairness obj/user/pingpong obj/user/pingpongs obj/user/primes kern/kernel.ld obj/.vars.KERN_LDFLAGS
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/5=0%
+#  commands to execute (from `kern/Makefrag', line 110):
+	@echo + ld $@
+ 
+	$(V)$(LD) -o $@ $(KERN_LDFLAGS) $(KERN_OBJFILES) $(GCC_LIB) -b binary $(KERN_BINFILES)
+ 
+	$(V)$(OBJDUMP) -S $@ > $@.asm
+	$(V)$(NM) -n $@ > $@.sym
+	
+
+obj/kern/trapentry.o: kern/trapentry.S inc/mmu.h inc/memlayout.h inc/trap.h kern/picirq.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/stepIntoTest:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/faultread:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+.gdbinit: .gdbinit.tmpl
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 151):
+	sed "s/localhost:1234/localhost:$(GDBPORT)/" < $^ > $@
+	
+
+grub: obj/jos-grub
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/softint:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/env.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/pmap.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/pingpong:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/lib/fork.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/lib/console.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/Makefrag:
+#  Implicit rule search has been done.
+#  Last modified 2022-04-24 12:09:16.737279686
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+obj/kern/mpconfig.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+conf/lab.mk:
+#  A default, MAKEFILES, or -include/sinclude makefile.
+#  Implicit rule search has been done.
+#  Last modified 2022-05-01 08:44:04.587324615
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/primes:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/types.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/.vars.KERN_CFLAGS: FORCE
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `KERN_CFLAGS'
+#  Last modified 2022-05-10 12:55:52.173945763
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := obj/.vars.KERN_CFLAGS
+# automatic
+# % := 
+# automatic
+# * := KERN_CFLAGS
+# automatic
+# + := FORCE
+# automatic
+# | := 
+# automatic
+# < := FORCE
+# automatic
+# ^ := FORCE
+# automatic
+# ? := 
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=1/17=6%
+#  commands to execute (from `GNUmakefile', line 130):
+	$(V)echo "$($*)" | cmp -s $@ || echo "$($*)" > $@
+	
+
+# Not a target:
+obj/user/faultbadhandler:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/env.o: kern/env.c inc/x86.h inc/types.h inc/mmu.h inc/error.h inc/string.h inc/assert.h inc/stdio.h inc/stdarg.h inc/elf.h kern/env.h inc/env.h inc/trap.h inc/memlayout.h kern/cpu.h kern/pmap.h kern/trap.h kern/monitor.h kern/sched.h kern/spinlock.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/spinlock.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/pmap.o: kern/pmap.c inc/x86.h inc/types.h inc/mmu.h inc/error.h inc/string.h inc/assert.h inc/stdio.h inc/stdarg.h kern/pmap.h inc/memlayout.h kern/kclock.h kern/env.h inc/env.h inc/trap.h kern/cpu.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/printf.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/string.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+qemu-gdb: obj/kern/kernel.img pre-qemu
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 168):
+	@echo "***"
+	@echo "*** Now run 'make gdb'." 1>&2
+	@echo "***"
+	$(QEMU) $(QEMUOPTS) -S
+	
+
+# Not a target:
+obj/user/buggyhello:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/faultreadkernel:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+clean:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 187):
+	rm -rf $(OBJDIR) .gdbinit jos.in qemu.log
+	
+
+# Not a target:
+kern/env.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/spinlock.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/pmap.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/kernel.ld:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/x86.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/printf.o: kern/printf.c inc/types.h inc/stdio.h inc/stdarg.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/fs/%.o:
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/%.o:
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/dumbfork:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/env.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/.vars.KERN_LDFLAGS:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GNUmakefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-01 08:44:04.587324615
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+obj/kern/trap.o: kern/trap.c inc/mmu.h inc/types.h inc/x86.h inc/assert.h inc/stdio.h inc/stdarg.h kern/pmap.h inc/memlayout.h kern/trap.h inc/trap.h kern/console.h kern/monitor.h kern/env.h inc/env.h kern/cpu.h kern/syscall.h inc/syscall.h kern/sched.h kern/kclock.h kern/picirq.h kern/spinlock.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/.vars.INIT_CFLAGS:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/elf.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+qemu-nox: obj/kern/kernel.img pre-qemu
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 162):
+	@echo "***"
+	@echo "*** Use Ctrl-a x to exit qemu"
+	@echo "***"
+	$(QEMU) -nographic $(QEMUOPTS)
+	
+
+# Not a target:
+kern/entry.S:
+#  Implicit rule search has been done.
+#  Last modified 2022-04-24 12:09:16.705279687
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+inc/string.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/trap.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/lib/readline.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/faultalloc:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/faultdie:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/lib/syscall.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/mmu.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+ 
+.DELETE_ON_ERROR:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/yield:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/memlayout.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/console.o: kern/console.c inc/x86.h inc/types.h inc/memlayout.h inc/mmu.h inc/kbdreg.h inc/string.h inc/assert.h inc/stdio.h inc/stdarg.h inc/colors.h kern/console.h kern/picirq.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/continueTest:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/kclock.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+boot/main.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/hello:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/entry.o: kern/entry.S obj/.vars.KERN_CFLAGS kern/entry.S inc/mmu.h inc/memlayout.h inc/trap.h
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `entry'
+#  Last modified 2022-05-10 12:55:52.189937763
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/5=0%
+#  commands to execute (from `kern/Makefrag', line 94):
+	@echo + as $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(KERN_CFLAGS) -c -o $@ $<
+	
+
+# Not a target:
+obj/boot/%.o:
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/badsegment:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/console.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/evilhello:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/faultallocbad:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/boot/main.o: boot/main.c
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `boot/Makefrag', line 23):
+	@echo + cc -Os $<
+	$(V)$(CC) -nostdinc $(KERN_CFLAGS) -Os -c -o $(OBJDIR)/boot/main.o boot/main.c
+	
+
+# Not a target:
+inc/trap.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/entrypgdir.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/assert.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/testbss:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/kclock.o: kern/kclock.c inc/x86.h inc/types.h kern/kclock.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/kbdreg.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/faultwrite:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# files hash-table stats:
+# Load=163/1024=16%, Rehash=0, Collisions=47/463=10%
+# VPATH Search Paths
+
+# No `vpath' search paths.
+
+# No general (`VPATH' variable) search path.
+
+# # of strings in strcache: 8
+# # of strcache buffers: 1
+# strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
+# strcache free: total = 3995 / max = 3995 / min = 3995 / avg = 3995
+
+# Finished Make data base on Tue May 10 12:55:53 2022
+
+ 

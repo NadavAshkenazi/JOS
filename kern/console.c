@@ -5,7 +5,7 @@
 #include <inc/kbdreg.h>
 #include <inc/string.h>
 #include <inc/assert.h>
-
+#include <inc/colors.h>
 #include <kern/console.h>
 #include <kern/picirq.h>
 
@@ -167,8 +167,10 @@ static void
 cga_putc(int c)
 {
 	// if no attribute given, then use black on white
+	if (colors == 0)
+		colors = 0x0700;
 	if (!(c & ~0xFF))
-		c |= 0x0700;
+		c |= colors;
 
 	switch (c & 0xff) {
 	case '\b':
