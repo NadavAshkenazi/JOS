@@ -62,7 +62,19 @@ alloc_block(void)
 	// super->s_nblocks blocks in the disk altogether.
 
 	// LAB 5: Your code here.
-	panic("alloc_block not implemented");
+	//for each block check if free, and if so mark as used and return bn
+
+	int blockno = 0;
+	if (super == NULL)
+		panic("alloc_block: super is not allocated");
+
+	for (; blockno < super->s_nblocks; blockno++){
+		if (block_is_free(blockno)){
+			bitmap[blockno/32] &= ~(1 << (blockno%32)); // mark offset bit as used (0)
+			flush_block(&bitmap[blockno/32]); //flush bitmap relevent back to disk
+			return blockno;
+		}
+	}
 	return -E_NO_DISK;
 }
 

@@ -3,6 +3,7 @@
 
 #define SECTSIZE	512			// bytes per disk sector
 #define BLKSECTS	(BLKSIZE / SECTSIZE)	// sectors per block
+#define FIRST_SECTOR_OF_BLOCK(blockno) (blockno * BLKSECTS)  
 
 /* Disk block n, when in memory, is mapped into the file system
  * server's address space at DISKMAP + (n*BLKSIZE). */

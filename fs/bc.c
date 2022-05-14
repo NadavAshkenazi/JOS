@@ -49,6 +49,16 @@ bc_pgfault(struct UTrapframe *utf)
 	//
 	// LAB 5: you code here:
 
+	void *alignedAdrr = ROUNDDOWN(addr, PGSIZE);
+	r = sys_page_alloc(0, addr, PTE_W | PTE_U | PTE_P);
+	if (r < 0)
+		panic("bc_pgfault: could not allocate page: %e", r);
+
+	//read the wanted block from first to eight'th block
+	r = ide_read(FIRST_SECTOR_OF_BLOCK(blockno), addr, BLKSECTS);
+	if (r < 0)
+		panic("bc_pgfault: could not read sector from disk: %e", r);
+
 	// Clear the dirty bit for the disk block page since we just read the
 	// block from disk
 	if ((r = sys_page_map(0, addr, 0, addr, uvpt[PGNUM(addr)] & PTE_SYSCALL)) < 0)
@@ -73,11 +83,27 @@ flush_block(void *addr)
 {
 	uint32_t blockno = ((uint32_t)addr - DISKMAP) / BLKSIZE;
 
+	// Check that the fault was within the block cache region
 	if (addr < (void*)DISKMAP || addr >= (void*)(DISKMAP + DISKSIZE))
 		panic("flush_block of bad va %08x", addr);
 
 	// LAB 5: Your code here.
-	panic("flush_block not implemented");
+	// check if block needs to be written to disk
+	if (!va_is_mapped(addr) || !va_is_dirty(addr))
+		return;
+
+	void *alignedAdrr = ROUNDDOWN(addr, PGSIZE);
+
+	//write block to disk
+	int r = ide_write(FIRST_SECTOR_OF_BLOCK(blockno), alignedAdrr ,BLKSECTS);
+	if (r < 0)
+		panic("flush_block: could write block to disk: %e", r);
+
+	//clear dirty
+	r = sys_page_map(0, alignedAdrr, 0, alignedAdrr, uvpt[PGNUM(addr)] & PTE_SYSCALL);
+	if (r < 0)
+		panic("flush_block: could not clear dirty: %e", r);
+
 }
 
 // Test that the block cache works, by smashing the superblock and
