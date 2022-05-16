@@ -69,8 +69,17 @@ duppage(envid_t envid, unsigned pn)
 	// LAB 4: Your code here.
 
 	envid_t parentEnvid = sys_getenvid();
+	// assert(parentEnvid == 0);
+
 	void* va = (void*)(pn * PGSIZE);
 	pte_t perm;
+	
+	// if ((uvpt[pn] & PTE_SHARE)){
+	// 	res = sys_page_map(parentEnvid, va, envid, va, uvpt[pn] & PTE_SYSCALL);
+	// 	if (res < 0)
+	// 		panic("duppage: Failed to map page from child to parent's shared page- %e", res);
+	// }
+	// else 
 	if (uvpt[pn] & (PTE_W | PTE_COW)){ //should dupplicate page
 
 		res = sys_page_map(parentEnvid, va, envid, va, PTE_COW | PTE_U | PTE_P);
