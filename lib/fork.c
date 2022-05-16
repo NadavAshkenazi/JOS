@@ -64,39 +64,35 @@ pgfault(struct UTrapframe *utf)
 static int
 duppage(envid_t envid, unsigned pn)
 {
-	int res;
-
 	// LAB 4: Your code here.
-
-	envid_t parentEnvid = sys_getenvid();
-	// assert(parentEnvid == 0);
-
+	int res;
 	void* va = (void*)(pn * PGSIZE);
 	pte_t perm;
 	
-	// if ((uvpt[pn] & PTE_SHARE)){
-	// 	res = sys_page_map(parentEnvid, va, envid, va, uvpt[pn] & PTE_SYSCALL);
-	// 	if (res < 0)
-	// 		panic("duppage: Failed to map page from child to parent's shared page- %e", res);
-	// }
-	// else 
-	if (uvpt[pn] & (PTE_W | PTE_COW)){ //should dupplicate page
+	if ((uvpt[pn] & PTE_SHARE)){
+		res = sys_page_map(0, va, envid, va, uvpt[pn] & PTE_SYSCALL);
+		if (res < 0)
+			panic("duppage: Failed to map page from child to parent's shared page- %e", res);
+	}
+	 
+	else if (uvpt[pn] & (PTE_W | PTE_COW)){ //should dupplicate page
 
-		res = sys_page_map(parentEnvid, va, envid, va, PTE_COW | PTE_U | PTE_P);
+		res = sys_page_map(0, va, envid, va, PTE_COW | PTE_U | PTE_P);
 		if (res < 0)
 			panic("duppage: cant change childEnv mapping - %e\n", res);	
 
-		res = sys_page_map(parentEnvid, va, parentEnvid, va, PTE_COW | PTE_U | PTE_P);
+		res = sys_page_map(0, va, 0, va, PTE_COW | PTE_U | PTE_P);
 		if (res < 0)
 			panic("duppage: cant change parentEnv mapping - %e\n", res);
 
 	}
 	else { //should not duplicate - read only or not COW
-		res = sys_page_map(parentEnvid, va, envid, va, PTE_U | PTE_P);
+		res = sys_page_map(0, va, envid, va, PTE_U | PTE_P);
 		if (res < 0)
 			panic("duppage: cant change childEnv mapping(READ ONLY) - %e\n", res);	
 	}
 	return 0;
+	
 }
 
 //

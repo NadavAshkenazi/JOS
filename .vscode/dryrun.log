@@ -300,7 +300,6 @@ echo + ld obj/user/faultdie
 ld -o obj/user/faultdie.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/faultdie.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
 objdump -S obj/user/faultdie.debug > obj/user/faultdie.asm
 nm -n obj/user/faultdie.debug > obj/user/faultdie.sym
- 
 objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/faultdie obj/user/faultdie.debug obj/user/faultdie
 echo + cc[USER] user/faultregs.c
 mkdir -p obj/user
@@ -323,7 +322,6 @@ mkdir -p obj/user
 gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/faultallocbad.o user/faultallocbad.c
 echo + ld obj/user/faultallocbad
 ld -o obj/user/faultallocbad.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/faultallocbad.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
- 
 objdump -S obj/user/faultallocbad.debug > obj/user/faultallocbad.asm
 nm -n obj/user/faultallocbad.debug > obj/user/faultallocbad.sym
 objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/faultallocbad obj/user/faultallocbad.debug obj/user/faultallocbad
@@ -526,6 +524,7 @@ mkdir -p obj/boot
 gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs -c -o obj/boot/boot.o boot/boot.S
 echo + cc -Os boot/main.c
 gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs -Os -c -o obj/boot/main.o boot/main.c
+ 
 echo + ld boot/boot
 ld -m elf_i386 -N -e start -Ttext 0x7C00 -o obj/boot/boot.out obj/boot/boot.o obj/boot/main.o
 objdump -S obj/boot/boot.out >obj/boot/boot.asm
@@ -547,10 +546,10 @@ ld -o obj/user/init.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o 
 objdump -S obj/user/init.debug > obj/user/init.asm
 nm -n obj/user/init.debug > obj/user/init.sym
 objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/init obj/user/init.debug obj/user/init
+ 
 echo + cc[USER] user/cat.c
 mkdir -p obj/user
 gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/cat.o user/cat.c
- 
 echo + ld obj/user/cat
 ld -o obj/user/cat.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/cat.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
 objdump -S obj/user/cat.debug > obj/user/cat.asm
