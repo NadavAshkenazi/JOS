@@ -336,6 +336,18 @@ trap_dispatch(struct Trapframe *tf)
 		sched_yield();
 	}
 
+
+	if (trapNumber == IRQ_OFFSET + IRQ_KBD){
+		kbd_intr();
+		return;
+	}
+
+
+	if (trapNumber == IRQ_OFFSET + IRQ_SERIAL){
+		serial_intr();
+		return;
+	}
+
 	// Unexpected trap: The user process or the kernel has a bug.
 	print_trapframe(tf);
 	if (tf->tf_cs == GD_KT)

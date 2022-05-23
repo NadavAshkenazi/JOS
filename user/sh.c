@@ -55,7 +55,15 @@ again:
 			// then close the original 'fd'.
 
 			// LAB 5: Your code here.
-			panic("< redirection not implemented");
+			fd = open(t, O_RDONLY);
+			if (fd < 0) {
+				cprintf("could not open %s as read only: %e", t, fd);
+				exit();
+			}
+			if (fd > 0) {
+				dup(fd, 0);
+				close(fd);
+			}
 			break;
 
 		case '>':	// Output redirection
@@ -103,7 +111,31 @@ again:
 			}
 			panic("| not implemented");
 			break;
-
+		case '&':
+			r = fork();
+			if (r < 0){
+				cprintf("fork: %e\n", r);
+				exit();
+			}
+			else if (r > 0){ //main shell
+				cprintf(" %s -> background\n", argv[0]);
+			} 
+			else{ //run command from child
+				goto runit;
+			}
+		case ';':
+			r = fork();
+			if (r < 0) {
+				cprintf("fork: %e\n", r);
+				exit();
+			}
+			if (r > 0) { //main shell
+				wait(r); //wait for child to finish his command
+				goto again; // run next command 
+			} else { //run command from child
+				goto runit;
+			}
+			break;
 		case 0:		// String is complete
 			// Run the current command!
 			goto runit;
