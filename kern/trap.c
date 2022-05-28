@@ -84,10 +84,10 @@ trap_init(void)
 	SETGATE(idt[T_NMI], INTERRUPT, GD_KT, &t_nmi, DPL_KERN);	
 
 	void t_brkpt();				//3:  breakpoint
-	SETGATE(idt[T_BRKPT], TRAP, GD_KT, &t_brkpt, DPL_USER);	
+	SETGATE(idt[T_BRKPT], INTERRUPT, GD_KT, &t_brkpt, DPL_USER);	
 
 	void t_oflow();				//4:  overflow
-	SETGATE(idt[T_OFLOW], TRAP, GD_KT, &t_oflow, DPL_KERN);	
+	SETGATE(idt[T_OFLOW], INTERRUPT, GD_KT, &t_oflow, DPL_KERN);	
 
 	void t_bound();				//5:  bounds check
 	SETGATE(idt[T_BOUND], INTERRUPT, GD_KT, &t_bound, DPL_KERN);
