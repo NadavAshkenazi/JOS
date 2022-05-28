@@ -156,6 +156,7 @@ sys_env_set_trapframe(envid_t envid, struct Trapframe *tf)
 	user_mem_check(requestEnv, tf, sizeof(struct Trapframe), PTE_W); // check if the user provied valid mem with write perm
 	requestEnv->env_tf = *tf;
 	requestEnv->env_tf.tf_cs |= DPL_USER; 
+	requestEnv->env_tf.tf_ss |= DPL_USER; 
 	requestEnv->env_tf.tf_eflags |= FL_IF;
 
 	return 0;
