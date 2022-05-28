@@ -301,6 +301,18 @@ static int
 copy_shared_pages(envid_t child)
 {
 	// LAB 5: Your code here.
+	uintptr_t va = 0;
+	int res;
+
+	for (; va < USTACKTOP; va += PGSIZE){
+		if ((uvpd[PDX(va)] & PTE_P) && ((uvpt[PGNUM(va)] & (PTE_P|PTE_SHARE)) == (PTE_P|PTE_SHARE))){
+			res = sys_page_map(0, (void*)va, child, (void*)va, uvpt[PGNUM(va)] & PTE_SYSCALL);
+			if (res < 0)
+				panic("copy_shared_pages: failed to map pages that should be shared from parent env to child - %e", res);
+		}
+	}
+
 	return 0;
+
 }
 

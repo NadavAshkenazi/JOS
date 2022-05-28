@@ -1,0 +1,3022 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 3.81
+ 
+# Copyright (C) 2006  Free Software Foundation, Inc.
+ 
+# This is free software; see the source for copying conditions.
+ 
+# There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+ 
+# PARTICULAR PURPOSE.
+ 
+
+ 
+# This program built for i686-pc-linux-gnu
+ 
+
+ 
+# Make data base, printed on Mon May 16 12:48:21 2022
+ 
+
+# Variables
+ 
+
+ 
+# makefile (from `GNUmakefile', line 151)
+ 
+QEMUOPTS = -hda $(OBJDIR)/kern/kernel.img -serial mon:stdio -gdb tcp::$(GDBPORT) $(shell if $(QEMU) -nographic -help | grep -q '^-D '; then echo '-D qemu.log'; fi) -smp $(CPUS) -hdb $(OBJDIR)/fs/fs.img $(QEMUEXTRA)
+ 
+# environment
+ 
+SELINUX_INIT = YES
+ 
+# automatic
+ 
+?F = $(notdir $?)
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# environment
+DESKTOP_SESSION = ubuntu
+# makefile (from `GNUmakefile', line 52)
+QEMU := qemu
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# environment
+XAUTHORITY = /home/nadavash/.Xauthority
+# environment
+GDMSESSION = ubuntu
+# environment
+XMODIFIERS = @im=ibus
+# makefile (from `fs/Makefrag', line 16)
+USERAPPS := obj/user/init obj/user/cat obj/user/echo obj/user/init obj/user/ls obj/user/lsfd obj/user/num obj/user/forktree obj/user/primes obj/user/primespipe obj/user/sh obj/user/testfdsharing obj/user/testkbd obj/user/testpipe obj/user/testpteshare obj/user/testshell obj/user/hello 
+# makefile
+CURDIR := /home/nadavash/Desktop/OSE/lab
+# makefile (from `conf/lab.mk', line 2)
+PACKAGEDATE = Thu Oct 30 10:08:10 EDT 2014
+# makefile
+SHELL = /bin/sh
+# makefile (from `GNUmakefile', line 75)
+NM := nm
+# makefile (from `GNUmakefile', line 122)
+USER_CFLAGS :=    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs
+# environment
+GDM_LANG = en_US
+# makefile (from `conf/env.mk', line 9)
+V = @
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+# environment
+_ = /usr/share/code/code
+# makefile (from `GNUmakefile', line 94)
+CFLAGS :=    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector
+# makefile (from `fs/Makefrag', line 41)
+FSIMGFILES := fs/newmotd fs/motd fs/lorem fs/script fs/testshell.key fs/testshell.sh obj/user/init obj/user/cat obj/user/echo obj/user/init obj/user/ls obj/user/lsfd obj/user/num obj/user/forktree obj/user/primes obj/user/primespipe obj/user/sh obj/user/testfdsharing obj/user/testkbd obj/user/testpipe obj/user/testpteshare obj/user/testshell obj/user/hello 
+# environment
+XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/usr/share/upstart/xdg:/etc/xdg
+# makefile (from `GNUmakefile', line 67)
+GDBPORT := 26000
+# makefile (from `GNUmakefile', line 150)
+IMAGES = $(OBJDIR)/kern/kernel.img $(OBJDIR)/fs/fs.img
+# makefile (from `GNUmakefile', line 100)
+ULDFLAGS := -T user/user.ld
+# makefile (from `obj/.deps', line 1)
+MAKEFILE_LIST :=  GNUmakefile conf/lab.mk conf/env.mk boot/Makefrag kern/Makefrag lib/Makefrag user/Makefrag fs/Makefrag obj/.deps
+# automatic
+@F = $(notdir $@)
+# environment
+GIO_LAUNCHED_DESKTOP_FILE = /usr/share/applications/code.desktop
+# environment
+SESSIONTYPE = gnome-session
+# makefile (from `GNUmakefile', line 24)
+TOP = .
+# environment
+MANDATORY_PATH = /usr/share/gconf/ubuntu.mandatory.path
+# environment
+XDG_DATA_DIRS = /usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/
+# environment
+DBUS_SESSION_BUS_ADDRESS = unix:abstract=/tmp/dbus-q9CHeJXfYq
+# makefile (from `lib/Makefrag', line 27)
+LIB_SRCFILES := lib/console.c lib/libmain.c lib/exit.c lib/panic.c lib/printf.c lib/printfmt.c lib/readline.c lib/string.c lib/syscall.c lib/pgfault.c lib/pfentry.S lib/fork.c lib/ipc.c lib/args.c lib/fd.c lib/file.c lib/fprintf.c lib/pageref.c lib/spawn.c lib/pipe.c lib/wait.c
+# makefile (from `GNUmakefile', line 70)
+AS := as
+# environment
+VSCODE_LOGS = /home/nadavash/.config/Code/logs/20220516T124806
+# makefile (from `GNUmakefile', line 78)
+NCC := gcc  -pipe
+# makefile (from `boot/Makefrag', line 10)
+BOOT_OBJS := obj/boot/boot.o obj/boot/main.o
+# environment
+CLUTTER_IM_MODULE = xim
+# makefile (from `lib/Makefrag', line 32)
+LIB_OBJFILES := obj/lib/console.o obj/lib/libmain.o obj/lib/exit.o obj/lib/panic.o obj/lib/printf.o obj/lib/printfmt.o obj/lib/readline.o obj/lib/string.o obj/lib/syscall.o obj/lib/pgfault.o  obj/lib/pfentry.o obj/lib/fork.o obj/lib/ipc.o obj/lib/args.o obj/lib/fd.o obj/lib/file.o obj/lib/fprintf.o obj/lib/pageref.o obj/lib/spawn.o obj/lib/pipe.o obj/lib/wait.o
+# environment
+LESSOPEN = | /usr/bin/lesspipe %s
+# environment
+XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session0
+# environment
+PATH = /home/nadavash/bin:/home/nadavash/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+# makefile (from `GNUmakefile', line 72)
+LD := ld
+# makefile (from `GNUmakefile', line 79)
+NATIVE_CFLAGS :=    -I. -MD -Wall
+# environment
+GPG_AGENT_INFO = /run/user/1000/keyring-A2v53e/gpg:0:1
+# environment
+SESSION_MANAGER = local/ubuntu:@/tmp/.ICE-unix/1913,unix/ubuntu:/tmp/.ICE-unix/1913
+# environment
+XDG_RUNTIME_DIR = /run/user/1000
+# environment
+TEXTDOMAIN = im-config
+# makefile (from `GNUmakefile', line 143)
+CPUS = 1
+# makefile (from `GNUmakefile', line 71)
+AR := ar
+# environment
+XDG_MENU_PREFIX = gnome-
+# environment
+VSCODE_LOG_STACK = false
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# makefile (from `GNUmakefile', line 97)
+LDFLAGS := -m elf_i386
+# default
+.FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
+# environment
+SESSION = ubuntu
+# environment
+XDG_GREETER_DATA_DIR = /var/lib/lightdm-data/nadavash
+# environment
+LS_COLORS = 
+# environment
+JOB = dbus
+# environment
+SSH_AUTH_SOCK = /run/user/1000/keyring-A2v53e/ssh
+# environment
+GIO_LAUNCHED_DESKTOP_FILE_PID = 2257
+# automatic
+%F = $(notdir $%)
+# environment
+DISPLAY = :0
+# makefile (from `fs/Makefrag', line 34)
+FSIMGTXTFILES := fs/newmotd fs/motd fs/lorem fs/script fs/testshell.key fs/testshell.sh
+# makefile (from `user/Makefrag', line 4)
+USERLIBS = jos
+# environment
+GTK_IM_MODULE = ibus
+# environment
+PWD = /home/nadavash/Desktop/OSE/lab
+# makefile (from `GNUmakefile', line 102)
+GCC_LIB := /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+# environment
+QT_QPA_PLATFORMTHEME = appmenu-qt5
+# environment
+XDG_SEAT = seat0
+# makefile (from `GNUmakefile', line 121)
+KERN_CFLAGS :=    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs
+# environment
+GTK_MODULES = overlay-scrollbar:unity-gtk-module
+# makefile (from `conf/lab.mk', line 1)
+LAB = 5
+# makefile (from `fs/Makefrag', line 2)
+OBJDIRS :=  boot kern lib user fs
+# environment
+HOME = /home/nadavash
+# makefile (from `fs/Makefrag', line 4)
+FSOFILES := obj/fs/ide.o obj/fs/bc.o obj/fs/fs.o obj/fs/serv.o obj/fs/test.o 
+# environment
+LESSCLOSE = /usr/bin/lesspipe %s %s
+# makefile (from `GNUmakefile', line 80)
+TAR := gtar
+# environment
+LOGNAME = nadavash
+# makefile (from `kern/Makefrag', line 42)
+KERN_SRCFILES := kern/entry.S kern/entrypgdir.c kern/init.c kern/console.c kern/monitor.c kern/pmap.c kern/env.c kern/kclock.c kern/picirq.c kern/printf.c kern/trap.c kern/trapentry.S kern/sched.c kern/syscall.c kern/kdebug.c lib/printfmt.c lib/readline.c lib/string.c kern/mpentry.S kern/mpconfig.c kern/lapic.c kern/spinlock.c
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# default
+MAKE_VERSION := 3.81
+# environment
+GNOME_DESKTOP_SESSION_ID = this-is-deprecated
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+XDG_VTNR = 7
+# makefile (from `kern/Makefrag', line 99)
+KERN_OBJFILES := obj/kern/entry.o obj/kern/entrypgdir.o obj/kern/init.o obj/kern/console.o obj/kern/monitor.o obj/kern/pmap.o obj/kern/env.o obj/kern/kclock.o obj/kern/picirq.o obj/kern/printf.o obj/kern/trap.o obj/kern/trapentry.o obj/kern/sched.o obj/kern/syscall.o obj/kern/kdebug.o  obj/kern/printfmt.o  obj/kern/readline.o  obj/kern/string.o obj/kern/mpentry.o obj/kern/mpconfig.o obj/kern/lapic.o obj/kern/spinlock.o
+# environment
+VERBOSE_LOGGING = true
+# default
+MAKE = $(MAKE_COMMAND)
+# default
+MAKECMDGOALS := all
+# environment
+QT_IM_MODULE = ibus
+# environment
+SHLVL = 1
+# makefile (from `GNUmakefile', line 69)
+CC := gcc -pipe
+# environment
+IM_CONFIG_PHASE = 1
+# environment
+VSCODE_IPC_HOOK_EXTHOST = /tmp/vscode-ipc-ff680e6d-905a-4d0b-ac1f-6866aeb5f4cb.sock
+# environment
+COMPIZ_CONFIG_PROFILE = ubuntu
+# environment
+XDG_SESSION_ID = c2
+# environment
+AMD_ENTRYPOINT = vs/workbench/services/extensions/node/extensionHostProcess
+# environment
+USER = nadavash
+# makefile
+.DEFAULT_GOAL := all
+# environment
+XDG_CURRENT_DESKTOP = Unity
+# environment
+PIPE_LOGGING = true
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# environment
+GNOME_KEYRING_PID = 1736
+# environment
+VSCODE_PREVENT_FOREIGN_INSPECT = true
+# makefile (from `GNUmakefile', line 36)
+GCCPREFIX := 
+# default
+MAKE_COMMAND := make
+# environment
+VSCODE_NODE_CACHED_DATA_DIR = /home/nadavash/.config/Code/CachedData/c7d83e57cd18f18026a8162d042843bda1bcf21f
+# default
+.VARIABLES := 
+# automatic
+*F = $(notdir $*)
+# environment
+LANGUAGE = en_US
+# environment
+XDG_SEAT_PATH = /org/freedesktop/DisplayManager/Seat0
+# environment
+VSCODE_IPC_HOOK = /run/user/1000/vscode-c0fc6d3a-1.35.1-main.sock
+# environment
+GNOME_KEYRING_CONTROL = /run/user/1000/keyring-A2v53e
+# makefile
+MAKEFLAGS = Rrqp
+# environment
+MFLAGS = -Rrqp
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# makefile (from `GNUmakefile', line 74)
+OBJDUMP := objdump
+# makefile (from `GNUmakefile', line 22)
+LABSETUP = ./
+# automatic
++F = $(notdir $+)
+# environment
+NO_AT_BRIDGE = 1
+# environment
+COMPIZ_BIN_PATH = /usr/bin/
+# environment
+DEFAULTS_PATH = /usr/share/gconf/ubuntu.default.path
+# environment
+TEXTDOMAINDIR = /usr/share/locale/
+# default
+MAKEFILES := 
+# environment
+UPSTART_SESSION = unix:abstract=/com/ubuntu/upstart-session/1000/1738
+# automatic
+<F = $(notdir $<)
+# makefile (from `GNUmakefile', line 8)
+OBJDIR := obj
+# environment
+INSTANCE = 
+# makefile (from `GNUmakefile', line 81)
+PERL := perl
+# environment
+LC_ALL = C
+# makefile (from `kern/Makefrag', line 101)
+KERN_BINFILES :=  obj/user/hello  obj/user/buggyhello  obj/user/buggyhello2  obj/user/evilhello  obj/user/testbss  obj/user/divzero  obj/user/breakpoint  obj/user/softint  obj/user/badsegment  obj/user/faultread  obj/user/faultreadkernel  obj/user/faultwrite  obj/user/faultwritekernel  obj/user/stepIntoTest  obj/user/continueTest  obj/user/idle  obj/user/yield  obj/user/dumbfork  obj/user/stresssched  obj/user/faultdie  obj/user/faultregs  obj/user/faultalloc  obj/user/faultallocbad  obj/user/faultnostack  obj/user/faultbadhandler  obj/user/faultevilhandler  obj/user/forktree  obj/user/sendpage  obj/user/spin  obj/user/fairness  obj/user/pingpong  obj/user/pingpongs  obj/user/primes  obj/user/testfile  obj/user/spawnhello  obj/user/icode  obj/fs/fs  obj/user/testpteshare  obj/user/testfdsharing  obj/user/testpipe  obj/user/testpiperace  obj/user/testpiperace2  obj/user/primespipe  obj/user/testkbd  obj/user/testshell
+# environment
+QT4_IM_MODULE = xim
+# automatic
+^F = $(notdir $^)
+# makefile (from `GNUmakefile', line 73)
+OBJCOPY := objcopy
+# default
+SUFFIXES := 
+# environment
+CHROME_DESKTOP = code-url-handler.desktop
+# default
+.INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+# environment
+MAKELEVEL := 0
+# makefile (from `kern/Makefrag', line 10)
+KERN_LDFLAGS := -m elf_i386 -T kern/kernel.ld -nostdlib
+# environment
+LANG = C
+# environment
+VSCODE_PID = 2257
+# variable set hash-table stats:
+# Load=146/1024=14%, Rehash=0, Collisions=31/405=8%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# lib (device 2049, inode 2624270): 23 files, no impossibilities so far.
+# obj/kern (device 2049, inode 2629731): 26 files, no impossibilities.
+# obj/fs (device 2049, inode 2633025): 12 files, no impossibilities.
+# obj (device 2049, inode 2629597): 11 files, no impossibilities so far.
+# . (device 2049, inode 2623717): 12 files, no impossibilities so far.
+# kern (device 2049, inode 2624256): 36 files, no impossibilities.
+# boot (device 2049, inode 2624230): No files, no impossibilities so far.
+# obj/user (device 2049, inode 2632084): 257 files, no impossibilities.
+# obj/lib (device 2049, inode 2631951): 25 files, no impossibilities.
+# obj/boot (device 2049, inode 2633706): 7 files, no impossibilities.
+
+# 409 files, no impossibilities in 10 directories.
+
+# Implicit Rules
+
+obj/.vars.%: FORCE
+#  commands to execute (from `GNUmakefile', line 130):
+	$(V)echo "$($*)" | cmp -s $@ || echo "$($*)" > $@
+	
+
+obj/boot/%.o: boot/%.c
+#  commands to execute (from `boot/Makefrag', line 13):
+	@echo + cc -Os $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(KERN_CFLAGS) -Os -c -o $@ $<
+	
+
+obj/boot/%.o: boot/%.S
+#  commands to execute (from `boot/Makefrag', line 18):
+	@echo + as $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(KERN_CFLAGS) -c -o $@ $<
+	
+
+obj/kern/%.o: kern/%.c obj/.vars.KERN_CFLAGS
+#  commands to execute (from `kern/Makefrag', line 105):
+	@echo + cc $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(KERN_CFLAGS) -c -o $@ $<
+	
+
+obj/kern/%.o: kern/%.S obj/.vars.KERN_CFLAGS
+#  commands to execute (from `kern/Makefrag', line 110):
+ 
+	@echo + as $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(KERN_CFLAGS) -c -o $@ $<
+	
+
+obj/kern/%.o: lib/%.c obj/.vars.KERN_CFLAGS
+#  commands to execute (from `kern/Makefrag', line 115):
+	@echo + cc $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(KERN_CFLAGS) -c -o $@ $<
+	
+
+obj/lib/%.o: lib/%.c obj/.vars.USER_CFLAGS
+#  commands to execute (from `lib/Makefrag', line 35):
+	@echo + cc[USER] $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(USER_CFLAGS) -c -o $@ $<
+	
+
+ 
+obj/lib/%.o: lib/%.S obj/.vars.USER_CFLAGS
+#  commands to execute (from `lib/Makefrag', line 40):
+	@echo + as[USER] $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(USER_CFLAGS) -c -o $@ $<
+	
+
+obj/user/%.o: user/%.c obj/.vars.USER_CFLAGS
+#  commands to execute (from `user/Makefrag', line 7):
+	@echo + cc[USER] $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(USER_CFLAGS) -c -o $@ $<
+	
+
+obj/user/%: obj/user/%.o obj/lib/entry.o obj/lib/libjos.a user/user.ld
+#  commands to execute (from `user/Makefrag', line 12):
+	@echo + ld $@
+	$(V)$(LD) -o $@.debug $(ULDFLAGS) $(LDFLAGS) -nostdlib $(OBJDIR)/lib/entry.o $@.o -L$(OBJDIR)/lib $(USERLIBS:%=-l%) $(GCC_LIB)
+	$(V)$(OBJDUMP) -S $@.debug > $@.asm
+	$(V)$(NM) -n $@.debug > $@.sym
+	$(V)$(OBJCOPY) -R .stab -R .stabstr --add-gnu-debuglink=$(basename $@.debug) $@.debug $@
+	
+
+obj/fs/%.o: fs/%.c fs/fs.h inc/lib.h obj/.vars.USER_CFLAGS
+#  commands to execute (from `fs/Makefrag', line 44):
+	@echo + cc[USER] $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(USER_CFLAGS) -c -o $@ $<
+	
+
+prep-%:
+#  commands to execute (from `GNUmakefile', line 219):
+	$(V)$(MAKE) "INIT_CFLAGS=${INIT_CFLAGS} -DTEST=`case $* in *_*) echo $*;; *) echo user_$*;; esac`" $(IMAGES)
+	
+
+run-%-nox-gdb: prep-% pre-qemu
+#  commands to execute (from `GNUmakefile', line 222):
+	$(QEMU) -nographic $(QEMUOPTS) -S
+	
+
+run-%-gdb: prep-% pre-qemu
+#  commands to execute (from `GNUmakefile', line 225):
+	$(QEMU) $(QEMUOPTS) -S
+	
+
+run-%-nox: prep-% pre-qemu
+#  commands to execute (from `GNUmakefile', line 228):
+	$(QEMU) -nographic $(QEMUOPTS)
+	
+
+run-%: prep-% pre-qemu
+#  commands to execute (from `GNUmakefile', line 231):
+	$(QEMU) $(QEMUOPTS)
+	
+
+# 16 implicit rules, 0 (0.0%) terminal.
+
+# Files
+
+# Not a target:
+/usr/include/i386-linux-gnu/bits/environments.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/pingpong.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/lib/gcc/i686-linux-gnu/4.8/include/stddef.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/fs/fs.o: fs/fs.c inc/string.h inc/types.h inc/partition.h fs/fs.h inc/fs.h inc/mmu.h inc/lib.h inc/stdio.h inc/stdarg.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/syscall.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/trapentry.S:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/fs/fs: obj/fs/ide.o obj/fs/bc.o obj/fs/fs.o obj/fs/serv.o obj/fs/test.o obj/lib/entry.o obj/lib/libjos.a user/user.ld
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `fs/Makefrag', line 49):
+	@echo + ld $@
+	$(V)mkdir -p $(@D)
+	$(V)$(LD) -o $@ $(ULDFLAGS) $(LDFLAGS) -nostdlib \
+	$(OBJDIR)/lib/entry.o $(FSOFILES) \
+	-L$(OBJDIR)/lib -ljos $(GCC_LIB)
+	$(V)$(OBJDUMP) -S $@ >$@.asm
+	
+
+# Not a target:
+/usr/include/asm-generic/errno.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/primes.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/unistd.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/fcntl.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+lib/printfmt.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/sh:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/net/%.o:
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/elf.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+handin: tarball
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 211):
+	@echo Please submit lab$(LAB)-handin.tar.gz file!
+	
+
+obj/user/testpteshare.o: user/testpteshare.c inc/x86.h inc/types.h inc/lib.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/buggyhello2:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+ 
+
+# Not a target:
+/usr/include/i386-linux-gnu/bits/confname.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/lib/panic.o: lib/panic.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/sched.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/testpiperace.o: user/testpiperace.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/lib/%.o:
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/stresssched.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+qemu: obj/kern/kernel.img obj/fs/fs.img pre-qemu
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 162):
+	$(QEMU) $(QEMUOPTS)
+	
+
+obj/user/init.o: user/init.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/entrypgdir.o: kern/entrypgdir.c inc/mmu.h inc/types.h inc/memlayout.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+lib/Makefrag:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-14 06:01:15.744607128
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+user/sh.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/faultbadhandler.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/i386-linux-gnu/bits/mman-linux.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/kernel.img: obj/kern/kernel obj/boot/boot
+#  Implicit rule search has not been done.
+#  Last modified 2022-05-16 12:46:01.840922124
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/5=0%
+#  commands to execute (from `kern/Makefrag', line 133):
+	@echo + mk $@
+	$(V)dd if=/dev/zero of=$(OBJDIR)/kern/kernel.img~ count=10000 2>/dev/null
+	$(V)dd if=$(OBJDIR)/boot/boot of=$(OBJDIR)/kern/kernel.img~ conv=notrunc 2>/dev/null
+	$(V)dd if=$(OBJDIR)/kern/kernel of=$(OBJDIR)/kern/kernel.img~ seek=1 conv=notrunc 2>/dev/null
+	$(V)mv $(OBJDIR)/kern/kernel.img~ $(OBJDIR)/kern/kernel.img
+	
+
+obj/lib/libmain.o: lib/libmain.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+ 
+# Not a target:
+/usr/include/i386-linux-gnu/bits/stat.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/evilhello:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/fairness.o: user/fairness.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/fairness:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/buggyhello2.o: user/buggyhello2.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/features.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+gdb:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 157):
+	gdb -x .gdbinit
+	
+
+obj/user/icode.o: user/icode.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/syscall.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/breakpoint.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/i386-linux-gnu/bits/stdlib-float.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/buggyhello.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+all: obj/kern/kernel.img obj/fs/fs.img
+#  Phony target (prerequisite of .PHONY).
+#  Command-line target.
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+ 
+# Load=0/32=0%, Rehash=0, Collisions=0/5=0%
+
+# Not a target:
+/usr/include/i386-linux-gnu/bits/waitstatus.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/lib/printfmt.o: lib/printfmt.c inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/colors.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+%.o:
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+FORCE:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+ 
+user/continueTest.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+lib/wait.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/linux/errno.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/forktree:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+ 
+obj/kern/console.o: kern/console.c inc/x86.h inc/types.h inc/memlayout.h inc/mmu.h inc/kbdreg.h inc/string.h inc/assert.h inc/stdio.h inc/stdarg.h inc/colors.h kern/console.h kern/picirq.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/sched.o: kern/sched.c inc/assert.h inc/stdio.h inc/stdarg.h inc/x86.h inc/types.h kern/spinlock.h kern/env.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h kern/cpu.h kern/pmap.h kern/monitor.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/forktree.o: user/forktree.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/dumbfork.o: user/dumbfork.c inc/string.h inc/types.h inc/lib.h inc/stdio.h inc/stdarg.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+.PHONY: FORCE all always handin tarball clean realclean distclean grade handin-prep handin-check
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+fs/fs.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/testbss.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+pre-qemu: .gdbinit
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/i386-linux-gnu/bits/sigset.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/stresssched:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/i386-linux-gnu/bits/stdio_lim.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/colors.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/stresssched.o: user/stresssched.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/i386-linux-gnu/sys/types.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/kdebug.o: kern/kdebug.c inc/stab.h inc/types.h inc/string.h inc/memlayout.h inc/mmu.h inc/assert.h inc/stdio.h inc/stdarg.h kern/kdebug.h kern/pmap.h kern/env.h inc/env.h inc/trap.h kern/cpu.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/xlocale.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+handin-check:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+obj/user/testpiperace:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/faultwritekernel:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+.PRECIOUS: %.o obj/boot/%.o obj/kern/%.o obj/lib/%.o obj/fs/%.o obj/net/%.o obj/user/%.o obj/.vars.%
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+handin-prep:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+obj/user/faultwritekernel.o: user/faultwritekernel.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/mpconfig.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/readline.o: lib/readline.c inc/stdio.h inc/stdarg.h inc/error.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/boot/%.o:
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+lib/file.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/sched.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/syscall.o: kern/syscall.c inc/x86.h inc/types.h inc/error.h inc/string.h inc/assert.h inc/stdio.h inc/stdarg.h kern/env.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h kern/cpu.h kern/pmap.h kern/trap.h kern/syscall.h inc/syscall.h kern/console.h kern/sched.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+boot/boot.S:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/picirq.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/fs.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+fs/test.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/lib/wait.o: lib/wait.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/lsfd.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/dumbfork.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+distclean: realclean
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 198):
+	rm -rf conf/gcc.mk
+	
+
+print-gdbport:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 186):
+	@echo $(GDBPORT)
+	
+
+# Not a target:
+/usr/include/i386-linux-gnu/bits/fcntl-linux.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/testshell.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/user.ld:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/faultregs.o: user/faultregs.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/faultregs:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/kdebug.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/fs/test.o: fs/test.c inc/x86.h inc/types.h inc/string.h fs/fs.h inc/fs.h inc/mmu.h inc/lib.h inc/stdio.h inc/stdarg.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/syscall.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/yield.o: user/yield.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+ 
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/fs/bc.o: fs/bc.c fs/fs.h inc/fs.h inc/types.h inc/mmu.h inc/lib.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/syscall.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/stab.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/testpipe:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+lib/string.c:
+#  Implicit rule search has not been done.
+ 
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.gdbinit.tmpl:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+lib/fork.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+lib/fprintf.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/sendpage:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/syscall.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+lib/exit.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/num.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/sendpage.o: user/sendpage.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+lib/pfentry.S:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/wchar.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/testfile.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+.SUFFIXES:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/mpconfig.o: kern/mpconfig.c inc/types.h inc/string.h inc/memlayout.h inc/mmu.h inc/x86.h inc/env.h inc/trap.h kern/cpu.h kern/pmap.h inc/assert.h inc/stdio.h inc/stdarg.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/faultnostack.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/lib/file.o: lib/file.c inc/fs.h inc/types.h inc/mmu.h inc/string.h inc/lib.h inc/stdio.h inc/stdarg.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/syscall.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/pingpongs.o: user/pingpongs.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/monitor.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+ 
+
+# Not a target:
+/usr/include/alloca.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/trap.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/picirq.o: kern/picirq.c inc/assert.h inc/stdio.h inc/stdarg.h inc/trap.h inc/types.h kern/picirq.h inc/x86.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/.vars.%:
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+realclean: clean
+#  Phony target (prerequisite of .PHONY).
+ 
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 193):
+	rm -rf lab$(LAB).tar.gz \
+	jos.out $(wildcard jos.out.*) \
+	qemu.pcap $(wildcard qemu.pcap.*)
+	
+
+# Not a target:
+obj/user/testpteshare:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+always:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 244):
+	@:
+	
+
+# Not a target:
+/usr/include/i386-linux-gnu/sys/sysmacros.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+print-qemu:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 183):
+	@echo $(QEMU)
+	
+
+# Not a target:
+obj/user/primespipe:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/cpu.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+ 
+
+obj/lib/libjos.a: obj/lib/console.o obj/lib/libmain.o obj/lib/exit.o obj/lib/panic.o obj/lib/printf.o obj/lib/printfmt.o obj/lib/readline.o obj/lib/string.o obj/lib/syscall.o obj/lib/pgfault.o obj/lib/pfentry.o obj/lib/fork.o obj/lib/ipc.o obj/lib/args.o obj/lib/fd.o obj/lib/file.o obj/lib/fprintf.o obj/lib/pageref.o obj/lib/spawn.o obj/lib/pipe.o obj/lib/wait.o
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `lib/Makefrag', line 45):
+	@echo + ar $@
+	$(V)$(AR) r $@ $(LIB_OBJFILES)
+	
+
+obj/user/primespipe.o: user/primespipe.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/pmap.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/i386-linux-gnu/bits/wchar.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/mpentry.o: kern/mpentry.S inc/mmu.h inc/memlayout.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/divzero.o: user/divzero.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/lib/exit.o: lib/exit.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/fairness.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/i386-linux-gnu/bits/types.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/i386-linux-gnu/gnu/stubs-32.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+lib/printf.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/lib/string.o: lib/string.c inc/string.h inc/types.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/lapic.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/string.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+ 
+
+# Not a target:
+conf/env.mk:
+#  A default, MAKEFILES, or -include/sinclude makefile.
+#  Implicit rule search has been done.
+#  Last modified 2022-04-01 07:10:00.805290995
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+lib/pageref.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/error.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/yield.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/printf.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/init.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+fs/fsformat.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/picirq.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+lib/ipc.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+tarball: realclean
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 214):
+	tar cf - `find . -type f | grep -v '^\.*$$' | grep -v '/CVS/' | grep -v '/\.svn/' | grep -v '/\.git/' | grep -v 'lab[0-9].*\.tar\.gz'` | gzip > lab$(LAB)-handin.tar.gz
+	
+
+# Not a target:
+obj/user/num:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/num.o: user/num.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/lib/pgfault.o: lib/pgfault.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/monitor.o: kern/monitor.c inc/stdio.h inc/stdarg.h inc/string.h inc/types.h inc/memlayout.h inc/mmu.h inc/assert.h inc/x86.h kern/console.h kern/monitor.h kern/kdebug.h kern/pmap.h kern/trap.h inc/trap.h kern/env.h inc/env.h kern/cpu.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/i386-linux-gnu/bits/wordsize.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/lib/pfentry.o: lib/pfentry.S inc/mmu.h inc/memlayout.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/hello.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/testpiperace2.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/i386-linux-gnu/bits/byteswap.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/.deps:
+#  A default, MAKEFILES, or -include/sinclude makefile.
+#  Implicit rule search has not been done.
+#  Last modified 2022-05-16 12:48:18.895530624
+#  File has been updated.
+#  Successfully updated.
+#  commands to execute (from `GNUmakefile', line 238):
+	@mkdir -p $(@D)
+	@$(PERL) mergedep.pl $@ $^
+	
+
+grade:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 205):
+	@echo $(MAKE) clean
+	@$(MAKE) clean || \
+	(echo "'make clean' failed.  HINT: Do you have another running instance of JOS?" && exit 1)
+	./grade-lab$(LAB) $(GRADEFLAGS)
+	
+
+obj/fs/fsformat: fs/fsformat.c fs/fsformat.c /usr/include/stdc-predef.h /usr/include/assert.h /usr/include/features.h /usr/include/i386-linux-gnu/sys/cdefs.h /usr/include/i386-linux-gnu/bits/wordsize.h /usr/include/i386-linux-gnu/gnu/stubs.h /usr/include/i386-linux-gnu/gnu/stubs-32.h /usr/include/errno.h /usr/include/i386-linux-gnu/bits/errno.h /usr/include/linux/errno.h /usr/include/i386-linux-gnu/asm/errno.h /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h /usr/include/fcntl.h /usr/include/i386-linux-gnu/bits/types.h /usr/include/i386-linux-gnu/bits/typesizes.h /usr/include/i386-linux-gnu/bits/fcntl.h /usr/include/i386-linux-gnu/bits/fcntl-linux.h /usr/include/time.h /usr/include/i386-linux-gnu/bits/stat.h /usr/include/inttypes.h /usr/lib/gcc/i686-linux-gnu/4.8/include/stdint.h /usr/include/stdint.h /usr/include/i386-linux-gnu/bits/wchar.h /usr/lib/gcc/i686-linux-gnu/4.8/include/stdarg.h /usr/include/stdio.h /usr/lib/gcc/i686-linux-gnu/4.8/include/stddef.h /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h /usr/include/i386-linux-gnu/bits/stdio_lim.h /usr/include/i386-linux-gnu/bits/sys_errlist.h /usr/include/stdlib.h /usr/include/i386-linux-gnu/bits/waitflags.h /usr/include/i386-linux-gnu/bits/waitstatus.h /usr/include/endian.h /usr/include/i386-linux-gnu/bits/endian.h /usr/include/i386-linux-gnu/bits/byteswap.h /usr/include/i386-linux-gnu/bits/byteswap-16.h /usr/include/i386-linux-gnu/sys/types.h /usr/include/i386-linux-gnu/sys/select.h /usr/include/i386-linux-gnu/bits/select.h /usr/include/i386-linux-gnu/bits/sigset.h /usr/include/i386-linux-gnu/bits/time.h /usr/include/i386-linux-gnu/sys/sysmacros.h /usr/include/i386-linux-gnu/bits/pthreadtypes.h /usr/include/alloca.h /usr/include/i386-linux-gnu/bits/stdlib-float.h /usr/include/string.h /usr/include/xlocale.h /usr/include/unistd.h /usr/include/i386-linux-gnu/bits/posix_opt.h /usr/include/i386-linux-gnu/bits/environments.h /usr/include/i386-linux-gnu/bits/confname.h /usr/include/getopt.h /usr/include/i386-linux-gnu/sys/mman.h /usr/include/i386-linux-gnu/bits/mman.h /usr/include/i386-linux-gnu/bits/mman-linux.h /usr/include/i386-linux-gnu/sys/stat.h inc/mmu.h inc/types.h inc/fs.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `fs/Makefrag', line 58):
+	@echo + mk $(OBJDIR)/fs/fsformat
+	$(V)mkdir -p $(@D)
+	$(V)$(NCC) $(NATIVE_CFLAGS) -o $(OBJDIR)/fs/fsformat fs/fsformat.c
+	
+
+# Not a target:
+user/echo.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/pingpongs:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/init:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/badsegment.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/echo:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/boot/boot.o: boot/boot.S inc/mmu.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/%.o:
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/boot/boot: obj/boot/boot.o obj/boot/main.o
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `boot/Makefrag', line 27):
+	@echo + ld boot/boot
+	$(V)$(LD) $(LDFLAGS) -N -e start -Ttext 0x7C00 -o $@.out $^
+	$(V)$(OBJDUMP) -S $@.out >$@.asm
+	$(V)$(OBJCOPY) -S -O binary -j .text $@.out $@
+	$(V)perl boot/sign.pl $(OBJDIR)/boot/boot
+	
+
+# Not a target:
+/usr/include/i386-linux-gnu/bits/mman.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+boot/Makefrag:
+#  Implicit rule search has been done.
+#  Last modified 2022-04-01 07:10:00.805290995
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+user/evilhello.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/Makefrag:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-14 06:01:15.744607128
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+obj/user/spin.o: user/spin.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/lib/fprintf.o: lib/fprintf.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/faultevilhandler.o: user/faultevilhandler.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/faultevilhandler:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/faultallocbad.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/i386-linux-gnu/sys/cdefs.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/lib/printf.o: lib/printf.c inc/types.h inc/stdio.h inc/stdarg.h inc/lib.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/lapic.o: kern/lapic.c inc/types.h inc/memlayout.h inc/mmu.h inc/trap.h inc/stdio.h inc/stdarg.h inc/x86.h kern/pmap.h inc/assert.h kern/cpu.h inc/env.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+qemu-nox-gdb: obj/kern/kernel.img obj/fs/fs.img pre-qemu
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 177):
+	@echo "***"
+	@echo "*** Now run 'make gdb'." 1>&2
+	@echo "***"
+	$(QEMU) -nographic $(QEMUOPTS) -S
+	
+
+# Not a target:
+/usr/include/i386-linux-gnu/bits/sys_errlist.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/faultnostack:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/monitor.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/i386-linux-gnu/bits/typesizes.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/faultnostack.o: user/faultnostack.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/idle:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/init.o: obj/.vars.INIT_CFLAGS kern/init.c inc/stdio.h inc/stdarg.h inc/string.h inc/types.h inc/assert.h kern/monitor.h kern/console.h kern/pmap.h inc/memlayout.h inc/mmu.h kern/kclock.h kern/env.h inc/env.h inc/trap.h kern/cpu.h kern/trap.h kern/sched.h kern/picirq.h inc/x86.h kern/spinlock.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+# `override' directive (from `kern/Makefrag', line 120)
+# KERN_CFLAGS += $(INIT_CFLAGS)
+# variable set hash-table stats:
+# Load=1/32=3%, Rehash=0, Collisions=0/2=0%
+
+# Not a target:
+fs/script:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/idle.o: user/idle.c inc/x86.h inc/types.h inc/lib.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/lib/ipc.o: lib/ipc.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+ 
+# Not a target:
+lib/args.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/cat.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/printfmt.o: lib/printfmt.c inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/colors.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/testpiperace2.o: user/testpiperace2.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+fs/motd:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/fs/clean-fs.img: obj/fs/fsformat fs/newmotd fs/motd fs/lorem fs/script fs/testshell.key fs/testshell.sh obj/user/init obj/user/cat obj/user/echo obj/user/init obj/user/ls obj/user/lsfd obj/user/num obj/user/forktree obj/user/primes obj/user/primespipe obj/user/sh obj/user/testfdsharing obj/user/testkbd obj/user/testpipe obj/user/testpteshare obj/user/testshell obj/user/hello
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `fs/Makefrag', line 63):
+	@echo + mk $(OBJDIR)/fs/clean-fs.img
+	$(V)mkdir -p $(@D)
+	$(V)$(OBJDIR)/fs/fsformat $(OBJDIR)/fs/clean-fs.img 1024 $(FSIMGFILES)
+	
+
+obj/jos-grub: obj/kern/kernel
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `kern/Makefrag', line 144):
+	@echo + oc $@
+	$(V)$(OBJCOPY) --adjust-vma=0x10000000 $^ $@
+	
+
+# Not a target:
+inc/stdarg.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/spin:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+fs/Makefrag:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-14 06:01:15.744607128
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+obj/kern/kernel: obj/kern/entry.o obj/kern/entrypgdir.o obj/kern/init.o obj/kern/console.o obj/kern/monitor.o obj/kern/pmap.o obj/kern/env.o obj/kern/kclock.o obj/kern/picirq.o obj/kern/printf.o obj/kern/trap.o obj/kern/trapentry.o obj/kern/sched.o obj/kern/syscall.o obj/kern/kdebug.o obj/kern/printfmt.o obj/kern/readline.o obj/kern/string.o obj/kern/mpentry.o obj/kern/mpconfig.o obj/kern/lapic.o obj/kern/spinlock.o obj/user/hello obj/user/buggyhello obj/user/buggyhello2 obj/user/evilhello obj/user/testbss obj/user/divzero obj/user/breakpoint obj/user/softint obj/user/badsegment obj/user/faultread obj/user/faultreadkernel obj/user/faultwrite obj/user/faultwritekernel obj/user/stepIntoTest obj/user/continueTest obj/user/idle obj/user/yield obj/user/dumbfork obj/user/stresssched obj/user/faultdie obj/user/faultregs obj/user/faultalloc obj/user/faultallocbad obj/user/faultnostack obj/user/faultbadhandler obj/user/faultevilhandler obj/user/forktree obj/user/sendpage obj/user/spin obj/user/fairness obj/user/pingpong obj/user/pingpongs obj/user/primes obj/user/testfile obj/user/spawnhello obj/user/icode obj/fs/fs obj/user/testpteshare obj/user/testfdsharing obj/user/testpipe obj/user/testpiperace obj/user/testpiperace2 obj/user/primespipe obj/user/testkbd obj/user/testshell kern/kernel.ld obj/.vars.KERN_LDFLAGS
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/5=0%
+#  commands to execute (from `kern/Makefrag', line 126):
+	@echo + ld $@
+	$(V)$(LD) -o $@ $(KERN_LDFLAGS) $(KERN_OBJFILES) $(GCC_LIB) -b binary $(KERN_BINFILES)
+	$(V)$(OBJDUMP) -S $@ > $@.asm
+	$(V)$(NM) -n $@ > $@.sym
+	
+
+obj/kern/trapentry.o: kern/trapentry.S inc/mmu.h inc/memlayout.h inc/trap.h kern/picirq.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/stepIntoTest.o: user/stepIntoTest.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h inc/x86.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/time.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/i386-linux-gnu/sys/mman.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+lib/console.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/stepIntoTest:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/testfile:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/testpteshare.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/lib/args.o: lib/args.c inc/args.h inc/string.h inc/types.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/i386-linux-gnu/bits/errno.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/lib/fd.o: lib/fd.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/spawnhello.o: user/spawnhello.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/testpiperace.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+lib/entry.S:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/asm-generic/errno-base.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/faultread.o: user/faultread.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/init.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/faultwrite.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+.gdbinit: .gdbinit.tmpl
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 154):
+	sed "s/localhost:1234/localhost:$(GDBPORT)/" < $^ > $@
+	
+
+# Not a target:
+lib/fd.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/stdlib.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/i386-linux-gnu/bits/posix_opt.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/i386-linux-gnu/bits/byteswap-16.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/endian.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+lib/pipe.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+grub: obj/jos-grub
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+fs/ide.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/i386-linux-gnu/sys/stat.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/partition.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/lsfd:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/softint.o: user/softint.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/libio.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/yield:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/softint:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/buggyhello:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/lsfd.o: user/lsfd.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/spinlock.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/fs/ide.o: fs/ide.c fs/fs.h inc/fs.h inc/types.h inc/mmu.h inc/lib.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/syscall.h inc/fd.h inc/args.h inc/x86.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/pmap.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/faultreadkernel.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/pingpong:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/lib/fork.o: lib/fork.c inc/string.h inc/types.h inc/lib.h inc/stdio.h inc/stdarg.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/lib/console.o: lib/console.c inc/string.h inc/types.h inc/lib.h inc/stdio.h inc/stdarg.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/Makefrag:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-14 06:01:15.748607128
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+obj/user/sh.o: user/sh.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/testfdsharing:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/pingpong.o: user/pingpong.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+ 
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/breakpoint.o: user/breakpoint.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/i386-linux-gnu/bits/endian.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/testfdsharing.o: user/testfdsharing.c inc/x86.h inc/types.h inc/lib.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/breakpoint:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+conf/lab.mk:
+#  A default, MAKEFILES, or -include/sinclude makefile.
+#  Implicit rule search has been done.
+#  Last modified 2022-05-14 06:01:15.744607128
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+user/testkbd.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/forktree.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/testpipe.o: user/testpipe.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/stdio.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/ls.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/faultregs.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/primes.o: user/primes.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/lib/entry.o: lib/entry.S inc/mmu.h inc/memlayout.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/primes:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/i386-linux-gnu/asm/errno.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/lib/pipe.o: lib/pipe.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/types.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/icode.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/.vars.KERN_CFLAGS: FORCE
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `KERN_CFLAGS'
+#  Last modified 2022-05-16 12:45:56.900922157
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := obj/.vars.KERN_CFLAGS
+# automatic
+# % := 
+# automatic
+# * := KERN_CFLAGS
+# automatic
+# + := FORCE
+# automatic
+# | := 
+# automatic
+# < := FORCE
+# automatic
+# ^ := FORCE
+# automatic
+# ? := 
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=1/17=6%
+#  commands to execute (from `GNUmakefile', line 130):
+	$(V)echo "$($*)" | cmp -s $@ || echo "$($*)" > $@
+	
+
+# Not a target:
+fs/testshell.key:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/softint.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/stdio.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/i386-linux-gnu/bits/pthreadtypes.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/faultbadhandler.o: user/faultbadhandler.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/divzero:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/env.o: kern/env.c inc/x86.h inc/types.h inc/mmu.h inc/error.h inc/string.h inc/assert.h inc/stdio.h inc/stdarg.h inc/elf.h kern/env.h inc/env.h inc/trap.h inc/memlayout.h kern/cpu.h kern/pmap.h kern/trap.h kern/monitor.h kern/sched.h kern/spinlock.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/i386-linux-gnu/bits/fcntl.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/spinlock.o: kern/spinlock.c inc/types.h inc/assert.h inc/stdio.h inc/stdarg.h inc/x86.h inc/memlayout.h inc/mmu.h inc/string.h kern/cpu.h inc/env.h inc/trap.h kern/spinlock.h kern/kdebug.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/fs/fs.img: obj/fs/clean-fs.img
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `fs/Makefrag', line 68):
+	@echo + cp $(OBJDIR)/fs/clean-fs.img $@
+	$(V)cp $(OBJDIR)/fs/clean-fs.img $@
+	
+
+obj/kern/pmap.o: kern/pmap.c inc/x86.h inc/types.h inc/mmu.h inc/error.h inc/string.h inc/assert.h inc/stdio.h inc/stdarg.h kern/pmap.h inc/memlayout.h kern/kclock.h kern/env.h inc/env.h inc/trap.h kern/cpu.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/assert.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/fs/serv.o: fs/serv.c inc/x86.h inc/types.h inc/string.h fs/fs.h inc/fs.h inc/mmu.h inc/lib.h inc/stdio.h inc/stdarg.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/syscall.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/string.o: lib/string.c inc/string.h inc/types.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/getopt.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+qemu-gdb: obj/kern/kernel.img obj/fs/fs.img pre-qemu
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 171):
+	@echo "***"
+	@echo "*** Now run 'make gdb'." 1>&2
+	@echo "***"
+	$(QEMU) $(QEMUOPTS) -S
+	
+
+obj/user/buggyhello.o: user/buggyhello.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+fs/newmotd:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/spawnhello:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/faultdie.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/faultreadkernel:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/faultreadkernel.o: user/faultreadkernel.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+clean:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 190):
+	rm -rf $(OBJDIR) .gdbinit jos.in qemu.log
+	
+
+# Not a target:
+obj/user/faultbadhandler:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/env.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/faultread:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/spinlock.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+lib/spawn.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/faultdie.o: user/faultdie.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/sendpage.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/kernel.ld:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/testfdsharing.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/x86.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/kclock.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/lib/gcc/i686-linux-gnu/4.8/include/stdint.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/printf.o: kern/printf.c inc/types.h inc/stdio.h inc/stdarg.h
+ 
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+fs/serv.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/_G_config.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/env.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+lib/libmain.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/fs/%.o:
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/kern/%.o:
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/testfile.o: user/testfile.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/dumbfork:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/env.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/ls.o: user/ls.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/echo.o: user/echo.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/ls:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/testshell:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+lib/readline.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/testshell.o: user/testshell.c inc/x86.h inc/types.h inc/lib.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/i386-linux-gnu/gnu/stubs.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/.vars.KERN_LDFLAGS:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+lib/syscall.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/hello:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/lib/spawn.o: lib/spawn.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h inc/elf.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GNUmakefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-14 06:01:15.744607128
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+user/faultwritekernel.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/trap.o: kern/trap.c inc/mmu.h inc/types.h inc/x86.h inc/assert.h inc/stdio.h inc/stdarg.h kern/pmap.h inc/memlayout.h kern/trap.h inc/trap.h kern/console.h kern/monitor.h kern/env.h inc/env.h kern/cpu.h kern/syscall.h inc/syscall.h kern/sched.h kern/kclock.h kern/picirq.h kern/spinlock.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/buggyhello2.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/.vars.INIT_CFLAGS:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/primespipe.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/errno.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/console.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/testkbd:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+qemu-nox: obj/kern/kernel.img obj/fs/fs.img pre-qemu
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `GNUmakefile', line 165):
+	@echo "***"
+	@echo "*** Use Ctrl-a x to exit qemu"
+	@echo "***"
+	$(QEMU) -nographic $(QEMUOPTS)
+	
+
+obj/user/testkbd.o: user/testkbd.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/inttypes.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/pingpongs.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/i386-linux-gnu/bits/waitflags.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/stdint.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/divzero.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/entry.S:
+#  Implicit rule search has been done.
+#  Last modified 2022-04-24 12:09:16.705279687
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+user/testpipe.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/kdebug.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/string.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/lib/pageref.o: lib/pageref.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/lib/gcc/i686-linux-gnu/4.8/include/stdarg.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/spin.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/faultevilhandler.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/i386-linux-gnu/bits/select.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/trap.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/lib/readline.o: lib/readline.c inc/stdio.h inc/stdarg.h inc/error.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/faultalloc:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/faultdie:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/lib/syscall.o: lib/syscall.c inc/syscall.h inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/testpiperace2:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+fs/testshell.sh:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/faultalloc.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/faultalloc.o: user/faultalloc.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/i386-linux-gnu/bits/time.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/mmu.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+.DELETE_ON_ERROR:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/lib.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/idle.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+ 
+inc/memlayout.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/continueTest.o: user/continueTest.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h inc/x86.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+lib/pgfault.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/continueTest:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/syscall.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/kclock.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+fs/lorem:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+boot/main.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/stepIntoTest.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/faultwrite:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/hello.o: user/hello.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/entry.o: kern/entry.S obj/.vars.KERN_CFLAGS kern/entry.S inc/mmu.h inc/memlayout.h inc/trap.h
+#  Precious file (prerequisite of .PRECIOUS).
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: `entry'
+#  Last modified 2022-05-16 12:45:56.912922157
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/5=0%
+#  commands to execute (from `kern/Makefrag', line 110):
+	@echo + as $<
+	@mkdir -p $(@D)
+	$(V)$(CC) -nostdinc $(KERN_CFLAGS) -c -o $@ $<
+	
+
+# Not a target:
+/usr/include/i386-linux-gnu/sys/select.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/badsegment.o: user/badsegment.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/spawnhello.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/badsegment:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+/usr/include/stdc-predef.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/console.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+user/faultread.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/evilhello.o: user/evilhello.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/faultallocbad:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/icode:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/boot/main.o: boot/main.c boot/main.c inc/x86.h inc/types.h inc/elf.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `boot/Makefrag', line 23):
+	@echo + cc -Os $<
+	$(V)$(CC) -nostdinc $(KERN_CFLAGS) -Os -c -o $(OBJDIR)/boot/main.o boot/main.c
+	
+
+# Not a target:
+lib/panic.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/faultallocbad.o: user/faultallocbad.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/mpentry.S:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/trap.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+fs/bc.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+kern/entrypgdir.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/testbss.o: user/testbss.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/assert.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/testbss:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/kern/kclock.o: kern/kclock.c inc/x86.h inc/types.h kern/kclock.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/args.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+fs/fs.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/kbdreg.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/cat.o: user/cat.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+inc/fd.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/user/cat:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+obj/user/faultwrite.o: user/faultwrite.c inc/lib.h inc/types.h inc/stdio.h inc/stdarg.h inc/string.h inc/error.h inc/assert.h inc/env.h inc/trap.h inc/memlayout.h inc/mmu.h inc/syscall.h inc/fs.h inc/fd.h inc/args.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# files hash-table stats:
+# Load=410/1024=40%, Rehash=0, Collisions=861/2125=41%
+# VPATH Search Paths
+
+# No `vpath' search paths.
+
+# No general (`VPATH' variable) search path.
+
+# # of strings in strcache: 9
+# # of strcache buffers: 1
+# strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
+# strcache free: total = 3983 / max = 3983 / min = 3983 / avg = 3983
+
+# Finished Make data base on Mon May 16 12:48:21 2022
+
+ 

@@ -63,7 +63,7 @@ sys_getenvid(void)
 
 void
 sys_yield(void)
-{
+{	
 	syscall(SYS_yield, 0, 0, 0, 0, 0, 0);
 }
 
@@ -122,3 +122,9 @@ sys_time_msec(void)
 {
 	return (unsigned int) syscall(SYS_time_msec, 0, 0, 0, 0, 0, 0);
 }
+int
+sys_set_priority(int priority)
+{
+	return syscall(SYS_set_priority, 0, priority, 0, 0, 0, 0);
+}
+

@@ -1,0 +1,604 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/home/nadavash/Desktop/OSE/lab'
+ 
+make: Leaving directory `/home/nadavash/Desktop/OSE/lab'
+ 
+make: Entering directory `/home/nadavash/Desktop/OSE/lab'
+echo "   -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs" | cmp -s obj/.vars.KERN_CFLAGS || echo "   -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs" > obj/.vars.KERN_CFLAGS
+echo + as kern/entry.S
+mkdir -p obj/kern
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs -c -o obj/kern/entry.o kern/entry.S
+echo + cc kern/entrypgdir.c
+mkdir -p obj/kern
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs -c -o obj/kern/entrypgdir.o kern/entrypgdir.c
+echo "" | cmp -s obj/.vars.INIT_CFLAGS || echo "" > obj/.vars.INIT_CFLAGS
+echo + cc kern/init.c
+mkdir -p obj/kern
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs  -c -o obj/kern/init.o kern/init.c
+echo + cc kern/console.c
+mkdir -p obj/kern
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs -c -o obj/kern/console.o kern/console.c
+echo + cc kern/monitor.c
+mkdir -p obj/kern
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs -c -o obj/kern/monitor.o kern/monitor.c
+echo + cc kern/pmap.c
+mkdir -p obj/kern
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs -c -o obj/kern/pmap.o kern/pmap.c
+echo + cc kern/env.c
+mkdir -p obj/kern
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs -c -o obj/kern/env.o kern/env.c
+echo + cc kern/kclock.c
+mkdir -p obj/kern
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs -c -o obj/kern/kclock.o kern/kclock.c
+echo + cc kern/picirq.c
+mkdir -p obj/kern
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs -c -o obj/kern/picirq.o kern/picirq.c
+echo + cc kern/printf.c
+mkdir -p obj/kern
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs -c -o obj/kern/printf.o kern/printf.c
+echo + cc kern/trap.c
+mkdir -p obj/kern
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs -c -o obj/kern/trap.o kern/trap.c
+echo + as kern/trapentry.S
+mkdir -p obj/kern
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs -c -o obj/kern/trapentry.o kern/trapentry.S
+echo + cc kern/sched.c
+mkdir -p obj/kern
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs -c -o obj/kern/sched.o kern/sched.c
+echo + cc kern/syscall.c
+mkdir -p obj/kern
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs -c -o obj/kern/syscall.o kern/syscall.c
+echo + cc kern/kdebug.c
+mkdir -p obj/kern
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs -c -o obj/kern/kdebug.o kern/kdebug.c
+echo + cc lib/printfmt.c
+mkdir -p obj/kern
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs -c -o obj/kern/printfmt.o lib/printfmt.c
+echo + cc lib/readline.c
+mkdir -p obj/kern
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs -c -o obj/kern/readline.o lib/readline.c
+echo + cc lib/string.c
+mkdir -p obj/kern
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs -c -o obj/kern/string.o lib/string.c
+echo + as kern/mpentry.S
+mkdir -p obj/kern
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs -c -o obj/kern/mpentry.o kern/mpentry.S
+echo + cc kern/mpconfig.c
+mkdir -p obj/kern
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs -c -o obj/kern/mpconfig.o kern/mpconfig.c
+echo + cc kern/lapic.c
+mkdir -p obj/kern
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs -c -o obj/kern/lapic.o kern/lapic.c
+echo + cc kern/spinlock.c
+mkdir -p obj/kern
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs -c -o obj/kern/spinlock.o kern/spinlock.c
+echo "   -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs" | cmp -s obj/.vars.USER_CFLAGS || echo "   -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs" > obj/.vars.USER_CFLAGS
+echo + cc[USER] user/hello.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/hello.o user/hello.c
+echo + as[USER] lib/entry.S
+mkdir -p obj/lib
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/lib/entry.o lib/entry.S
+echo + cc[USER] lib/console.c
+mkdir -p obj/lib
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/lib/console.o lib/console.c
+echo + cc[USER] lib/libmain.c
+mkdir -p obj/lib
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/lib/libmain.o lib/libmain.c
+echo + cc[USER] lib/exit.c
+mkdir -p obj/lib
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/lib/exit.o lib/exit.c
+echo + cc[USER] lib/panic.c
+mkdir -p obj/lib
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/lib/panic.o lib/panic.c
+echo + cc[USER] lib/printf.c
+mkdir -p obj/lib
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/lib/printf.o lib/printf.c
+echo + cc[USER] lib/printfmt.c
+mkdir -p obj/lib
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/lib/printfmt.o lib/printfmt.c
+echo + cc[USER] lib/readline.c
+mkdir -p obj/lib
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/lib/readline.o lib/readline.c
+echo + cc[USER] lib/string.c
+mkdir -p obj/lib
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/lib/string.o lib/string.c
+echo + cc[USER] lib/syscall.c
+mkdir -p obj/lib
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/lib/syscall.o lib/syscall.c
+echo + cc[USER] lib/pgfault.c
+mkdir -p obj/lib
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/lib/pgfault.o lib/pgfault.c
+echo + as[USER] lib/pfentry.S
+mkdir -p obj/lib
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/lib/pfentry.o lib/pfentry.S
+echo + cc[USER] lib/fork.c
+mkdir -p obj/lib
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/lib/fork.o lib/fork.c
+echo + cc[USER] lib/ipc.c
+mkdir -p obj/lib
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/lib/ipc.o lib/ipc.c
+echo + cc[USER] lib/args.c
+mkdir -p obj/lib
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/lib/args.o lib/args.c
+echo + cc[USER] lib/fd.c
+mkdir -p obj/lib
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/lib/fd.o lib/fd.c
+echo + cc[USER] lib/file.c
+mkdir -p obj/lib
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/lib/file.o lib/file.c
+echo + cc[USER] lib/fprintf.c
+mkdir -p obj/lib
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/lib/fprintf.o lib/fprintf.c
+echo + cc[USER] lib/pageref.c
+mkdir -p obj/lib
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/lib/pageref.o lib/pageref.c
+echo + cc[USER] lib/spawn.c
+mkdir -p obj/lib
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/lib/spawn.o lib/spawn.c
+echo + cc[USER] lib/pipe.c
+mkdir -p obj/lib
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/lib/pipe.o lib/pipe.c
+echo + cc[USER] lib/wait.c
+mkdir -p obj/lib
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/lib/wait.o lib/wait.c
+echo + ar obj/lib/libjos.a
+ar r obj/lib/libjos.a obj/lib/console.o obj/lib/libmain.o obj/lib/exit.o obj/lib/panic.o obj/lib/printf.o obj/lib/printfmt.o obj/lib/readline.o obj/lib/string.o obj/lib/syscall.o obj/lib/pgfault.o  obj/lib/pfentry.o obj/lib/fork.o obj/lib/ipc.o obj/lib/args.o obj/lib/fd.o obj/lib/file.o obj/lib/fprintf.o obj/lib/pageref.o obj/lib/spawn.o obj/lib/pipe.o obj/lib/wait.o
+echo + ld obj/user/hello
+ld -o obj/user/hello.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/hello.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/hello.debug > obj/user/hello.asm
+nm -n obj/user/hello.debug > obj/user/hello.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/hello obj/user/hello.debug obj/user/hello
+echo + cc[USER] user/buggyhello.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/buggyhello.o user/buggyhello.c
+echo + ld obj/user/buggyhello
+ld -o obj/user/buggyhello.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/buggyhello.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/buggyhello.debug > obj/user/buggyhello.asm
+nm -n obj/user/buggyhello.debug > obj/user/buggyhello.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/buggyhello obj/user/buggyhello.debug obj/user/buggyhello
+echo + cc[USER] user/buggyhello2.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/buggyhello2.o user/buggyhello2.c
+echo + ld obj/user/buggyhello2
+ld -o obj/user/buggyhello2.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/buggyhello2.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/buggyhello2.debug > obj/user/buggyhello2.asm
+nm -n obj/user/buggyhello2.debug > obj/user/buggyhello2.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/buggyhello2 obj/user/buggyhello2.debug obj/user/buggyhello2
+echo + cc[USER] user/evilhello.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/evilhello.o user/evilhello.c
+echo + ld obj/user/evilhello
+ld -o obj/user/evilhello.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/evilhello.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/evilhello.debug > obj/user/evilhello.asm
+nm -n obj/user/evilhello.debug > obj/user/evilhello.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/evilhello obj/user/evilhello.debug obj/user/evilhello
+echo + cc[USER] user/testbss.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/testbss.o user/testbss.c
+echo + ld obj/user/testbss
+ld -o obj/user/testbss.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/testbss.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/testbss.debug > obj/user/testbss.asm
+nm -n obj/user/testbss.debug > obj/user/testbss.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/testbss obj/user/testbss.debug obj/user/testbss
+echo + cc[USER] user/divzero.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/divzero.o user/divzero.c
+echo + ld obj/user/divzero
+ld -o obj/user/divzero.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/divzero.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/divzero.debug > obj/user/divzero.asm
+nm -n obj/user/divzero.debug > obj/user/divzero.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/divzero obj/user/divzero.debug obj/user/divzero
+echo + cc[USER] user/breakpoint.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/breakpoint.o user/breakpoint.c
+echo + ld obj/user/breakpoint
+ld -o obj/user/breakpoint.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/breakpoint.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/breakpoint.debug > obj/user/breakpoint.asm
+nm -n obj/user/breakpoint.debug > obj/user/breakpoint.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/breakpoint obj/user/breakpoint.debug obj/user/breakpoint
+echo + cc[USER] user/softint.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/softint.o user/softint.c
+echo + ld obj/user/softint
+ld -o obj/user/softint.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/softint.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/softint.debug > obj/user/softint.asm
+nm -n obj/user/softint.debug > obj/user/softint.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/softint obj/user/softint.debug obj/user/softint
+echo + cc[USER] user/badsegment.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/badsegment.o user/badsegment.c
+echo + ld obj/user/badsegment
+ld -o obj/user/badsegment.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/badsegment.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/badsegment.debug > obj/user/badsegment.asm
+nm -n obj/user/badsegment.debug > obj/user/badsegment.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/badsegment obj/user/badsegment.debug obj/user/badsegment
+echo + cc[USER] user/faultread.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/faultread.o user/faultread.c
+echo + ld obj/user/faultread
+ld -o obj/user/faultread.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/faultread.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/faultread.debug > obj/user/faultread.asm
+nm -n obj/user/faultread.debug > obj/user/faultread.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/faultread obj/user/faultread.debug obj/user/faultread
+echo + cc[USER] user/faultreadkernel.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/faultreadkernel.o user/faultreadkernel.c
+echo + ld obj/user/faultreadkernel
+ld -o obj/user/faultreadkernel.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/faultreadkernel.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/faultreadkernel.debug > obj/user/faultreadkernel.asm
+nm -n obj/user/faultreadkernel.debug > obj/user/faultreadkernel.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/faultreadkernel obj/user/faultreadkernel.debug obj/user/faultreadkernel
+echo + cc[USER] user/faultwrite.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/faultwrite.o user/faultwrite.c
+echo + ld obj/user/faultwrite
+ld -o obj/user/faultwrite.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/faultwrite.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/faultwrite.debug > obj/user/faultwrite.asm
+nm -n obj/user/faultwrite.debug > obj/user/faultwrite.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/faultwrite obj/user/faultwrite.debug obj/user/faultwrite
+echo + cc[USER] user/faultwritekernel.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/faultwritekernel.o user/faultwritekernel.c
+echo + ld obj/user/faultwritekernel
+ld -o obj/user/faultwritekernel.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/faultwritekernel.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/faultwritekernel.debug > obj/user/faultwritekernel.asm
+nm -n obj/user/faultwritekernel.debug > obj/user/faultwritekernel.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/faultwritekernel obj/user/faultwritekernel.debug obj/user/faultwritekernel
+echo + cc[USER] user/stepIntoTest.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/stepIntoTest.o user/stepIntoTest.c
+echo + ld obj/user/stepIntoTest
+ld -o obj/user/stepIntoTest.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/stepIntoTest.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/stepIntoTest.debug > obj/user/stepIntoTest.asm
+nm -n obj/user/stepIntoTest.debug > obj/user/stepIntoTest.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/stepIntoTest obj/user/stepIntoTest.debug obj/user/stepIntoTest
+echo + cc[USER] user/continueTest.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/continueTest.o user/continueTest.c
+echo + ld obj/user/continueTest
+ld -o obj/user/continueTest.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/continueTest.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/continueTest.debug > obj/user/continueTest.asm
+nm -n obj/user/continueTest.debug > obj/user/continueTest.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/continueTest obj/user/continueTest.debug obj/user/continueTest
+echo + cc[USER] user/idle.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/idle.o user/idle.c
+echo + ld obj/user/idle
+ld -o obj/user/idle.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/idle.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/idle.debug > obj/user/idle.asm
+nm -n obj/user/idle.debug > obj/user/idle.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/idle obj/user/idle.debug obj/user/idle
+echo + cc[USER] user/yield.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/yield.o user/yield.c
+echo + ld obj/user/yield
+ld -o obj/user/yield.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/yield.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/yield.debug > obj/user/yield.asm
+nm -n obj/user/yield.debug > obj/user/yield.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/yield obj/user/yield.debug obj/user/yield
+echo + cc[USER] user/dumbfork.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/dumbfork.o user/dumbfork.c
+echo + ld obj/user/dumbfork
+ld -o obj/user/dumbfork.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/dumbfork.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/dumbfork.debug > obj/user/dumbfork.asm
+nm -n obj/user/dumbfork.debug > obj/user/dumbfork.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/dumbfork obj/user/dumbfork.debug obj/user/dumbfork
+echo + cc[USER] user/stresssched.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/stresssched.o user/stresssched.c
+echo + ld obj/user/stresssched
+ld -o obj/user/stresssched.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/stresssched.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/stresssched.debug > obj/user/stresssched.asm
+nm -n obj/user/stresssched.debug > obj/user/stresssched.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/stresssched obj/user/stresssched.debug obj/user/stresssched
+echo + cc[USER] user/faultdie.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/faultdie.o user/faultdie.c
+echo + ld obj/user/faultdie
+ld -o obj/user/faultdie.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/faultdie.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/faultdie.debug > obj/user/faultdie.asm
+nm -n obj/user/faultdie.debug > obj/user/faultdie.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/faultdie obj/user/faultdie.debug obj/user/faultdie
+echo + cc[USER] user/faultregs.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/faultregs.o user/faultregs.c
+echo + ld obj/user/faultregs
+ld -o obj/user/faultregs.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/faultregs.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/faultregs.debug > obj/user/faultregs.asm
+nm -n obj/user/faultregs.debug > obj/user/faultregs.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/faultregs obj/user/faultregs.debug obj/user/faultregs
+echo + cc[USER] user/faultalloc.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/faultalloc.o user/faultalloc.c
+echo + ld obj/user/faultalloc
+ld -o obj/user/faultalloc.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/faultalloc.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/faultalloc.debug > obj/user/faultalloc.asm
+nm -n obj/user/faultalloc.debug > obj/user/faultalloc.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/faultalloc obj/user/faultalloc.debug obj/user/faultalloc
+echo + cc[USER] user/faultallocbad.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/faultallocbad.o user/faultallocbad.c
+echo + ld obj/user/faultallocbad
+ld -o obj/user/faultallocbad.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/faultallocbad.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/faultallocbad.debug > obj/user/faultallocbad.asm
+nm -n obj/user/faultallocbad.debug > obj/user/faultallocbad.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/faultallocbad obj/user/faultallocbad.debug obj/user/faultallocbad
+echo + cc[USER] user/faultnostack.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/faultnostack.o user/faultnostack.c
+echo + ld obj/user/faultnostack
+ld -o obj/user/faultnostack.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/faultnostack.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/faultnostack.debug > obj/user/faultnostack.asm
+nm -n obj/user/faultnostack.debug > obj/user/faultnostack.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/faultnostack obj/user/faultnostack.debug obj/user/faultnostack
+echo + cc[USER] user/faultbadhandler.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/faultbadhandler.o user/faultbadhandler.c
+echo + ld obj/user/faultbadhandler
+ld -o obj/user/faultbadhandler.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/faultbadhandler.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/faultbadhandler.debug > obj/user/faultbadhandler.asm
+nm -n obj/user/faultbadhandler.debug > obj/user/faultbadhandler.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/faultbadhandler obj/user/faultbadhandler.debug obj/user/faultbadhandler
+echo + cc[USER] user/faultevilhandler.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/faultevilhandler.o user/faultevilhandler.c
+echo + ld obj/user/faultevilhandler
+ld -o obj/user/faultevilhandler.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/faultevilhandler.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/faultevilhandler.debug > obj/user/faultevilhandler.asm
+nm -n obj/user/faultevilhandler.debug > obj/user/faultevilhandler.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/faultevilhandler obj/user/faultevilhandler.debug obj/user/faultevilhandler
+echo + cc[USER] user/forktree.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/forktree.o user/forktree.c
+echo + ld obj/user/forktree
+ld -o obj/user/forktree.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/forktree.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/forktree.debug > obj/user/forktree.asm
+nm -n obj/user/forktree.debug > obj/user/forktree.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/forktree obj/user/forktree.debug obj/user/forktree
+echo + cc[USER] user/sendpage.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/sendpage.o user/sendpage.c
+echo + ld obj/user/sendpage
+ld -o obj/user/sendpage.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/sendpage.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/sendpage.debug > obj/user/sendpage.asm
+nm -n obj/user/sendpage.debug > obj/user/sendpage.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/sendpage obj/user/sendpage.debug obj/user/sendpage
+echo + cc[USER] user/spin.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/spin.o user/spin.c
+echo + ld obj/user/spin
+ld -o obj/user/spin.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/spin.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/spin.debug > obj/user/spin.asm
+nm -n obj/user/spin.debug > obj/user/spin.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/spin obj/user/spin.debug obj/user/spin
+echo + cc[USER] user/fairness.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/fairness.o user/fairness.c
+echo + ld obj/user/fairness
+ld -o obj/user/fairness.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/fairness.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/fairness.debug > obj/user/fairness.asm
+nm -n obj/user/fairness.debug > obj/user/fairness.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/fairness obj/user/fairness.debug obj/user/fairness
+echo + cc[USER] user/pingpong.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/pingpong.o user/pingpong.c
+echo + ld obj/user/pingpong
+ld -o obj/user/pingpong.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/pingpong.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/pingpong.debug > obj/user/pingpong.asm
+nm -n obj/user/pingpong.debug > obj/user/pingpong.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/pingpong obj/user/pingpong.debug obj/user/pingpong
+echo + cc[USER] user/pingpongs.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/pingpongs.o user/pingpongs.c
+echo + ld obj/user/pingpongs
+ld -o obj/user/pingpongs.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/pingpongs.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/pingpongs.debug > obj/user/pingpongs.asm
+nm -n obj/user/pingpongs.debug > obj/user/pingpongs.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/pingpongs obj/user/pingpongs.debug obj/user/pingpongs
+echo + cc[USER] user/primes.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/primes.o user/primes.c
+echo + ld obj/user/primes
+ld -o obj/user/primes.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/primes.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/primes.debug > obj/user/primes.asm
+nm -n obj/user/primes.debug > obj/user/primes.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/primes obj/user/primes.debug obj/user/primes
+echo + cc[USER] user/testfile.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/testfile.o user/testfile.c
+echo + ld obj/user/testfile
+ld -o obj/user/testfile.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/testfile.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/testfile.debug > obj/user/testfile.asm
+nm -n obj/user/testfile.debug > obj/user/testfile.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/testfile obj/user/testfile.debug obj/user/testfile
+echo + cc[USER] user/spawnhello.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/spawnhello.o user/spawnhello.c
+echo + ld obj/user/spawnhello
+ld -o obj/user/spawnhello.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/spawnhello.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/spawnhello.debug > obj/user/spawnhello.asm
+nm -n obj/user/spawnhello.debug > obj/user/spawnhello.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/spawnhello obj/user/spawnhello.debug obj/user/spawnhello
+echo + cc[USER] user/icode.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/icode.o user/icode.c
+echo + ld obj/user/icode
+ld -o obj/user/icode.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/icode.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/icode.debug > obj/user/icode.asm
+nm -n obj/user/icode.debug > obj/user/icode.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/icode obj/user/icode.debug obj/user/icode
+echo + cc[USER] fs/ide.c
+mkdir -p obj/fs
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/fs/ide.o fs/ide.c
+echo + cc[USER] fs/bc.c
+mkdir -p obj/fs
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/fs/bc.o fs/bc.c
+echo + cc[USER] fs/fs.c
+mkdir -p obj/fs
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/fs/fs.o fs/fs.c
+echo + cc[USER] fs/serv.c
+mkdir -p obj/fs
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/fs/serv.o fs/serv.c
+echo + cc[USER] fs/test.c
+mkdir -p obj/fs
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/fs/test.o fs/test.c
+echo + ld obj/fs/fs
+mkdir -p obj/fs
+ld -o obj/fs/fs -T user/user.ld -m elf_i386 -nostdlib \
+		obj/lib/entry.o obj/fs/ide.o obj/fs/bc.o obj/fs/fs.o obj/fs/serv.o obj/fs/test.o  \
+		-Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/fs/fs >obj/fs/fs.asm
+echo + cc[USER] user/testpteshare.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/testpteshare.o user/testpteshare.c
+echo + ld obj/user/testpteshare
+ld -o obj/user/testpteshare.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/testpteshare.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/testpteshare.debug > obj/user/testpteshare.asm
+nm -n obj/user/testpteshare.debug > obj/user/testpteshare.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/testpteshare obj/user/testpteshare.debug obj/user/testpteshare
+echo + cc[USER] user/testfdsharing.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/testfdsharing.o user/testfdsharing.c
+echo + ld obj/user/testfdsharing
+ld -o obj/user/testfdsharing.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/testfdsharing.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/testfdsharing.debug > obj/user/testfdsharing.asm
+nm -n obj/user/testfdsharing.debug > obj/user/testfdsharing.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/testfdsharing obj/user/testfdsharing.debug obj/user/testfdsharing
+echo + cc[USER] user/testpipe.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/testpipe.o user/testpipe.c
+echo + ld obj/user/testpipe
+ld -o obj/user/testpipe.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/testpipe.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/testpipe.debug > obj/user/testpipe.asm
+nm -n obj/user/testpipe.debug > obj/user/testpipe.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/testpipe obj/user/testpipe.debug obj/user/testpipe
+echo + cc[USER] user/testpiperace.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/testpiperace.o user/testpiperace.c
+echo + ld obj/user/testpiperace
+ld -o obj/user/testpiperace.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/testpiperace.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/testpiperace.debug > obj/user/testpiperace.asm
+nm -n obj/user/testpiperace.debug > obj/user/testpiperace.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/testpiperace obj/user/testpiperace.debug obj/user/testpiperace
+echo + cc[USER] user/testpiperace2.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/testpiperace2.o user/testpiperace2.c
+echo + ld obj/user/testpiperace2
+ld -o obj/user/testpiperace2.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/testpiperace2.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/testpiperace2.debug > obj/user/testpiperace2.asm
+nm -n obj/user/testpiperace2.debug > obj/user/testpiperace2.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/testpiperace2 obj/user/testpiperace2.debug obj/user/testpiperace2
+echo + cc[USER] user/primespipe.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/primespipe.o user/primespipe.c
+echo + ld obj/user/primespipe
+ld -o obj/user/primespipe.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/primespipe.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/primespipe.debug > obj/user/primespipe.asm
+nm -n obj/user/primespipe.debug > obj/user/primespipe.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/primespipe obj/user/primespipe.debug obj/user/primespipe
+echo + cc[USER] user/testkbd.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/testkbd.o user/testkbd.c
+echo + ld obj/user/testkbd
+ld -o obj/user/testkbd.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/testkbd.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/testkbd.debug > obj/user/testkbd.asm
+nm -n obj/user/testkbd.debug > obj/user/testkbd.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/testkbd obj/user/testkbd.debug obj/user/testkbd
+echo + cc[USER] user/testshell.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/testshell.o user/testshell.c
+echo + ld obj/user/testshell
+ld -o obj/user/testshell.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/testshell.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/testshell.debug > obj/user/testshell.asm
+nm -n obj/user/testshell.debug > obj/user/testshell.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/testshell obj/user/testshell.debug obj/user/testshell
+echo "-m elf_i386 -T kern/kernel.ld -nostdlib" | cmp -s obj/.vars.KERN_LDFLAGS || echo "-m elf_i386 -T kern/kernel.ld -nostdlib" > obj/.vars.KERN_LDFLAGS
+echo + ld obj/kern/kernel
+ld -o obj/kern/kernel -m elf_i386 -T kern/kernel.ld -nostdlib obj/kern/entry.o obj/kern/entrypgdir.o obj/kern/init.o obj/kern/console.o obj/kern/monitor.o obj/kern/pmap.o obj/kern/env.o obj/kern/kclock.o obj/kern/picirq.o obj/kern/printf.o obj/kern/trap.o obj/kern/trapentry.o obj/kern/sched.o obj/kern/syscall.o obj/kern/kdebug.o  obj/kern/printfmt.o  obj/kern/readline.o  obj/kern/string.o obj/kern/mpentry.o obj/kern/mpconfig.o obj/kern/lapic.o obj/kern/spinlock.o /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a -b binary  obj/user/hello  obj/user/buggyhello  obj/user/buggyhello2  obj/user/evilhello  obj/user/testbss  obj/user/divzero  obj/user/breakpoint  obj/user/softint  obj/user/badsegment  obj/user/faultread  obj/user/faultreadkernel  obj/user/faultwrite  obj/user/faultwritekernel  obj/user/stepIntoTest  obj/user/continueTest  obj/user/idle  obj/user/yield  obj/user/dumbfork  obj/user/stresssched  obj/user/faultdie  obj/user/faultregs  obj/user/faultalloc  obj/user/faultallocbad  obj/user/faultnostack  obj/user/faultbadhandler  obj/user/faultevilhandler  obj/user/forktree  obj/user/sendpage  obj/user/spin  obj/user/fairness  obj/user/pingpong  obj/user/pingpongs  obj/user/primes  obj/user/testfile  obj/user/spawnhello  obj/user/icode  obj/fs/fs  obj/user/testpteshare  obj/user/testfdsharing  obj/user/testpipe  obj/user/testpiperace  obj/user/testpiperace2  obj/user/primespipe  obj/user/testkbd  obj/user/testshell
+objdump -S obj/kern/kernel > obj/kern/kernel.asm
+nm -n obj/kern/kernel > obj/kern/kernel.sym
+echo + as boot/boot.S
+mkdir -p obj/boot
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs -c -o obj/boot/boot.o boot/boot.S
+echo + cc -Os boot/main.c
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs -Os -c -o obj/boot/main.o boot/main.c
+ 
+echo + ld boot/boot
+ld -m elf_i386 -N -e start -Ttext 0x7C00 -o obj/boot/boot.out obj/boot/boot.o obj/boot/main.o
+objdump -S obj/boot/boot.out >obj/boot/boot.asm
+objcopy -S -O binary -j .text obj/boot/boot.out obj/boot/boot
+perl boot/sign.pl obj/boot/boot
+echo + mk obj/kern/kernel.img
+dd if=/dev/zero of=obj/kern/kernel.img~ count=10000 2>/dev/null
+dd if=obj/boot/boot of=obj/kern/kernel.img~ conv=notrunc 2>/dev/null
+dd if=obj/kern/kernel of=obj/kern/kernel.img~ seek=1 conv=notrunc 2>/dev/null
+mv obj/kern/kernel.img~ obj/kern/kernel.img
+echo + mk obj/fs/fsformat
+mkdir -p obj/fs
+gcc  -pipe    -I. -MD -Wall -o obj/fs/fsformat fs/fsformat.c
+echo + cc[USER] user/init.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/init.o user/init.c
+echo + ld obj/user/init
+ld -o obj/user/init.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/init.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/init.debug > obj/user/init.asm
+nm -n obj/user/init.debug > obj/user/init.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/init obj/user/init.debug obj/user/init
+ 
+echo + cc[USER] user/cat.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/cat.o user/cat.c
+echo + ld obj/user/cat
+ld -o obj/user/cat.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/cat.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/cat.debug > obj/user/cat.asm
+nm -n obj/user/cat.debug > obj/user/cat.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/cat obj/user/cat.debug obj/user/cat
+echo + cc[USER] user/echo.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/echo.o user/echo.c
+echo + ld obj/user/echo
+ld -o obj/user/echo.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/echo.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/echo.debug > obj/user/echo.asm
+nm -n obj/user/echo.debug > obj/user/echo.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/echo obj/user/echo.debug obj/user/echo
+echo + cc[USER] user/ls.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/ls.o user/ls.c
+echo + ld obj/user/ls
+ld -o obj/user/ls.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/ls.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/ls.debug > obj/user/ls.asm
+nm -n obj/user/ls.debug > obj/user/ls.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/ls obj/user/ls.debug obj/user/ls
+echo + cc[USER] user/lsfd.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/lsfd.o user/lsfd.c
+echo + ld obj/user/lsfd
+ld -o obj/user/lsfd.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/lsfd.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/lsfd.debug > obj/user/lsfd.asm
+nm -n obj/user/lsfd.debug > obj/user/lsfd.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/lsfd obj/user/lsfd.debug obj/user/lsfd
+echo + cc[USER] user/num.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/num.o user/num.c
+echo + ld obj/user/num
+ld -o obj/user/num.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/num.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/num.debug > obj/user/num.asm
+nm -n obj/user/num.debug > obj/user/num.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/num obj/user/num.debug obj/user/num
+echo + cc[USER] user/sh.c
+mkdir -p obj/user
+gcc -pipe -nostdinc    -O1 -fno-builtin -I. -MD -fno-omit-frame-pointer -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_USER -gstabs -c -o obj/user/sh.o user/sh.c
+echo + ld obj/user/sh
+ld -o obj/user/sh.debug -T user/user.ld -m elf_i386 -nostdlib obj/lib/entry.o obj/user/sh.o -Lobj/lib -ljos /usr/lib/gcc/i686-linux-gnu/4.8/libgcc.a
+objdump -S obj/user/sh.debug > obj/user/sh.asm
+nm -n obj/user/sh.debug > obj/user/sh.sym
+objcopy -R .stab -R .stabstr --add-gnu-debuglink=obj/user/sh obj/user/sh.debug obj/user/sh
+echo + mk obj/fs/clean-fs.img
+mkdir -p obj/fs
+obj/fs/fsformat obj/fs/clean-fs.img 1024 fs/newmotd fs/motd fs/lorem fs/script fs/testshell.key fs/testshell.sh obj/user/init obj/user/cat obj/user/echo obj/user/init obj/user/ls obj/user/lsfd obj/user/num obj/user/forktree obj/user/primes obj/user/primespipe obj/user/sh obj/user/testfdsharing obj/user/testkbd obj/user/testpipe obj/user/testpteshare obj/user/testshell obj/user/hello 
+echo + cp obj/fs/clean-fs.img obj/fs/fs.img
+cp obj/fs/clean-fs.img obj/fs/fs.img
+make: Leaving directory `/home/nadavash/Desktop/OSE/lab'
+ 

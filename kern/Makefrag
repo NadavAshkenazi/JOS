@@ -30,7 +30,7 @@ KERN_SRCFILES :=	kern/entry.S \
 			kern/kdebug.c \
 			lib/printfmt.c \
 			lib/readline.c \
-			lib/string.c
+			lib/string.c \
 
 # Source files for LAB4
 KERN_SRCFILES +=	kern/mpentry.S \
@@ -61,7 +61,9 @@ KERN_BINFILES :=	user/hello \
 			user/faultread \
 			user/faultreadkernel \
 			user/faultwrite \
-			user/faultwritekernel
+			user/faultwritekernel \
+			user/stepIntoTest \
+			user/continueTest
 
 # Binary files for LAB4
 KERN_BINFILES +=	user/idle \
