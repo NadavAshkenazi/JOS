@@ -7,8 +7,18 @@
 
  
 
-volatile uint32_t *e1000Va;
+volatile uint32_t *e1000Va;//registers addr
+struct tx_desc txDescriptorsArray[E1000_TX_DESC_NUM] 
+    __attribute__((aligned(16)));
 
+packetBuff txBuffers[E1000_TX_DESC_NUM]; 
+
+struct rx_desc rxDescriptorsArray[E1000_RX_DESC_NUM]
+     __attribute__((aligned(16)));
+
+packetBuff rxBuffers[E1000_TX_DESC_NUM];
+
+;
 int e1000_attach(struct pci_func *pcif)
 {
     pci_func_enable(pcif);
@@ -30,3 +40,26 @@ int e1000_attach(struct pci_func *pcif)
     return 0;
 }
 
+
+static inline int e100_txDescs_init(){
+    /*  Allocate a region of memory for the transmit descriptor list. Software should insure this memory is
+        aligned on a paragraph (16-byte) boundary */
+    memset(txDescriptorsArray, 0, sizeof(txDescriptorsArray));
+    memset(txBuffers, 0, sizeof(txBuffers));
+
+    //setup registers
+    /*  Program the Transmit Descriptor Base Address
+        (TDBAL/TDBAH) register(s) with the address of the region */
+    *(e1000Va + BYTE_T0_ADDRESS(E1000_TDBAL)) = PADDR(txDescriptorsArray);
+    *(e1000Va + BYTE_T0_ADDRESS(E1000_TDBAH)) = 0x0;
+    /*  Set the Transmit Descriptor Length (TDLEN) register to the size (in bytes) of the descriptor ring.
+        This register must be 128-byte aligned - aleardy to 16-b aligned */
+    *(e1000Va + BYTE_T0_ADDRESS(E1000_TDBAH)) = sizeof(txDescriptorsArray);
+    /*  The Transmit Descriptor Head and Tail (TDH/TDT) registers are initialized (by hardware) to 0b
+        after a power-on or a software initiated Ethernet controller reset */
+    *(e1000Va + BYTE_T0_ADDRESS(E1000_TDH)) = 0; // head index 0 at init
+    *(e1000Va + BYTE_T0_ADDRESS(E1000_TDT)) = 0; // tail index 0 at init
+
+
+
+}
