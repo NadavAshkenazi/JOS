@@ -16,6 +16,7 @@
 #include <kern/spinlock.h>
 #include <kern/time.h>
 #include <kern/pci.h>
+#include <kern/e1000.h>
 
 static void boot_aps(void);
 
@@ -54,6 +55,8 @@ i386_init(void)
 	time_init();
 	pci_init();
 
+	// struct PageInfo * pp = page_alloc(1);//XXX
+	// e1000_transmit(pp,1); //XXX
 	// Acquire the big kernel lock before waking up APs
 	// Your code here:
 	lock_kernel();
