@@ -70,7 +70,7 @@ ipc_send(envid_t to_env, uint32_t val, void *pg, int perm)
 	while (res != 0){
 
 		if ((res < 0) && res != -E_IPC_NOT_RECV)// error different then -E_IPC_NOT_RECV
-			panic("ipc_send: bad error - not waiting error - %e", res);
+			panic("ipc_send: bad error - not waiting error (thisEnv %x -> toEnv %x) - %e\n", thisenv->env_id ,to_env ,res);
 
 
 		sys_yield();

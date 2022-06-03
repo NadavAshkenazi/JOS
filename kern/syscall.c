@@ -58,7 +58,7 @@ sys_env_destroy(envid_t envid)
 		return r;
 
 	if (e == curenv) 
-		cprintf("[%08x] exiting gracefully\n", curenv->env_id);
+		cprintf("[%08x] exiting gracefully (type: %d)\n", curenv->env_id, curenv->env_type); //XXX
 	else
 		cprintf("[%08x] destroying %08x\n", curenv->env_id, e->env_id);
 
@@ -380,7 +380,11 @@ sys_ipc_try_send(envid_t envid, uint32_t value, void *srcva, unsigned perm)
 	struct PageInfo *pp;
 	pte_t* pte;
 
+
 	int res = envid2env(envid, &targetEnv, 0);
+	// cprintf("envid = %d\n", envid);
+	// cprintf("res = %e\n", res);
+
 	if (res < 0)
 		return -E_BAD_ENV;
 

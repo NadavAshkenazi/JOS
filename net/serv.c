@@ -305,6 +305,7 @@ serve(void) {
 
 static void
 tmain(uint32_t arg) {
+	cprintf("tmain_env_id: %x\n", thisenv->env_id) ;//XXX
 	serve_init(inet_addr(IP),
 		   inet_addr(MASK),
 		   inet_addr(DEFAULT));
@@ -315,11 +316,15 @@ void
 umain(int argc, char **argv)
 {
 	envid_t ns_envid = sys_getenvid();
-
+	
 	binaryname = "ns";
 
 	// fork off the timer thread which will send us periodic messages
 	timer_envid = fork();
+
+	cprintf("ns_envid: %x\n", ns_envid) ;//XXX
+	cprintf("timer_envid: %x\n", timer_envid) ;//XXX
+
 	if (timer_envid < 0)
 		panic("error forking");
 	else if (timer_envid == 0) {
@@ -330,6 +335,7 @@ umain(int argc, char **argv)
 	// fork off the input thread which will poll the NIC driver for input
 	// packets
 	input_envid = fork();
+	cprintf("input_envid: %x\n", input_envid) ;//XXX
 	if (input_envid < 0)
 		panic("error forking");
 	else if (input_envid == 0) {
@@ -340,6 +346,7 @@ umain(int argc, char **argv)
 	// fork off the output thread that will send the packets to the NIC
 	// driver
 	output_envid = fork();
+	cprintf("output_envid: %x\n", output_envid) ;//XXX
 	if (output_envid < 0)
 		panic("error forking");
 	else if (output_envid == 0) {

@@ -146,19 +146,15 @@ fork(void)
 	if (envid <0)
 		panic("fork: sys_exfork faild - %e\n", envid);
 
-	if (envid == 0)
+	if (envid == 0){
 		thisenv = &envs[ENVX(sys_getenvid())]; // setup thisenv extern val
+		cprintf("id: %x type:%d\n",thisenv->env_id, thisenv->env_type); //XXX
+	}
 	
 	else
 		prepareChild(envid);
 
 
-
-	// if (envid != 0) // parent - should copy mappings of parent to child
-	// 	prepareChild(envid);
-	
-	// else  //child
-	// 	thisenv = &envs[ENVX(sys_getenvid())]; // setup thisenv extern val
 	
 	return envid; // child id for parent, 0 for child
 }
