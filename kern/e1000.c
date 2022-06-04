@@ -20,6 +20,7 @@ struct rx_desc rxDescriptorsArray[E1000_RX_DESC_NUM]
 
 
 static inline void e100_txDescs_init();
+static inline void e100_rxDescs_init();
 
 
 int e1000_attach(struct pci_func *pcif)
@@ -34,14 +35,10 @@ int e1000_attach(struct pci_func *pcif)
     assert(0x80080783 == *(e1000Va + (BYTE_T0_ADDRESS(E1000_STATUS))));
     cprintf("E1000 status: 0x%08x should be 0x80080783\n",*(e1000Va + (BYTE_T0_ADDRESS(E1000_STATUS))));
     
-    
+    cprintf("before e100_txDescs_init\n");
     e100_txDescs_init();
-    // // Set the interrupts channel
-    // irq_setmask_8259A(irq_mask_8259A & ~(1 << IRQ_E1000));
-
-    // e1000_load_mac_addr();
-    // e1000_tx_init();
-    // e1000_rx_init();
+    cprintf("after e100_txDescs_init\n");
+    e100_rxDescs_init();
 
     return 0;
 }
@@ -110,4 +107,49 @@ inline int e1000_transmit(struct PageInfo* pp, size_t size){
     memset((txDescriptorsArray + tailIndex), 0, sizeof(struct tx_desc));
     
     return 0;
+}
+
+
+
+static inline void e100_rxDescs_init()
+{
+    /*  Allocate a region of memory for the receive descriptor list. Software should insure this memory is
+        aligned on a paragraph (16-byte) boundary.
+        Queue should be full at idle state*/
+    memset(rxDescriptorsArray, 0, sizeof(rxDescriptorsArray));
+    int i = 0;
+    struct PageInfo* pp;
+    for (; i < E1000_RX_DESC_NUM; i++)
+    {
+        pp = page_alloc(ALLOC_ZERO);
+        pp->pp_ref++;
+        (rxDescriptorsArray + i)->addr = page2pa(pp);
+        // txBuffers[i] = page2kva(pp);
+    }
+
+    // Setup registers
+
+    /*MAC addresses are written from lowest-order byte to highest-order byte
+     */
+    
+    *(uint32_t *)(e1000Va + BYTE_T0_ADDRESS(E1000_RA)) = 0x12005452;
+    *(uint32_t *)(e1000Va + BYTE_T0_ADDRESS(E1000_RA + 4)) = 0x5634 | E1000_RAH_AV;
+
+    /*  Program the receive Descriptor Base Address
+        (RDBAL/RDBAH) register(s) with the address of the region */
+    *(uint32_t *)(e1000Va + BYTE_T0_ADDRESS(E1000_RDBAL)) = PADDR(rxDescriptorsArray);
+    *(uint32_t *)(e1000Va + BYTE_T0_ADDRESS(E1000_RDBAH)) = 0x0;
+
+    /*  Set the  receive Length (RDLEN) register to the size (in bytes) of the descriptor ring.
+        This register must be 128-byte aligned - aleardy to 16-b aligned */
+    *(uint16_t *)(e1000Va + BYTE_T0_ADDRESS(E1000_RDLEN)) = sizeof(rxDescriptorsArray);
+
+    /*  The receive Descriptor Head  (RDH) register is initialized (by hardware) to 0b.
+        Queue should be full at idle state so tail is at end of queue */
+    *(uint32_t *)(e1000Va + BYTE_T0_ADDRESS(E1000_RDH)) = 0; // head index 0 at init
+    *(uint32_t *)(e1000Va + BYTE_T0_ADDRESS(E1000_RDT)) = E1000_RX_DESC_NUM-1; // tail index 0 at init
+    
+
+    // config RCTL
+    *(uint32_t *)(e1000Va + BYTE_T0_ADDRESS(E1000_RCTL)) = E1000_RCTL_EN | E1000_RCTL_SECRC | E1000_RCTL_BAM;
 }
