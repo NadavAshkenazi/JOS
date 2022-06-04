@@ -1,8 +1,0 @@
-{
-    "makefile.extensionOutputFolder": "./.vscode",
-    "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools",
-    "files.associations": {
-        "ns.h": "c",
-        "pci.h": "c"
-    }
-}
