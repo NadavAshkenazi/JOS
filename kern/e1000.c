@@ -54,11 +54,11 @@ static inline void e100_txDescs_init(){
     // memset(txBuffers, 0, sizeof(txBuffers));
 
     //init txDescriptorsArray
-    int j = 0;
-    for (; j< E1000_TX_DESC_NUM; j++){
-        txDescriptorsArray[j].cmd |= E1000_TXD_CMD_EOP | E1000_TXD_CMD_RPS | E1000_TXD_CMD_IDE;
-        txDescriptorsArray[j].status |= E1000_TXD_STAT_DD;
-    }
+    // int j = 0;
+    // for (; j< E1000_TX_DESC_NUM; j++){
+    //     txDescriptorsArray[j].cmd |= E1000_TXD_CMD_EOP | E1000_TXD_CMD_RPS | E1000_TXD_CMD_IDE;
+    //     txDescriptorsArray[j].status |= E1000_TXD_STAT_DD;
+    // }
     //setup registers
     /*  Program the Transmit Descriptor Base Address
         (TDBAL/TDBAH) register(s) with the address of the region */
@@ -95,7 +95,7 @@ inline int e1000_transmit(struct PageInfo* pp, size_t size){
     //configure transmit descriptor
     (txDescriptorsArray + tailIndex)->addr = page2pa(pp);
     (txDescriptorsArray + tailIndex)->length = size;
-    (txDescriptorsArray + tailIndex)->cmd = E1000_TXD_CMD_EOP | E1000_TXD_CMD_RPS | E1000_TXD_CMD_IDE;
+    (txDescriptorsArray + tailIndex)->cmd = E1000_TXD_CMD_EOP | E1000_TXD_CMD_RS;
     // *(txBuffers + tailIndex) = page2kva(pp);
 
     // before spinning in busy wait, we need increase cyclicly the tail

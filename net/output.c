@@ -11,31 +11,30 @@ output(envid_t ns_envid)
 	// LAB 6: Your code here:
 	// 	- read a packet from the network server
 	//	- send the packet to the device driver
-	envid_t sender;
-	int length;
+	int len;
+	envid_t output_env;
 
-	while (1)
+	while (true)
 	{
 		int res = sys_page_alloc(0, &nsipcbuf, PTE_U|PTE_W|PTE_P);
 		if (res < 0)
 			panic("output: allocation problem -> %e", res);
 
-		// 	- read a packet from the network server
-		// Output is on a constant listen for output requests 
-		// solely from the network server
-		// REMEMBER: ipc_recv is a blocking call
-		while (ipc_recv(&sender, &nsipcbuf, NULL) != NSREQ_OUTPUT || sender != ns_envid)
+
+		// spin until ipc req comes
+		while (ipc_recv(&output_env, &nsipcbuf, NULL) != NSREQ_OUTPUT || output_env != ns_envid)
 			;
 
 		//	- send the packet to the device driver
 		// Will send the page given via polling
-		length = nsipcbuf.pkt.jp_len;
-		memmove(&nsipcbuf, nsipcbuf.pkt.jp_data, length);
+		len = nsipcbuf.pkt.jp_len;
+		memmove(&nsipcbuf, nsipcbuf.pkt.jp_data, len);
 
-		sys_transmit(&nsipcbuf, length);
+		sys_transmit(&nsipcbuf, len);
 
-		if (sys_page_unmap(0, &nsipcbuf) < 0)
-			panic("Failed to unmap sent nsipcbuf page");
+		res = sys_page_unmap(0, &nsipcbuf);
+		if (res < 0)
+			panic("output: could not unmap page -> %e", res);
 
 
 		sys_yield();

@@ -57,9 +57,9 @@ i386_init(void)
 
 
 	//XXX testing transmit
-	struct PageInfo * pp = page_alloc(PTE_P|PTE_U|PTE_W);//XXX
-	e1000_transmit(pp,1); //XXX
-	e1000_transmit(pp,1); //XXX
+	// struct PageInfo * pp = page_alloc(PTE_P|PTE_U|PTE_W);//XXX
+	// e1000_transmit(pp,1); //XXX
+	// e1000_transmit(pp,1); //XXX
 	// int j = 0;
 	// for (;j<65;j++){
 	// 	struct PageInfo * pp = page_alloc(PTE_P|PTE_U|PTE_W);//XXX
