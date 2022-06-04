@@ -12,6 +12,7 @@
 #include <kern/console.h>
 #include <kern/sched.h>
 #include <kern/time.h>
+#include <kern/e1000.h>
 
 // Print a string to the system console.
 // The string is exactly 'len' characters long.
@@ -58,7 +59,8 @@ sys_env_destroy(envid_t envid)
 		return r;
 
 	if (e == curenv) 
-		cprintf("[%08x] exiting gracefully (type: %d)\n", curenv->env_id, curenv->env_type); //XXX
+		// cprintf("[%08x] exiting gracefully (type: %d)\n", curenv->env_id, curenv->env_type); //XXX
+		cprintf("[%08x] exiting gracefully\n", curenv->env_id);
 	else
 		cprintf("[%08x] destroying %08x\n", curenv->env_id, e->env_id);
 
@@ -464,6 +466,14 @@ sys_time_msec(void)
 	return time_msec(); // get ticks 
 }
 
+static int
+sys_transmit(void* addr, size_t size){
+
+	user_mem_assert(curenv, addr, PGSIZE, PTE_U|PTE_U); // assert valid address
+	struct PageInfo* pp = page_lookup(curenv->env_pgdir, addr, 0);
+	return e1000_transmit(pp, size);
+}
+
 // Dispatches to the correct kernel function, passing the arguments.
 int32_t
 syscall(uint32_t syscallno, uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4, uint32_t a5)
@@ -508,6 +518,8 @@ syscall(uint32_t syscallno, uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4, 
 			return sys_env_set_trapframe((envid_t) a1, (struct Trapframe*) a2);
 		case SYS_time_msec:
 			return sys_time_msec();
+		case SYS_transmit:
+			return sys_transmit((void *)a1, (size_t)a2);
 		default: 	
 			return -E_INVAL; // todo: was return -E_NO_SYS;
 		

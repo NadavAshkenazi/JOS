@@ -53,6 +53,12 @@ static inline void e100_txDescs_init(){
     memset(txDescriptorsArray, 0, sizeof(txDescriptorsArray));
     // memset(txBuffers, 0, sizeof(txBuffers));
 
+    //init txDescriptorsArray
+    int j = 0;
+    for (; j< E1000_TX_DESC_NUM; j++){
+        txDescriptorsArray[j].cmd |= E1000_TXD_CMD_RS;
+        txDescriptorsArray[j].status |= E1000_TXD_STAT_DD;
+    }
     //setup registers
     /*  Program the Transmit Descriptor Base Address
         (TDBAL/TDBAH) register(s) with the address of the region */
@@ -77,6 +83,7 @@ static inline void e100_txDescs_init(){
 
     // config TIPG
     *(uint16_t *)(e1000Va + BYTE_T0_ADDRESS(E1000_TIPG)) = (uint16_t)(E1000_TIPG_IPGT << E1000_TIPG_IPGT_SHIFT | E1000_TIPG_IPGR1 << E1000_TIPG_IPGR1_SHIFT | E1000_TIPG_IPGR2 << E1000_TIPG_IPGR2_SHIFT); //XXX
+
 }
 
 inline int e1000_transmit(struct PageInfo* pp, size_t size){

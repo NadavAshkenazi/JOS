@@ -128,3 +128,9 @@ sys_set_priority(int priority)
 	return syscall(SYS_set_priority, 0, priority, 0, 0, 0, 0);
 }
 
+
+int 
+sys_transmit(void* addr, size_t size)
+{
+	return (int)syscall(SYS_transmit, 0, (uint32_t)addr, (uint32_t)size, 0, 0, 0);
+}

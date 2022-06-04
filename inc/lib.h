@@ -49,7 +49,7 @@ int	sys_cgetc(void);
 envid_t	sys_getenvid(void);
 int	sys_env_destroy(envid_t);
 void	sys_yield(void);
-static envid_t sys_exofork(void);
+static envid_t sys_exofork(void); //XXX
 int	sys_env_set_status(envid_t env, int status);
 int	sys_env_set_trapframe(envid_t env, struct Trapframe *tf);
 int	sys_env_set_pgfault_upcall(envid_t env, void *upcall);
@@ -59,10 +59,9 @@ int	sys_page_map(envid_t src_env, void *src_pg,
 int	sys_page_unmap(envid_t env, void *pg);
 int	sys_ipc_try_send(envid_t to_env, uint32_t value, void *pg, int perm);
 int	sys_ipc_recv(void *rcv_pg);
-
 unsigned int sys_time_msec(void);
-
 int sys_set_priority(int priority);
+int sys_transmit(void* addr, size_t size);
 
 
 // This must be inlined.  Exercise for reader: why?

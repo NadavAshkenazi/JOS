@@ -55,8 +55,19 @@ i386_init(void)
 	time_init();
 	pci_init();
 
-	// struct PageInfo * pp = page_alloc(1);//XXX
-	// e1000_transmit(pp,1); //XXX
+
+	//XXX testing transmit
+	struct PageInfo * pp = page_alloc(PTE_P|PTE_U|PTE_W);//XXX
+	e1000_transmit(pp,1); //XXX
+	e1000_transmit(pp,1); //XXX
+	// int j = 0;
+	// for (;j<65;j++){
+	// 	struct PageInfo * pp = page_alloc(PTE_P|PTE_U|PTE_W);//XXX
+	//     memset(pp, 1, sizeof(pp));
+	// 	e1000_transmit(pp,SIZE_OF_PACKET); //XXX
+	// }
+	//XXX end testing transmit
+
 	// Acquire the big kernel lock before waking up APs
 	// Your code here:
 	lock_kernel();

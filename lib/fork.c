@@ -148,7 +148,7 @@ fork(void)
 
 	if (envid == 0){
 		thisenv = &envs[ENVX(sys_getenvid())]; // setup thisenv extern val
-		cprintf("id: %x type:%d\n",thisenv->env_id, thisenv->env_type); //XXX
+		// cprintf("id: %x type:%d\n",thisenv->env_id, thisenv->env_type); //XXX
 	}
 	
 	else
