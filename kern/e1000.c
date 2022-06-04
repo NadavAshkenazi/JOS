@@ -56,7 +56,7 @@ static inline void e100_txDescs_init(){
     //init txDescriptorsArray
     int j = 0;
     for (; j< E1000_TX_DESC_NUM; j++){
-        txDescriptorsArray[j].cmd |= E1000_TXD_CMD_RS;
+        txDescriptorsArray[j].cmd |= E1000_TXD_CMD_EOP | E1000_TXD_CMD_RPS | E1000_TXD_CMD_IDE;
         txDescriptorsArray[j].status |= E1000_TXD_STAT_DD;
     }
     //setup registers
@@ -95,7 +95,7 @@ inline int e1000_transmit(struct PageInfo* pp, size_t size){
     //configure transmit descriptor
     (txDescriptorsArray + tailIndex)->addr = page2pa(pp);
     (txDescriptorsArray + tailIndex)->length = size;
-    (txDescriptorsArray + tailIndex)->cmd = E1000_TXD_CMD_RS;
+    (txDescriptorsArray + tailIndex)->cmd = E1000_TXD_CMD_EOP | E1000_TXD_CMD_RPS | E1000_TXD_CMD_IDE;
     // *(txBuffers + tailIndex) = page2kva(pp);
 
     // before spinning in busy wait, we need increase cyclicly the tail
