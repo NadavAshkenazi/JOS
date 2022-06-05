@@ -474,6 +474,29 @@ sys_transmit(void* addr, size_t size){
 	return e1000_transmit(pp, size);
 }
 
+static int
+sys_receive(void * addr){
+	struct PageInfo *pp;
+	int res =  e1000_receive(&pp);
+	while (res < 0){
+		curenv->env_net_blocked = true;
+		curenv->env_status = ENV_NOT_RUNNABLE;
+		sched_yield();
+
+		res = e1000_receive(&pp);
+	}
+	//insert packet received into host mem.
+	res = page_insert(curenv->env_pgdir, pp, addr, PTE_U | PTE_W | PTE_P);
+	if (res < 0){
+		page_free(pp);
+		cprintf("sys_receive: could not insert page to host mem: %p -> %e", addr, res);
+		res = -E_NO_MEM;
+	}
+	user_mem_assert(curenv, addr, PGSIZE, PTE_U | PTE_W | PTE_P); //check prem and destroy if denied
+
+	return res;
+}
+
 // Dispatches to the correct kernel function, passing the arguments.
 int32_t
 syscall(uint32_t syscallno, uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4, uint32_t a5)
@@ -520,6 +543,8 @@ syscall(uint32_t syscallno, uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4, 
 			return sys_time_msec();
 		case SYS_transmit:
 			return sys_transmit((void *)a1, (size_t)a2);
+		case SYS_receive:
+			return sys_receive((void *)a1);
 		default: 	
 			return -E_INVAL; // todo: was return -E_NO_SYS;
 		

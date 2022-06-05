@@ -14,6 +14,7 @@
 #include <kern/cpu.h>
 #include <kern/spinlock.h>
 #include <kern/time.h>
+#include <kern/e1000.h>
 
 static struct Taskstate ts;
 
@@ -351,6 +352,13 @@ trap_dispatch(struct Trapframe *tf)
 
 	if (trapNumber == IRQ_OFFSET + IRQ_SERIAL){
 		serial_intr();
+		return;
+	}
+
+	if (trapNumber == IRQ_OFFSET + IRQ_E1000){
+		e1000_trap_handler(); 
+		irq_eoi(); // ACK IRQ
+		lapic_eoi(); //ACK LAPIC
 		return;
 	}
 

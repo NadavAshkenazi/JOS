@@ -134,3 +134,10 @@ sys_transmit(void* addr, size_t size)
 {
 	return (int)syscall(SYS_transmit, 0, (uint32_t)addr, (uint32_t)size, 0, 0, 0);
 }
+
+
+int 
+sys_receive(void* addr)
+{
+	return (int)syscall(SYS_receive,  0, (uint32_t)addr, 0, 0, 0, 0);
+}
