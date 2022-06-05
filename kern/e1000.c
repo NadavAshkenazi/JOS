@@ -35,9 +35,7 @@ int e1000_attach(struct pci_func *pcif)
     assert(0x80080783 == *(e1000RegistersVA + (BYTE_T0_ADDRESS(E1000_STATUS))));
     cprintf("E1000 status: 0x%08x should be 0x80080783\n",*(e1000RegistersVA + (BYTE_T0_ADDRESS(E1000_STATUS))));
     
-    cprintf("before e100_txDescs_init\n");
     e100_txDescs_init();
-    cprintf("after e100_txDescs_init\n");
     e100_rxDescs_init();
 
     return 0;
@@ -169,6 +167,7 @@ static inline void e100_rxDescs_init()
 
 
 inline int e1000_receive(struct PageInfo** pp_pointer){
+    cprintf("in e1000_receive\n"); //XXX
 
     int nextDescIndex = (*(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_RDT)) + 1) % E1000_RX_DESC_NUM;
 
@@ -179,6 +178,7 @@ inline int e1000_receive(struct PageInfo** pp_pointer){
         //Sets Receiver Timer Interrupt 
         //All register bits are cleared upon read, e.g needs to be set each time.
         *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_IMS)) = E1000_IMS_RXT0;
+        cprintf("e1000_receive: no pakcet\n"); //XXX
         return -1;
     }
 
@@ -205,6 +205,7 @@ inline int e1000_receive(struct PageInfo** pp_pointer){
 void
 e1000_trap_handler(){
     // Find the input env blocked by network and wake it up
+    cprintf("in e1000_trap_handler\n"); //XXX
     *(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_ICR)) |= E1000_ICR_RXT0; // clear interrupt
     int i = 0;
     for (; i < NENV;i++)
@@ -212,8 +213,8 @@ e1000_trap_handler(){
         if ((envs[i].env_status == ENV_NOT_RUNNABLE) && (envs[i].env_net_blocked == true)){
             //wake up
             envs[i].env_status = ENV_RUNNABLE;
-            envs[i].env_net_blocked == false;
-            // envs[i].env_tf.tf_regs.reg_eax = 0; //XXX
+            envs[i].env_net_blocked = false;
+            envs[i].env_tf.tf_regs.reg_eax = 0; //XXX
         }
     }
 }

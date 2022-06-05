@@ -479,10 +479,10 @@ sys_receive(void * addr){
 	struct PageInfo *pp;
 	int res =  e1000_receive(&pp);
 	while (res < 0){
+		cprintf("trying to recieve -> %d\n", res);
 		curenv->env_net_blocked = true;
 		curenv->env_status = ENV_NOT_RUNNABLE;
 		sched_yield();
-
 		res = e1000_receive(&pp);
 	}
 	//insert packet received into host mem.

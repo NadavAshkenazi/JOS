@@ -168,8 +168,8 @@ trap_init(void)
 	void t_irq10();				//42
 	SETGATE(idt[IRQ_OFFSET + 10], INTERRUPT, GD_KT, &t_irq10, DPL_KERN);
 	
-	void t_irq11();				//43
-	SETGATE(idt[IRQ_OFFSET + 11], INTERRUPT, GD_KT, &t_irq11, DPL_KERN);
+	void t_e1000();				//43
+	SETGATE(idt[IRQ_OFFSET + IRQ_E1000], INTERRUPT, GD_KT, &t_e1000, DPL_KERN);
 	
 	void t_irq12();				//44
 	SETGATE(idt[IRQ_OFFSET + 12], INTERRUPT, GD_KT, &t_irq12, DPL_KERN);
@@ -291,6 +291,8 @@ trap_dispatch(struct Trapframe *tf)
 	// Handle processor exceptions.
 	// LAB 3: Your code here.
 	uint32_t trapNumber = tf->tf_trapno;
+	// if (trapNumber != IRQ_OFFSET + IRQ_TIMER)
+	// 	cprintf("in trap dispatch : %d\n", trapNumber); //XXX
 
 	if (trapNumber == T_PGFLT){
 		page_fault_handler(tf);
@@ -356,6 +358,7 @@ trap_dispatch(struct Trapframe *tf)
 	}
 
 	if (trapNumber == IRQ_OFFSET + IRQ_E1000){
+		cprintf("in IRQ_OFFSET + IRQ_E1000\n"); //XXX
 		e1000_trap_handler(); 
 		irq_eoi(); // ACK IRQ
 		lapic_eoi(); //ACK LAPIC
