@@ -476,24 +476,28 @@ sys_transmit(void* addr, size_t size){
 
 static int
 sys_receive(void * addr){
+	// cprintf("env: %x in sys_receive\n", curenv->env_id);
 	struct PageInfo *pp;
 	int res =  e1000_receive(&pp);
 	while (res < 0){
-		cprintf("trying to recieve -> %d\n", res);
+		// cprintf("sys_receive: could not receive, making env: %x not runnable\n", curenv->env_id);
 		curenv->env_net_blocked = true;
 		curenv->env_status = ENV_NOT_RUNNABLE;
 		sched_yield();
+		// cprintf("sys_receive: env: %x back from yield\n", curenv->env_id); //XXX
 		res = e1000_receive(&pp);
 	}
+	// cprintf("env: %x sys_receive:RECEIVED, len: %d\n", curenv->env_id, res);
 	//insert packet received into host mem.
-	res = page_insert(curenv->env_pgdir, pp, addr, PTE_U | PTE_W | PTE_P);
-	if (res < 0){
+	int res2 = page_insert(curenv->env_pgdir, pp, addr, PTE_U | PTE_W | PTE_P);
+	if (res2 < 0){
 		page_free(pp);
-		cprintf("sys_receive: could not insert page to host mem: %p -> %e", addr, res);
+		// cprintf("sys_receive: could not insert page to host mem: %p -> %e", addr, res2); //XXX
 		res = -E_NO_MEM;
 	}
 	user_mem_assert(curenv, addr, PGSIZE, PTE_U | PTE_W | PTE_P); //check prem and destroy if denied
-
+	// cprintf("env: %x inserted %x \n", curenv->env_id, addr);
+	// cprintf("env: %x, len: %d\n", curenv->env_id, res);
 	return res;
 }
 

@@ -358,7 +358,7 @@ trap_dispatch(struct Trapframe *tf)
 	}
 
 	if (trapNumber == IRQ_OFFSET + IRQ_E1000){
-		cprintf("in IRQ_OFFSET + IRQ_E1000\n"); //XXX
+		// cprintf("in IRQ_OFFSET + IRQ_E1000\n"); //XXX
 		e1000_trap_handler(); 
 		irq_eoi(); // ACK IRQ
 		lapic_eoi(); //ACK LAPIC

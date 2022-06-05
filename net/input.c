@@ -18,37 +18,32 @@ input(envid_t ns_envid)
 	// another packet in to the same physical page.
 
 
-	// sys_page_unmap(0, &nsipcbuf); //clear buffer //XXX
+	sys_page_unmap(0, &nsipcbuf); //clear buffer //XXX
 
 	while (1)
 	{
-		cprintf("in input\n"); //XXX
+		// cprintf("in input\n"); //XXX
 		sys_page_alloc(0, &nsipcbuf, PTE_U | PTE_W | PTE_P); // aloc new page with read/write prem
-
+		
 		int res = sys_receive(&nsipcbuf);
-		cprintf("input res: %e\n",res); //XXX
 		if (res < 0)
 			panic("input: %e\n", res);
 
 		else if (res > PGSIZE - sizeof(struct jif_pkt))
 			panic("input: packet too big for page -> %e\n", res);
 
-		cprintf("input not panicing\n"); //XXX
 		//	ipc to server that new packet was received
 		memmove(nsipcbuf.pkt.jp_data, &nsipcbuf, res);
 		nsipcbuf.pkt.jp_len = res;
 		ipc_send(ns_envid, NSREQ_INPUT, &nsipcbuf, PTE_P | PTE_W | PTE_U);
-		cprintf("input sent ipc\n"); //XXX
-
+		// cprintf("input sent ipc\n"); //XXX
 		int i = 0;
 		for (; i < DELAY_TIME; i++){// don't immediately receive another packet in to the same physical page
-			cprintf("delay %d\n", i); //XXX
 			sys_yield();
 		} 
-		cprintf("input before unmap\n"); //XXX
 		res = sys_page_unmap(0, &nsipcbuf);
 		if (res < 0)
 			panic("input: could not unmap page -> %e\n", res);
+
 	}
-	
 }

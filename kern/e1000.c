@@ -35,6 +35,9 @@ int e1000_attach(struct pci_func *pcif)
     assert(0x80080783 == *(e1000RegistersVA + (BYTE_T0_ADDRESS(E1000_STATUS))));
     cprintf("E1000 status: 0x%08x should be 0x80080783\n",*(e1000RegistersVA + (BYTE_T0_ADDRESS(E1000_STATUS))));
     
+    // Set the interrupts channel
+    irq_setmask_8259A(irq_mask_8259A & ~(1 << IRQ_E1000));
+
     e100_txDescs_init();
     e100_rxDescs_init();
 
@@ -130,8 +133,8 @@ static inline void e100_rxDescs_init()
     /*MAC addresses are written from lowest-order byte to highest-order byte
      */
     
-    *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_RA)) = 0x12005452;
-    *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_RA + 4)) = 0x5634 | E1000_RAH_AV;
+    *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_RA)) = 0x12005452; //mac addr low
+    *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_RA + 4)) = 0x5634 | E1000_RAH_AV; //mac addr high
 
     /*  Program the receive Descriptor Base Address
         (RDBAL/RDBAH) register(s) with the address of the region */
@@ -167,7 +170,7 @@ static inline void e100_rxDescs_init()
 
 
 inline int e1000_receive(struct PageInfo** pp_pointer){
-    cprintf("in e1000_receive\n"); //XXX
+    // cprintf("in e1000_receive\n"); //XXX
 
     int nextDescIndex = (*(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_RDT)) + 1) % E1000_RX_DESC_NUM;
 
@@ -178,7 +181,7 @@ inline int e1000_receive(struct PageInfo** pp_pointer){
         //Sets Receiver Timer Interrupt 
         //All register bits are cleared upon read, e.g needs to be set each time.
         *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_IMS)) = E1000_IMS_RXT0;
-        cprintf("e1000_receive: no pakcet\n"); //XXX
+        // cprintf("e1000_receive: no pakcet\n"); //XXX
         return -1;
     }
 
@@ -199,22 +202,31 @@ inline int e1000_receive(struct PageInfo** pp_pointer){
     (rxDescriptorsArray + nextDescIndex)->addr = page2pa(temp_pp);
     *(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_RDT)) = nextDescIndex;
 
+    // cprintf("e1000_receive: len: %d\n", len); //XXX
     return len;
-}
+ }
 
 void
 e1000_trap_handler(){
     // Find the input env blocked by network and wake it up
-    cprintf("in e1000_trap_handler\n"); //XXX
+    // cprintf("env %x: in e1000_trap_handler\n", curenv->env_id); //XXX
     *(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_ICR)) |= E1000_ICR_RXT0; // clear interrupt
     int i = 0;
+    int envsFound = 0;
     for (; i < NENV;i++)
     {
+        // cprintf("e1000_trap_handler: env: %x, status: %d, env_net_blocked: %d\n", envs[i].env_id, envs[i].env_status, envs[i].env_net_blocked);
         if ((envs[i].env_status == ENV_NOT_RUNNABLE) && (envs[i].env_net_blocked == true)){
             //wake up
+            // cprintf("e1000_trap_handler: found env to wake up: %x\n", envs[i].env_id);
             envs[i].env_status = ENV_RUNNABLE;
+            // cprintf("e1000_trap_handler: envs[%d].env_status: %d\n", i, envs[i].env_status);
             envs[i].env_net_blocked = false;
+            // cprintf("e1000_trap_handler: envs[%d].env_net_blocked: %d\n", i, envs[i].env_net_blocked);
             envs[i].env_tf.tf_regs.reg_eax = 0; //XXX
+            // cprintf("e1000_trap_handler: envs[%d].env_tf.tf_regs.reg_eax: %d\n", i, envs[i].env_tf.tf_regs.reg_eax);
+            envsFound++;
         }
     }
+    // cprintf("end of e1000_trap_handler, envsFound: %d\n", envsFound);
 }

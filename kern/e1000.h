@@ -31,7 +31,7 @@ void e1000_trap_handler();
 
 
 #define SIZE_OF_PACKET 1518 // size in bytes of a tcp packet
-typedef uintptr_t packetBuff; // debug - void* /*ptr of va to packet page*/
+typedef void * packetBuff; // debug - void* /*ptr of va to packet page*/
 
 
 /* Register Set. (82543, 82544)
@@ -211,7 +211,7 @@ typedef uintptr_t packetBuff; // debug - void* /*ptr of va to packet page*/
 // #define E1000_ICRXOC   0x04124  /* Interrupt Cause Receiver Overrun Count */
 // #define E1000_RXCSUM   0x05000  /* RX Checksum Control - RW */
 // #define E1000_RFCTL    0x05008  /* Receive Filter Control*/
-// #define E1000_MTA      0x05200  /* Multicast Table Array - RW Array */
+#define E1000_MTA      0x05200  /* Multicast Table Array - RW Array */
 #define E1000_RA       0x05400  /* Receive Address - RW Array */
 // #define E1000_VFTA     0x05600  /* VLAN Filter Table Array - RW Array */
 // #define E1000_WUC      0x05800  /* Wakeup Control - RW */

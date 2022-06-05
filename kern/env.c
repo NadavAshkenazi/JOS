@@ -418,7 +418,7 @@ env_create(uint8_t *binary, enum EnvType type)
 
 	struct Env* e;
 	int res = env_alloc(&e, 0);
-	cprintf("id: %x type:%d - error: %e\n",e->env_id, type, res); //XXX
+	// cprintf("id: %x type:%d - error: %e\n",e->env_id, type, res); //XXX
 	if (res != 0) //allocate new env
 		panic("env_create: env_alloc faild - %e", res);
 	
