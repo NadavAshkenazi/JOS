@@ -141,3 +141,9 @@ sys_receive(void* addr)
 {
 	return (int)syscall(SYS_receive,  0, (uint32_t)addr, 0, 0, 0, 0);
 }
+
+void
+sys_get_EEPROM_MAC(uint64_t* addr)
+{
+        syscall(SYS_get_EEPROM_MAC, 0, (uint32_t) addr, 0, 0, 0, 0);
+}

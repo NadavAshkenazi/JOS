@@ -19,6 +19,7 @@ enum {
 	SYS_ipc_recv,
 	SYS_time_msec,
 	SYS_set_priority,
+	SYS_get_EEPROM_MAC,
 	SYS_transmit,
 	SYS_receive,
 	NSYSCALLS

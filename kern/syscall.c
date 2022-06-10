@@ -501,6 +501,17 @@ sys_receive(void * addr){
 	return res;
 }
 
+static void
+sys_get_EEPROM_MAC(uint64_t* addr)
+{
+    
+    *addr =   ((uint64_t)(E1000_RAH_AV) << 16 |
+			   (uint64_t)(readMACFromEEPROM(E1000_EERD_MAC_HIGH)) << 32 |
+			   (uint64_t)(readMACFromEEPROM(E1000_EERD_MAC_MID)) << 16 |
+			   (uint64_t)(readMACFromEEPROM(E1000_EERD_MAC_LOW)));
+
+}
+
 // Dispatches to the correct kernel function, passing the arguments.
 int32_t
 syscall(uint32_t syscallno, uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4, uint32_t a5)
@@ -549,6 +560,9 @@ syscall(uint32_t syscallno, uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4, 
 			return sys_transmit((void *)a1, (size_t)a2);
 		case SYS_receive:
 			return sys_receive((void *)a1);
+		case SYS_get_EEPROM_MAC:
+			sys_get_EEPROM_MAC((uint64_t *)a1);
+			return 0;
 		default: 	
 			return -E_INVAL; // todo: was return -E_NO_SYS;
 		

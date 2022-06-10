@@ -115,6 +115,32 @@ inline int e1000_transmit(struct PageInfo* pp, size_t size){
 
 
 
+uint16_t
+readMACFromEEPROM(uint32_t addr)
+{
+    /*  EERD (00014h; RW) Table 13-7. EEPROM Read Register Bit Description
+        +-------+---------+------+------+------+-------+
+        | 31:16 |   15:8  |  7:5 |   4  |  3:1 |   0   |
+        +-------+---------+------+------+------+-------+
+        |  data | address | RSV. | DONE | RSV. | START |
+        +-------+---------+------+------+------+-------+ 
+
+        The Ethernet Individual Address (IA) is a six-byte field that must be unique for each Ethernet port
+        (and unique for each copy of the EEPROM image). The first three bytes are vendor specific.
+         The value from this field is loaded into the Receive Address Register 0 (RAL0/RAH0)
+        */
+
+        // Request the word by address
+        *(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_EERD)) = addr | E1000_EERD_START;
+        //poll until done bit is up
+        while (!(*(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_EERD)) & E1000_EERD_DONE))
+            ;
+        // return data part
+        return *(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_EERD)) >> E1000_EERD_DATA;
+        
+}
+
+
 static inline void e100_rxDescs_init()
 {
     /*  Allocate a region of memory for the receive descriptor list. Software should insure this memory is
@@ -136,8 +162,16 @@ static inline void e100_rxDescs_init()
     /*MAC addresses are written from lowest-order byte to highest-order byte
      */
     
-    *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_RA)) = 0x12005452; //mac addr low
-    *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_RA + 4)) = 0x5634 | E1000_RAH_AV; //mac addr high
+    assert(0x12005452 == (readMACFromEEPROM(E1000_EERD_MAC_MID) << 16 | readMACFromEEPROM(E1000_EERD_MAC_LOW)));
+    assert(0x00005634 == readMACFromEEPROM(E1000_EERD_MAC_HIGH));
+
+    *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_RA)) = readMACFromEEPROM(E1000_EERD_MAC_MID) << 16 |
+                                                                  readMACFromEEPROM(E1000_EERD_MAC_LOW); //mac addr low
+    *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_RA + 4)) = readMACFromEEPROM(E1000_EERD_MAC_HIGH) |
+                                                                      E1000_RAH_AV; //mac addr high
+
+    // *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_RA)) = 0x12005452; //mac addr low
+    // *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_RA + 4)) = 0x5634 | E1000_RAH_AV; //mac addr high
 
     /*  Program the receive Descriptor Base Address
         (RDBAL/RDBAH) register(s) with the address of the region */
@@ -211,18 +245,10 @@ inline int e1000_receive(struct PageInfo** pp_pointer){
 
 
 
-void
-e1000_clear_interrupt(void)
-{
-    *(uint32_t *)(e1000RegistersVA + E1000_ICR) |= E1000_ICR_RXT0; 
-	lapic_eoi();
-	irq_eoi();
-}
 
 void
 e1000_trap_handler(){
     // Find the input env blocked by network and wake it up
-    cprintf("env %x: in e1000_trap_handler\n", curenv->env_id); //XXX
     *(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_ICR)) |= E1000_ICR_RXT0; // clear interrupt
     int i = 0;
     int envsFound = 0;
@@ -237,7 +263,7 @@ e1000_trap_handler(){
             envs[i].env_net_blocked = false;
             // // cprintf("e1000_trap_handler: envs[%d].env_net_blocked: %d\n", i, envs[i].env_net_blocked);
             // envs[i].env_tf.tf_regs.reg_eax = -1; //XXX
-            cprintf("e1000_trap_handler: envs[%d].env_tf.tf_regs.reg_eax: %d\n", i, envs[i].env_tf.tf_regs.reg_eax);
+            cprintf("e1000_trap_handler: envs[%d].env_tf.tf_regs.reg_eax: %d\n", i, envs[i].env_tf.tf_regs.reg_eax); //XXX
             if (envs[i].env_tf.tf_regs.reg_eax != 0)
                 envs[i].env_tf.tf_regs.reg_eax = -E_NET_ERROR;
             envsFound++;

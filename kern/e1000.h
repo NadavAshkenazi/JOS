@@ -16,7 +16,7 @@ int e1000_attach(struct pci_func *pcif);
 int e1000_transmit(struct PageInfo* pp, size_t size);
 int e1000_receive(struct PageInfo** pp_pointer);
 void e1000_trap_handler();
-
+uint16_t readMACFromEEPROM(uint32_t addr);
 
 // 82540EM (DESKTOP)  - in section 5.2 of intel's manual - page 109
 #define PCI_E1000_VENDOR 0x8086
@@ -32,6 +32,17 @@ void e1000_trap_handler();
 
 #define SIZE_OF_PACKET 1518 // size in bytes of a tcp packet
 typedef void * packetBuff; // debug - void* /*ptr of va to packet page*/
+
+
+/* EERD bits*/
+#define E1000_EERD_START        0x00000001
+#define E1000_EERD_DONE         0x00000010
+#define E1000_EERD_DATA         16
+#define E1000_EERD_MAC_LOW      0x00000000
+#define E1000_EERD_MAC_MID      0x00000100
+#define E1000_EERD_MAC_HIGH     0x00000200
+
+
 
 
 /* Register Set. (82543, 82544)
@@ -50,7 +61,7 @@ typedef void * packetBuff; // debug - void* /*ptr of va to packet page*/
 // #define E1000_CTRL_DUP 0x00004  /* Device Control Duplicate (Shadow) - RW */
 // #define E1000_STATUS   0x00008  /* Device Status - RO */
 // #define E1000_EECD     0x00010  /* EEPROM/Flash Control - RW */
-// #define E1000_EERD     0x00014  /* EEPROM Read - RW */
+#define E1000_EERD     0x00014  /* EEPROM Read - RW */
 // #define E1000_CTRL_EXT 0x00018  /* Extended Device Control - RW */
 // #define E1000_FLA      0x0001C  /* Flash Access - RW */
 // #define E1000_MDIC     0x00020  /* MDI Control - RW */
