@@ -23,16 +23,17 @@ input(envid_t ns_envid)
 	while (1)
 	{
 		// cprintf("in input\n"); //XXX
-		sys_page_alloc(0, &nsipcbuf, PTE_U | PTE_W | PTE_P); // aloc new page with read/write prem
+		sys_page_alloc(0, &nsipcbuf, PTE_U | PTE_W | PTE_P); // alloc new page with read/write prem
 		
-		int res = sys_receive(&nsipcbuf);
-		if (res < 0)
-			panic("input: %e\n", res);
+		while(true){
 
-		else if (res > PGSIZE - sizeof(struct jif_pkt))
-			panic("input: packet too big for page -> %e\n", res);
+		int res;
+		do{
+			res = sys_receive(&nsipcbuf);
+		}
+		while(res < 0);
 
-		//	ipc to server that new packet was received
+			//	ipc to server that new packet was received
 		memmove(nsipcbuf.pkt.jp_data, &nsipcbuf, res);
 		nsipcbuf.pkt.jp_len = res;
 		ipc_send(ns_envid, NSREQ_INPUT, &nsipcbuf, PTE_P | PTE_W | PTE_U);
@@ -44,6 +45,9 @@ input(envid_t ns_envid)
 		res = sys_page_unmap(0, &nsipcbuf);
 		if (res < 0)
 			panic("input: could not unmap page -> %e\n", res);
+		}
+
+
 
 	}
 }

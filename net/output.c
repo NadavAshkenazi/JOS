@@ -30,7 +30,9 @@ output(envid_t ns_envid)
 		len = nsipcbuf.pkt.jp_len;
 		memmove(&nsipcbuf, nsipcbuf.pkt.jp_data, len);
 
-		sys_transmit(&nsipcbuf, len);
+		while(sys_transmit(&nsipcbuf, len) <0){
+			sys_yield();
+		};
 
 		res = sys_page_unmap(0, &nsipcbuf);
 		if (res < 0)

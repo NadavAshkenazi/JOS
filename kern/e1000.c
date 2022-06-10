@@ -1,5 +1,5 @@
 #include <kern/e1000.h>
-
+#include <inc/error.h>
 
 // LAB 6: Your driver code here
 
@@ -88,7 +88,7 @@ inline int e1000_transmit(struct PageInfo* pp, size_t size){
     if (size > SIZE_OF_PACKET)
         panic("e1000_transmit: size requested larger than packet");
 
-
+    // if (!size) return -E_NET_ERROR;
     int tailIndex = *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_TDT));
     //configure transmit descriptor
     (txDescriptorsArray + tailIndex)->addr = page2pa(pp);
@@ -102,8 +102,11 @@ inline int e1000_transmit(struct PageInfo* pp, size_t size){
     *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_TDT)) %= E1000_TX_DESC_NUM;
 
     //spin until array has free descriptor ( by DD Bit )
-    while (!((txDescriptorsArray + tailIndex)->status & E1000_TXD_STAT_DD));
+    if (!((txDescriptorsArray + tailIndex)->status & E1000_TXD_STAT_DD)){
+        return -E_NET_ERROR;
+    }
     
+
     //free descriptor
     memset((txDescriptorsArray + tailIndex), 0, sizeof(struct tx_desc));
     
@@ -173,7 +176,6 @@ inline int e1000_receive(struct PageInfo** pp_pointer){
     // cprintf("in e1000_receive\n"); //XXX
 
     int nextDescIndex = (*(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_RDT)) + 1) % E1000_RX_DESC_NUM;
-
     /*descriptor does not hold a packet.
       allow interupts and return with an error*/
     if (!((rxDescriptorsArray + nextDescIndex)->status & E1000_RXD_STAT_DD))
@@ -182,15 +184,16 @@ inline int e1000_receive(struct PageInfo** pp_pointer){
         //All register bits are cleared upon read, e.g needs to be set each time.
         *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_IMS)) = E1000_IMS_RXT0;
         // cprintf("e1000_receive: no pakcet\n"); //XXX
-        return -1;
+        return -E_NET_ERROR;
     }
 
     /*descriptor holds a packet.
       insert packet into requested page*/
     (rxDescriptorsArray + nextDescIndex)->status &= ~E1000_RXD_STAT_DD; //clear DD flag in status
     size_t len =(size_t)(rxDescriptorsArray + nextDescIndex)->length;
+    if (!len) return -E_NET_ERROR;
     if (len > SIZE_OF_PACKET)
-        panic("e1000_receive: size requested larger than packet");
+        return -E_NET_ERROR;
     *pp_pointer = pa2page((rxDescriptorsArray + nextDescIndex)->addr);
 
 
@@ -206,10 +209,20 @@ inline int e1000_receive(struct PageInfo** pp_pointer){
     return len;
  }
 
+
+
+void
+e1000_clear_interrupt(void)
+{
+    *(uint32_t *)(e1000RegistersVA + E1000_ICR) |= E1000_ICR_RXT0; 
+	lapic_eoi();
+	irq_eoi();
+}
+
 void
 e1000_trap_handler(){
     // Find the input env blocked by network and wake it up
-    // cprintf("env %x: in e1000_trap_handler\n", curenv->env_id); //XXX
+    cprintf("env %x: in e1000_trap_handler\n", curenv->env_id); //XXX
     *(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_ICR)) |= E1000_ICR_RXT0; // clear interrupt
     int i = 0;
     int envsFound = 0;
@@ -218,15 +231,17 @@ e1000_trap_handler(){
         // cprintf("e1000_trap_handler: env: %x, status: %d, env_net_blocked: %d\n", envs[i].env_id, envs[i].env_status, envs[i].env_net_blocked);
         if ((envs[i].env_status == ENV_NOT_RUNNABLE) && (envs[i].env_net_blocked == true)){
             //wake up
-            // cprintf("e1000_trap_handler: found env to wake up: %x\n", envs[i].env_id);
+            // // cprintf("e1000_trap_handler: found env to wake up: %x\n", envs[i].env_id);
             envs[i].env_status = ENV_RUNNABLE;
-            // cprintf("e1000_trap_handler: envs[%d].env_status: %d\n", i, envs[i].env_status);
+            // // cprintf("e1000_trap_handler: envs[%d].env_status: %d\n", i, envs[i].env_status);
             envs[i].env_net_blocked = false;
-            // cprintf("e1000_trap_handler: envs[%d].env_net_blocked: %d\n", i, envs[i].env_net_blocked);
-            envs[i].env_tf.tf_regs.reg_eax = 0; //XXX
-            // cprintf("e1000_trap_handler: envs[%d].env_tf.tf_regs.reg_eax: %d\n", i, envs[i].env_tf.tf_regs.reg_eax);
+            // // cprintf("e1000_trap_handler: envs[%d].env_net_blocked: %d\n", i, envs[i].env_net_blocked);
+            // envs[i].env_tf.tf_regs.reg_eax = -1; //XXX
+            cprintf("e1000_trap_handler: envs[%d].env_tf.tf_regs.reg_eax: %d\n", i, envs[i].env_tf.tf_regs.reg_eax);
+            if (envs[i].env_tf.tf_regs.reg_eax != 0)
+                envs[i].env_tf.tf_regs.reg_eax = -E_NET_ERROR;
             envsFound++;
         }
+       
     }
-    // cprintf("end of e1000_trap_handler, envsFound: %d\n", envsFound);
 }
