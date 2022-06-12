@@ -8,7 +8,7 @@
 #define MAXPENDING 5    // Max connection requests
 #define NUM_OF_PARTICIPANTS 2
 #define IPC_PAGE_VA ((char *) 0xA0000000)
-#define USER_BUFFER_LEN(name) (BUFFSIZE + strlen(name) + 2)
+#define USER_BUFFER_LEN (BUFFSIZE + 3 + 2)
 
 int sockets[NUM_OF_PARTICIPANTS] = {-1};
 
@@ -32,10 +32,10 @@ handle_client(int sock)
 	if ((received = read(sock, buffer, BUFFSIZE)) < 0)
 		die("Failed to receive initial bytes from client");
 
-	char name[BUFFSIZE];
-	memset(name, 0, BUFFSIZE);
+	char name[4];
+	memset(name, 0, 4);
 	strcpy(name, buffer);
-	char user_message[USER_BUFFER_LEN(name)];
+	char user_message[USER_BUFFER_LEN];
 
 	// Send bytes and check for more incoming data in loop
 	 do {
@@ -44,12 +44,12 @@ handle_client(int sock)
 		if ((received = read(sock, buffer, BUFFSIZE)) < 0)
 			die("Failed to receive additional bytes from client");
 
-		memset(user_message, 0, USER_BUFFER_LEN(name));
+		memset(user_message, 0, USER_BUFFER_LEN);
 		strcpy(user_message, name);
-		printf("user_message(name): %s", user_message);
-		strcpy(user_message + strlen(user_message) -1, ": ");
-		strcpy(user_message + strlen(user_message) -1, buffer);
-		printf("user_message: %s", user_message);
+		// printf("user_message(name): %s", user_message);
+		strcpy(user_message + 3 , ": ");
+		strcpy(user_message + 5 , buffer);
+		// printf("user_message: %s", user_message);
 		sys_page_alloc(thisenv->env_id, IPC_PAGE_VA, PTE_P | PTE_W | PTE_U);
 		memset(IPC_PAGE_VA, 0, PGSIZE);
 		memcpy(IPC_PAGE_VA, user_message, strlen(user_message));
