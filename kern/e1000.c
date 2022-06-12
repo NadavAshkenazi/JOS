@@ -162,13 +162,15 @@ static inline void e100_rxDescs_init()
     /*MAC addresses are written from lowest-order byte to highest-order byte
      */
     
-    assert(0x12005452 == (readMACFromEEPROM(E1000_EERD_MAC_MID) << 16 | readMACFromEEPROM(E1000_EERD_MAC_LOW)));
-    assert(0x00005634 == readMACFromEEPROM(E1000_EERD_MAC_HIGH));
+    // assert(0x12005452 == (readMACFromEEPROM(E1000_EERD_MAC_MID) << 16 | readMACFromEEPROM(E1000_EERD_MAC_LOW)));
+    // assert(0x5634 == readMACFromEEPROM(E1000_EERD_MAC_HIGH));
+
 
     *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_RA)) = readMACFromEEPROM(E1000_EERD_MAC_MID) << 16 |
                                                                   readMACFromEEPROM(E1000_EERD_MAC_LOW); //mac addr low
     *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_RA + 4)) = readMACFromEEPROM(E1000_EERD_MAC_HIGH) |
                                                                       E1000_RAH_AV; //mac addr high
+
 
     // *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_RA)) = 0x12005452; //mac addr low
     // *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_RA + 4)) = 0x5634 | E1000_RAH_AV; //mac addr high

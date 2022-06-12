@@ -505,7 +505,7 @@ static void
 sys_get_EEPROM_MAC(uint64_t* addr)
 {
     
-    *addr =   ((uint64_t)(E1000_RAH_AV) << 16 |
+    *addr =   ((uint64_t)(E1000_RAH_AV) << 32 |
 			   (uint64_t)(readMACFromEEPROM(E1000_EERD_MAC_HIGH)) << 32 |
 			   (uint64_t)(readMACFromEEPROM(E1000_EERD_MAC_MID)) << 16 |
 			   (uint64_t)(readMACFromEEPROM(E1000_EERD_MAC_LOW)));
