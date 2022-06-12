@@ -94,6 +94,7 @@ KERN_BINFILES +=	user/testfile \
 KERN_BINFILES +=	user/testtime \
 			user/httpd \
 			user/echosrv \
+			user/chatsrv \
 			user/echotest \
 			net/testoutput \
 			net/testinput \
