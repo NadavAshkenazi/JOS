@@ -8,11 +8,16 @@
 #define NAMESIZE 16
 #define MAXPENDING 5    // Max connection requests
 #define NUM_OF_PARTICIPANTS 2
-#define IPC_PAGE_VA ((char *) 0xA0000000)
+#define IPC_PAGE_VA ((char *) 0xa00000)
+// #define ACK_ ((char *) 0xA0000000)
 #define USER_BUFFER_LEN (BUFFSIZE + NAMESIZE + 3)
 
 #define ENTER_KEY_ASCII 10
 #define NAME_ERROR 1
+#define ACK_RECEIVED_NAME 100
+#define ACK_EVERYBODY_JOINED 200
+#define ACK_START_CHAT 300
+
 
 int sockets[NUM_OF_PARTICIPANTS] = {-1};
 
@@ -63,7 +68,7 @@ handle_client(int sock)
 	int received = -1;
 	
 	// Receive message
-	char* name_msg = "What is your name (up to 15 chars)?";
+	char* name_msg = "What is your name (up to 15 chars)?\n";
 	if ((received = write(sock, name_msg, strlen(name_msg))) < 0)
 		die("Failed to send initial bytes from client");
 	if ((received = read(sock, buffer, BUFFSIZE)) < 0)
@@ -79,9 +84,20 @@ handle_client(int sock)
 	memset(name, 0, NAMESIZE);
 	strcpy(name, buffer);
 
-	// //ack of login to parent
-	// ipc_send(thisenv->env_parent_id, 1, NULL, 0);
-	// // printf("%s logged in (size: %d)", name, strlen(name));
+
+	envid_t env_id;
+	// spin until server said every body connected
+	while (ipc_recv(&env_id, NULL, NULL) != ACK_EVERYBODY_JOINED){}
+	;
+	printf("ACK_EVERYBODY_JOINED\n");
+	//send ack that recived name
+	ipc_send(thisenv->env_parent_id, ACK_RECEIVED_NAME, NULL, 0);
+
+	//spin until ack from server
+	while (ipc_recv(&env_id, NULL, NULL) != ACK_START_CHAT)
+	;
+	printf("ACK_START_CHAT\n");
+	// printf("%s logged in (size: %d)", name, strlen(name));
 
 
 	char user_message[USER_BUFFER_LEN];
@@ -154,11 +170,13 @@ umain(int argc, char **argv)
 
 	cprintf("bound\n");
 
-	cprintf("Waiting for users to loggin...");
+	cprintf("Waiting for users to loggin...\n");
+	envid_t childern_envs[NUM_OF_PARTICIPANTS];
+
+	//wait until all accepts
 	int i = 0;
 	for (; i < NUM_OF_PARTICIPANTS; i++) {
 		unsigned int clientlen = sizeof(echoclient);
-		// Wait for client connection
 		if ((clientsock =
 		     accept(serversock, (struct sockaddr *) &echoclient, &clientlen)) < 0) {
 			die("Failed to accept client connection");
@@ -166,18 +184,36 @@ umain(int argc, char **argv)
 
 		sockets[i] = clientsock;
 		cprintf("Client %d connected to socket %d: %s\n",i, clientsock, inet_ntoa(echoclient.sin_addr));
-		if (fork() == 0)
+		envid_t pid = fork();
+		if (pid == 0)
 			handle_client(clientsock);
+		else{
+			cprintf("forked server to %x\n",pid);
+			childern_envs[i] = pid;
+		}
 	}
 
-
+	cprintf("sending ACK_EVERYBODY_JOINED to handlers...\n");
+	//send ok to handlers
+	for (i = 0; i < NUM_OF_PARTICIPANTS; i++)
+		ipc_send(childern_envs[i], ACK_EVERYBODY_JOINED, NULL, 0);
 	
-	// int usrCounter = 0;
-	// while (usrCounter < NUM_OF_PARTICIPANTS) {
-	// 	envid_t env_id;
-	// 	usrCounter += ipc_recv(&env_id, IPC_PAGE_VA, 0);
-	// }
 
+	cprintf("waiting for every handler to receive a username...\n");
+	//wait for every handler to receive a username
+	int usrCounter = 0;
+	envid_t env_id;
+	while (usrCounter < NUM_OF_PARTICIPANTS) {
+		cprintf("%d acks\n", usrCounter);
+		if (ipc_recv(&env_id, NULL, 0) == ACK_RECEIVED_NAME){
+			usrCounter += 1;
+		}
+	}
+
+	cprintf("sending ACK_START_CHAT to handlers...\n");
+	//send start chat to handlers
+	for (i = 0; i < NUM_OF_PARTICIPANTS; i++)
+		ipc_send(childern_envs[i], ACK_START_CHAT, NULL, 0);
 
 	// Run until canceled
 	while(1){
