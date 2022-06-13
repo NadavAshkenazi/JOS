@@ -93,14 +93,14 @@ handle_client(int sock)
 
 	while (sys_chat_counter_read(NO_RESET) < NUM_OF_PARTICIPANTS);
 		sys_yield();
-	cprintf("user %d dec.\n", sock);
+	// cprintf("user %d dec.\n", sock);
 
-	sys_chat_counter_dec();
+	sys_chat_counter_inc();
 
-	while (sys_chat_counter_read(NO_RESET) > 0);
+	while (sys_chat_counter_read(NO_RESET) < 2 * NUM_OF_PARTICIPANTS);
 		sys_yield();
 
-	cprintf("user %d starts.\n", sock);
+	// cprintf("user %d starts.\n", sock);
 	
 
 	// envid_t env_id;
@@ -137,10 +137,10 @@ handle_client(int sock)
 		// if (!validation)
 		// 	die("invalid users msg");
 
-		int k = 0;
-		for (; k < USER_BUFFER_LEN; k++){
-			printf("char is: %c -> %d\n", user_message[k], (int)user_message[k]);
-		}
+		// int k = 0;
+		// for (; k < USER_BUFFER_LEN; k++){
+		// 	printf("char is: %c -> %d\n", user_message[k], (int)user_message[k]);
+		// }
 
 
 		sys_page_alloc(thisenv->env_id, IPC_PAGE_VA, PTE_P | PTE_W | PTE_U);
@@ -222,7 +222,7 @@ umain(int argc, char **argv)
 	// //wait for every handler to receive a username
 	int counter = sys_chat_counter_read(NO_RESET);
 	cprintf("counter: %d\n", counter);
-	while (counter > 0){
+	while (counter < 2 * NUM_OF_PARTICIPANTS){
 		counter = sys_chat_counter_read(NO_RESET);
 		// cprintf("counter: %d\n", counter);
 		sys_yield();
