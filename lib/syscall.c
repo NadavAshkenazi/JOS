@@ -147,3 +147,21 @@ sys_get_EEPROM_MAC(uint64_t* addr)
 {
         syscall(SYS_get_EEPROM_MAC, 0, (uint32_t) addr, 0, 0, 0, 0);
 }
+
+int
+sys_chat_counter_inc()
+{
+    return syscall(SYS_chat_counter_inc, 0, 0, 0, 0, 0, 0);
+}
+
+int
+sys_chat_counter_read(int reset)
+{
+    return syscall(SYS_chat_counter_read, 0, reset, 0, 0, 0, 0);
+}
+
+int
+sys_chat_counter_dec()
+{
+    return syscall(SYS_chat_counter_dec, 0, 0, 0, 0, 0, 0);
+}

@@ -64,6 +64,9 @@ int sys_set_priority(int priority);
 int sys_transmit(void* addr, size_t size);
 int sys_receive(void* addr);
 void sys_get_EEPROM_MAC(uint64_t* addr);
+int sys_chat_counter_inc();
+int sys_chat_counter_read(int reset);
+int sys_chat_counter_dec();
 
 // This must be inlined.  Exercise for reader: why?
 static __inline envid_t __attribute__((always_inline))

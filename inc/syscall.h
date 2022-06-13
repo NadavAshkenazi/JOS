@@ -22,6 +22,9 @@ enum {
 	SYS_get_EEPROM_MAC,
 	SYS_transmit,
 	SYS_receive,
+	SYS_chat_counter_inc,
+	SYS_chat_counter_read,
+	SYS_chat_counter_dec,
 	NSYSCALLS
 };
 

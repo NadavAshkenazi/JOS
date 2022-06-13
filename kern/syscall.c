@@ -501,6 +501,8 @@ sys_receive(void * addr){
 	return res;
 }
 
+
+ 
 static void
 sys_get_EEPROM_MAC(uint64_t* addr)
 {
@@ -510,6 +512,30 @@ sys_get_EEPROM_MAC(uint64_t* addr)
 			   (uint64_t)(readMACFromEEPROM(E1000_EERD_MAC_MID)) << 16 |
 			   (uint64_t)(readMACFromEEPROM(E1000_EERD_MAC_LOW)));
 
+}
+
+static int chatCounter = 0;
+
+static int
+sys_chat_counter_inc()
+{
+    chatCounter++;
+	return chatCounter;
+}
+
+static int
+sys_chat_counter_read(int reset){
+	int res = chatCounter;
+	if (reset)
+		chatCounter = 0;
+	return res;
+}
+
+static int
+sys_chat_counter_dec()
+{
+    chatCounter--;
+	return chatCounter;
 }
 
 // Dispatches to the correct kernel function, passing the arguments.
@@ -563,6 +589,16 @@ syscall(uint32_t syscallno, uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4, 
 		case SYS_get_EEPROM_MAC:
 			sys_get_EEPROM_MAC((uint64_t *)a1);
 			return 0;
+		
+		case SYS_chat_counter_inc:
+			return sys_chat_counter_inc();
+
+		case SYS_chat_counter_read:
+			return sys_chat_counter_read((int)a1);
+
+		case SYS_chat_counter_dec:
+			return sys_chat_counter_dec();
+	
 		default: 	
 			return -E_INVAL; // todo: was return -E_NO_SYS;
 		

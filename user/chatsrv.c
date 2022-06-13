@@ -8,8 +8,11 @@
 #define NAMESIZE 16
 #define MAXPENDING 5    // Max connection requests
 #define NUM_OF_PARTICIPANTS 2
-#define IPC_PAGE_VA ((char *) 0xa00000)
-#define ACK_ ((char *) 0xA0000000)
+#define IPC_PAGE_VA ((char *) 0xA00000)
+// #define ACK_RECEIVED_NAME ((char *) 0xA0000000) // 00000000000
+// #define ACK_EVERYBODY_JOINED ((char *) 0xA0000100) // 0
+// #define ACK_START_CHAT ((char *) 0xA0000200) // 0
+
 #define USER_BUFFER_LEN (BUFFSIZE + NAMESIZE + 3)
 
 #define ENTER_KEY_ASCII 10
@@ -17,6 +20,9 @@
 #define ACK_RECEIVED_NAME 100
 #define ACK_EVERYBODY_JOINED 200
 #define ACK_START_CHAT 300
+#define RESET 1
+#define NO_RESET 0
+
 
 
 int sockets[NUM_OF_PARTICIPANTS] = {-1};
@@ -84,6 +90,18 @@ handle_client(int sock)
 	memset(name, 0, NAMESIZE);
 	strcpy(name, buffer);
 
+
+	while (sys_chat_counter_read(NO_RESET) < NUM_OF_PARTICIPANTS);
+		sys_yield();
+	cprintf("user %d dec.\n", sock);
+
+	sys_chat_counter_dec();
+
+	while (sys_chat_counter_read(NO_RESET) > 0);
+		sys_yield();
+
+	cprintf("user %d starts.\n", sock);
+	
 
 	// envid_t env_id;
 	// // spin until server said every body connected
@@ -171,11 +189,12 @@ umain(int argc, char **argv)
 	cprintf("bound\n");
 
 	cprintf("Waiting for users to loggin...\n");
-	envid_t childern_envs[NUM_OF_PARTICIPANTS];
 
+	sys_chat_counter_read(RESET);
 	//wait until all accepts
 	int i = 0;
 	for (; i < NUM_OF_PARTICIPANTS; i++) {
+		cprintf("Waiting for %d users\n", NUM_OF_PARTICIPANTS -i);
 		unsigned int clientlen = sizeof(echoclient);
 		if ((clientsock =
 		     accept(serversock, (struct sockaddr *) &echoclient, &clientlen)) < 0) {
@@ -189,11 +208,11 @@ umain(int argc, char **argv)
 			handle_client(clientsock);
 		else{
 			cprintf("forked server to %x\n",pid);
-			childern_envs[i] = pid;
+			sys_chat_counter_inc();
 		}
 	}
 
-	// cprintf("sending ACK_EVERYBODY_JOINED to handlers...\n");
+	cprintf("All users logged in, awiting to enter chat...\n");
 	// //send ok to handlers
 	// for (i = 0; i < NUM_OF_PARTICIPANTS; i++)
 	// 	ipc_send(childern_envs[i], ACK_EVERYBODY_JOINED, NULL, 0);
@@ -201,6 +220,15 @@ umain(int argc, char **argv)
 
 	// cprintf("waiting for every handler to receive a username...\n");
 	// //wait for every handler to receive a username
+	int counter = sys_chat_counter_read(NO_RESET);
+	cprintf("counter: %d\n", counter);
+	while (counter > 0){
+		counter = sys_chat_counter_read(NO_RESET);
+		// cprintf("counter: %d\n", counter);
+		sys_yield();
+	}
+
+	cprintf("You can start chating.\n");
 	// int usrCounter = 0;
 	// envid_t env_id;
 	// while (usrCounter < NUM_OF_PARTICIPANTS) {
@@ -211,6 +239,7 @@ umain(int argc, char **argv)
 	// }
 
 	// cprintf("sending ACK_START_CHAT to handlers...\n");
+	
 	// //send start chat to handlers
 	// for (i = 0; i < NUM_OF_PARTICIPANTS; i++)
 	// 	ipc_send(childern_envs[i], ACK_START_CHAT, NULL, 0);
