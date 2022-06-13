@@ -45,16 +45,25 @@ bool validateString(char* buffer, int wantedSize){
 	}
 }
 
+void prepareMsg(char* user_message,char* name,char* buffer){
+	// memset(user_message, 0, USER_BUFFER_LEN);
+	strcpy(user_message, name);
+	// printf("user_message(name): %s", user_message);
+	strcpy(user_message + strlen(name) , ": ");
+	strcpy(user_message + strlen(name) + 2 , buffer);
+	strcpy(user_message + strlen(name) + 2 + strlen(buffer), "\n");
+	// printf("user_message: %s", user_message);
+}
 
 void
 handle_client(int sock)
 {
 	char buffer[BUFFSIZE];
-
+	// sys_page_alloc(thisenv->env_id, IPC_PAGE_VA, PTE_P | PTE_W | PTE_U);
 	int received = -1;
 	
 	// Receive message
-	char* name_msg = "What is your name (up to 16 chars)?";
+	char* name_msg = "What is your name (up to 15 chars)?";
 	if ((received = write(sock, name_msg, strlen(name_msg))) < 0)
 		die("Failed to send initial bytes from client");
 	if ((received = read(sock, buffer, BUFFSIZE)) < 0)
@@ -65,19 +74,23 @@ handle_client(int sock)
 	bool validation = validateString(buffer, NAMESIZE);
 	if (!validation)
 		die("invalid name");
-	
+
 	char name[NAMESIZE];
 	memset(name, 0, NAMESIZE);
-	
 	strcpy(name, buffer);
-	printf("%s logged in (size: %d)", name, strlen(name));
+
+	// //ack of login to parent
+	// ipc_send(thisenv->env_parent_id, 1, NULL, 0);
+	// // printf("%s logged in (size: %d)", name, strlen(name));
+
 
 	char user_message[USER_BUFFER_LEN];
-
 	// Send bytes and check for more incoming data in loop
 	 do {
 		// Check for more data
 		memset(buffer, 0, BUFFSIZE);
+		memset(user_message, 0, USER_BUFFER_LEN);
+
 		if ((received = read(sock, buffer, BUFFSIZE)) < 0)
 			die("Failed to receive additional bytes from client");
 
@@ -85,13 +98,17 @@ handle_client(int sock)
 		if (!validation)
 			die("invalid msg");
 
-		memset(user_message, 0, USER_BUFFER_LEN);
-		strcpy(user_message, name);
-		// printf("user_message(name): %s", user_message);
-		strcpy(user_message + strlen(name) , ": ");
-		strcpy(user_message + strlen(name) + 2 , buffer);
-		strcpy(user_message + strlen(name) + 2 + strlen(buffer), "\n");
-		// printf("user_message: %s", user_message);
+		prepareMsg(user_message, name, buffer);
+		// validation = validateString(buffer, USER_BUFFER_LEN);
+		// if (!validation)
+		// 	die("invalid users msg");
+
+		int k = 0;
+		for (; k < USER_BUFFER_LEN; k++){
+			printf("char is: %c -> %d\n", user_message[k], (int)user_message[k]);
+		}
+
+
 		sys_page_alloc(thisenv->env_id, IPC_PAGE_VA, PTE_P | PTE_W | PTE_U);
 		memset(IPC_PAGE_VA, 0, PGSIZE);
 		memcpy(IPC_PAGE_VA, user_message, strlen(user_message));
@@ -137,6 +154,7 @@ umain(int argc, char **argv)
 
 	cprintf("bound\n");
 
+	cprintf("Waiting for users to loggin...");
 	int i = 0;
 	for (; i < NUM_OF_PARTICIPANTS; i++) {
 		unsigned int clientlen = sizeof(echoclient);
@@ -152,19 +170,34 @@ umain(int argc, char **argv)
 			handle_client(clientsock);
 	}
 
-	// Run until canceled
 
+	
+	// int usrCounter = 0;
+	// while (usrCounter < NUM_OF_PARTICIPANTS) {
+	// 	envid_t env_id;
+	// 	usrCounter += ipc_recv(&env_id, IPC_PAGE_VA, 0);
+	// }
+
+
+	// Run until canceled
 	while(1){
 		envid_t env_id;
 		ipc_recv(&env_id, IPC_PAGE_VA, 0);
-		char buffer[strlen(IPC_PAGE_VA)];
-		memset(buffer, 0, strlen(IPC_PAGE_VA));
+		assert(strlen(IPC_PAGE_VA) <= USER_BUFFER_LEN);
+		assert(*(IPC_PAGE_VA + USER_BUFFER_LEN) == 0);
 
+		// printf("server: msg len %d\n", strlen(IPC_PAGE_VA));
+
+		char buffer[USER_BUFFER_LEN];
+		memset(buffer, 0, USER_BUFFER_LEN);
 		memcpy(buffer, IPC_PAGE_VA, strlen(IPC_PAGE_VA));
+		// printf("server buffer: msg len %d\n", strlen(buffer));
 		for(i=0; i<NUM_OF_PARTICIPANTS; i++){
 			assert(sockets[i] >= 0);
-				if (write(sockets[i], buffer, strlen(buffer)) != strlen(buffer))
-					die("Failed to send bytes to client");
+			// printf("server to socket: msg len %d\n", strlen(buffer));
+			// printf("server to socket: msg  %s\n", buffer);
+			if (write(sockets[i], buffer, strlen(buffer)) != strlen(buffer))
+				die("Failed to send bytes to client");
 			}
 	}
 	
