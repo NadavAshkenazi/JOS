@@ -3,12 +3,16 @@
 #include <lwip/inet.h>
 
 #define PORT 7
-
 #define BUFFSIZE 32
+#define IRELEVENT_CHARS 2
+#define NAMESIZE 16
 #define MAXPENDING 5    // Max connection requests
 #define NUM_OF_PARTICIPANTS 2
 #define IPC_PAGE_VA ((char *) 0xA0000000)
-#define USER_BUFFER_LEN (BUFFSIZE + 3 + 2)
+#define USER_BUFFER_LEN (BUFFSIZE + NAMESIZE + 3)
+
+#define ENTER_KEY_ASCII 10
+#define NAME_ERROR 1
 
 int sockets[NUM_OF_PARTICIPANTS] = {-1};
 
@@ -19,22 +23,55 @@ die(char *m)
 	exit();
 }
 
+//this function assumes buffer consists of letter only
+bool validateString(char* buffer, int wantedSize){
+	int i = 0;
+	while ((int)buffer[i] != ENTER_KEY_ASCII){
+		// printf("char is %c\n", buffer[i]);
+		if (i >= BUFFSIZE -1)
+			return false;
+		i++;
+	}
+	
+	if (i <= wantedSize -1){
+		assert((int)buffer[i] == ENTER_KEY_ASCII);
+		buffer[i] = '\0';
+		return true;
+
+	}
+
+	else{
+		return false;
+	}
+}
+
+
 void
 handle_client(int sock)
 {
 	char buffer[BUFFSIZE];
+
 	int received = -1;
 	
 	// Receive message
-	char* name_msg = "What is your name?";
+	char* name_msg = "What is your name (up to 16 chars)?";
 	if ((received = write(sock, name_msg, strlen(name_msg))) < 0)
-		die("Failed to receive initial bytes from client");
+		die("Failed to send initial bytes from client");
 	if ((received = read(sock, buffer, BUFFSIZE)) < 0)
 		die("Failed to receive initial bytes from client");
+	
 
-	char name[4];
-	memset(name, 0, 4);
+	//validate name
+	bool validation = validateString(buffer, NAMESIZE);
+	if (!validation)
+		die("invalid name");
+	
+	char name[NAMESIZE];
+	memset(name, 0, NAMESIZE);
+	
 	strcpy(name, buffer);
+	printf("%s logged in (size: %d)", name, strlen(name));
+
 	char user_message[USER_BUFFER_LEN];
 
 	// Send bytes and check for more incoming data in loop
@@ -44,11 +81,16 @@ handle_client(int sock)
 		if ((received = read(sock, buffer, BUFFSIZE)) < 0)
 			die("Failed to receive additional bytes from client");
 
+		bool validation = validateString(buffer, BUFFSIZE);
+		if (!validation)
+			die("invalid msg");
+
 		memset(user_message, 0, USER_BUFFER_LEN);
 		strcpy(user_message, name);
 		// printf("user_message(name): %s", user_message);
-		strcpy(user_message + 3 , ": ");
-		strcpy(user_message + 5 , buffer);
+		strcpy(user_message + strlen(name) , ": ");
+		strcpy(user_message + strlen(name) + 2 , buffer);
+		strcpy(user_message + strlen(name) + 2 + strlen(buffer), "\n");
 		// printf("user_message: %s", user_message);
 		sys_page_alloc(thisenv->env_id, IPC_PAGE_VA, PTE_P | PTE_W | PTE_U);
 		memset(IPC_PAGE_VA, 0, PGSIZE);

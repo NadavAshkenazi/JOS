@@ -265,7 +265,7 @@ e1000_trap_handler(){
             envs[i].env_net_blocked = false;
             // // cprintf("e1000_trap_handler: envs[%d].env_net_blocked: %d\n", i, envs[i].env_net_blocked);
             // envs[i].env_tf.tf_regs.reg_eax = -1; //XXX
-            cprintf("e1000_trap_handler: envs[%d].env_tf.tf_regs.reg_eax: %d\n", i, envs[i].env_tf.tf_regs.reg_eax); //XXX
+            //cprintf("e1000_trap_handler: envs[%d].env_tf.tf_regs.reg_eax: %d\n", i, envs[i].env_tf.tf_regs.reg_eax); //XXX
             if (envs[i].env_tf.tf_regs.reg_eax != 0)
                 envs[i].env_tf.tf_regs.reg_eax = -E_NET_ERROR;
             envsFound++;
