@@ -22,10 +22,12 @@
 #define ACK_START_CHAT 300
 #define RESET 1
 #define NO_RESET 0
+#define NO_SOCKET -1
+#define NO_ENV -1
 
 
-
-int sockets[NUM_OF_PARTICIPANTS] = {-1};
+int handler_sockets[NUM_OF_PARTICIPANTS] = {NO_SOCKET};
+envid_t handler_envs[NUM_OF_PARTICIPANTS] = {NO_ENV};
 
 static void
 die(char *m)
@@ -100,24 +102,7 @@ handle_client(int sock)
 	while (sys_chat_counter_read(NO_RESET) < 2 * NUM_OF_PARTICIPANTS);
 		sys_yield();
 
-	// cprintf("user %d starts.\n", sock);
 	
-
-	// envid_t env_id;
-	// // spin until server said every body connected
-	// while (ipc_recv(&env_id, NULL, NULL) != ACK_EVERYBODY_JOINED){}
-	// ;
-	// printf("ACK_EVERYBODY_JOINED\n");
-	// //send ack that recived name
-	// ipc_send(thisenv->env_parent_id, ACK_RECEIVED_NAME, NULL, 0);
-
-	// //spin until ack from server
-	// while (ipc_recv(&env_id, NULL, NULL) != ACK_START_CHAT)
-	// ;
-	// printf("ACK_START_CHAT\n");
-	// // printf("%s logged in (size: %d)", name, strlen(name));
-
-
 	char user_message[USER_BUFFER_LEN];
 	// Send bytes and check for more incoming data in loop
 	 do {
@@ -201,13 +186,14 @@ umain(int argc, char **argv)
 			die("Failed to accept client connection");
 		}
 
-		sockets[i] = clientsock;
+		handler_sockets[i] = clientsock;
 		cprintf("Client %d connected to socket %d: %s\n",i, clientsock, inet_ntoa(echoclient.sin_addr));
 		envid_t pid = fork();
 		if (pid == 0)
 			handle_client(clientsock);
 		else{
 			cprintf("forked server to %x\n",pid);
+			handler_envs[i] = pid;
 			sys_chat_counter_inc();
 		}
 	}
@@ -229,21 +215,6 @@ umain(int argc, char **argv)
 	}
 
 	cprintf("You can start chating.\n");
-	// int usrCounter = 0;
-	// envid_t env_id;
-	// while (usrCounter < NUM_OF_PARTICIPANTS) {
-	// 	cprintf("%d acks\n", usrCounter);
-	// 	if (ipc_recv(&env_id, NULL, 0) == ACK_RECEIVED_NAME){
-	// 		usrCounter += 1;
-	// 	}
-	// }
-
-	// cprintf("sending ACK_START_CHAT to handlers...\n");
-	
-	// //send start chat to handlers
-	// for (i = 0; i < NUM_OF_PARTICIPANTS; i++)
-	// 	ipc_send(childern_envs[i], ACK_START_CHAT, NULL, 0);
-
 	// Run until canceled
 	while(1){
 		envid_t env_id;
@@ -258,12 +229,15 @@ umain(int argc, char **argv)
 		memcpy(buffer, IPC_PAGE_VA, strlen(IPC_PAGE_VA));
 		// printf("server buffer: msg len %d\n", strlen(buffer));
 		for(i=0; i<NUM_OF_PARTICIPANTS; i++){
-			assert(sockets[i] >= 0);
+			assert(handler_sockets[i] >= 0);
 			// printf("server to socket: msg len %d\n", strlen(buffer));
 			// printf("server to socket: msg  %s\n", buffer);
-			if (write(sockets[i], buffer, strlen(buffer)) != strlen(buffer))
-				die("Failed to send bytes to client");
+			if (handler_envs[i] != env_id){
+				if (write(handler_sockets[i], buffer, strlen(buffer)) != strlen(buffer)){
+					die("Failed to send bytes to client");
+				}
 			}
+		}	
 	}
 	
 	close(serversock);
