@@ -13,7 +13,7 @@
 // #define ACK_EVERYBODY_JOINED ((char *) 0xA0000100) // 0
 // #define ACK_START_CHAT ((char *) 0xA0000200) // 0
 
-#define USER_BUFFER_LEN (BUFFSIZE + NAMESIZE + 3)
+#define USER_BUFFER_LEN (BUFFSIZE + NAMESIZE + 4)
 
 #define ENTER_KEY_ASCII 10
 #define NAME_ERROR 1
@@ -25,15 +25,32 @@
 #define NO_SOCKET -1
 #define NO_ENV -1
 
-
+envid_t CHAT_ENV;
 int handler_sockets[NUM_OF_PARTICIPANTS] = {NO_SOCKET};
 envid_t handler_envs[NUM_OF_PARTICIPANTS] = {NO_ENV};
+
+
+static void 
+chatDestroy(){
+	cprintf("Destroying chat...\n");
+	int i = 0;
+	for (; i < NUM_OF_PARTICIPANTS; i++){
+		if (thisenv->env_id != handler_envs[i]){
+			sys_env_destroy(handler_envs[i]);
+		}
+	}
+	if (thisenv->env_id != CHAT_ENV){
+		sys_env_destroy(CHAT_ENV);
+	}
+	exit();
+}
+
 
 static void
 die(char *m)
 {
 	cprintf("%s\n", m);
-	exit();
+	chatDestroy();
 }
 
 //this function assumes buffer consists of letter only
@@ -60,11 +77,12 @@ bool validateString(char* buffer, int wantedSize){
 
 void prepareMsg(char* user_message,char* name,char* buffer){
 	// memset(user_message, 0, USER_BUFFER_LEN);
-	strcpy(user_message, name);
+	strcpy(user_message, "@");
+	strcpy(user_message +1, name);
 	// printf("user_message(name): %s", user_message);
-	strcpy(user_message + strlen(name) , ": ");
-	strcpy(user_message + strlen(name) + 2 , buffer);
-	strcpy(user_message + strlen(name) + 2 + strlen(buffer), "\n");
+	strcpy(user_message + strlen(name) +1 , ": ");
+	strcpy(user_message + strlen(name) + 3 , buffer);
+	strcpy(user_message + strlen(name) + 3 + strlen(buffer), "\n");
 	// printf("user_message: %s", user_message);
 }
 
@@ -138,9 +156,22 @@ handle_client(int sock)
 	close(sock);
 }
 
+void serverSendMessage(const char* const msg){
+	char* server_msg = "*SERVER*: "; 
+	strcat(server_msg, msg);
+	int i;
+	for(i =0; i<NUM_OF_PARTICIPANTS; i++){
+		assert(handler_sockets[i] >= 0);
+		if (write(handler_sockets[i], server_msg, strlen(server_msg)) != strlen(server_msg)){
+			die("Failed to send bytes to client");
+		}
+	}	
+}
+
 void
 umain(int argc, char **argv)
-{
+{	
+	CHAT_ENV = thisenv->env_id;
 	int serversock, clientsock;
 	struct sockaddr_in echoserver, echoclient;
 	char buffer[BUFFSIZE];
@@ -207,14 +238,16 @@ umain(int argc, char **argv)
 	// cprintf("waiting for every handler to receive a username...\n");
 	// //wait for every handler to receive a username
 	int counter = sys_chat_counter_read(NO_RESET);
-	cprintf("counter: %d\n", counter);
+	// cprintf("counter: %d\n", counter);
 	while (counter < 2 * NUM_OF_PARTICIPANTS){
 		counter = sys_chat_counter_read(NO_RESET);
 		// cprintf("counter: %d\n", counter);
 		sys_yield();
 	}
 
-	cprintf("You can start chating.\n");
+	cprintf("Chat is active.\n");
+	char* active_msg = "All users are in, you can start chatting...\n";
+	serverSendMessage(active_msg);
 	// Run until canceled
 	while(1){
 		envid_t env_id;
