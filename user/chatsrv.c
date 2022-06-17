@@ -7,7 +7,7 @@
 #define IRELEVENT_CHARS 2
 #define NAMESIZE 16
 #define MAXPENDING 5    // Max connection requests
-#define NUM_OF_PARTICIPANTS 2
+#define MAX_NUM_OF_PARTICIPANTS 9
 #define IPC_PAGE_VA ((char *) 0xA00000)
 
 
@@ -25,10 +25,10 @@
 #define KILL 1
 #define NO_SET_KILL 0
 
-
-envid_t CHAT_ENV;
-int handler_sockets[NUM_OF_PARTICIPANTS] = {NO_SOCKET};
-envid_t handler_envs[NUM_OF_PARTICIPANTS] = {NO_ENV};
+int usersNum = 0;
+envid_t chatEnv;
+int handler_sockets[MAX_NUM_OF_PARTICIPANTS] = {NO_SOCKET};
+envid_t handler_envs[MAX_NUM_OF_PARTICIPANTS] = {NO_ENV};
 
 void serverSendMessage(const char* const msg);
 
@@ -111,13 +111,13 @@ handle_client(int sock)
 	if ((received = write(sock, name_msg, strlen(name_msg))) < 0)
 		handler_die("Failed to send initial bytes from client");
 
-	while (sys_chat_counter_read(NO_RESET) < NUM_OF_PARTICIPANTS);
+	while (sys_chat_counter_read(NO_RESET) < usersNum);
 		sys_yield();
 	// cprintf("user %d dec.\n", sock);
 
 	sys_chat_counter_inc();
 
-	while (sys_chat_counter_read(NO_RESET) < 2 * NUM_OF_PARTICIPANTS);
+	while (sys_chat_counter_read(NO_RESET) < 2 * usersNum);
 		sys_yield();
 
 	
@@ -160,7 +160,7 @@ void serverSendMessage(const char* const msg){
 	char* server_msg = "*SERVER*: "; 
 	strcat(server_msg, msg);
 	int i;
-	for(i =0; i<NUM_OF_PARTICIPANTS; i++){
+	for(i = 0; i < usersNum; i++){
 		assert(handler_sockets[i] >= 0);
 		if (write(handler_sockets[i], server_msg, strlen(server_msg)) != strlen(server_msg)){
 			server_die("Failed to send bytes to client");
@@ -171,12 +171,23 @@ void serverSendMessage(const char* const msg){
 void
 umain(int argc, char **argv)
 {	
-	CHAT_ENV = thisenv->env_id;
+	chatEnv = thisenv->env_id;
 	int serversock, clientsock;
 	struct sockaddr_in echoserver, echoclient;
 	char buffer[BUFFSIZE];
 	unsigned int echolen;
 	int received = 0;
+
+	
+
+	int k;
+	for (k = 0; k < 100; ++k) sys_yield();
+	cprintf("Enter num of users:");
+	char r;
+	while((r = sys_cgetc()) == 0);
+	usersNum = (uint32_t)strtol(&r, 0, 0);
+
+
 
 	// Create the TCP socket
 	if ((serversock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0)
@@ -209,8 +220,8 @@ umain(int argc, char **argv)
 	sys_chat_counter_read(RESET);
 	//wait until all accepts
 	int i = 0;
-	for (; i < NUM_OF_PARTICIPANTS; i++) {
-		cprintf("Waiting for %d users\n", NUM_OF_PARTICIPANTS -i);
+	for (; i < usersNum; i++) {
+		cprintf("Waiting for %d users\n", usersNum -i);
 		unsigned int clientlen = sizeof(echoclient);
 		if ((clientsock = accept(serversock, (struct sockaddr *) &echoclient, &clientlen)) < 0) {
 			server_die("Failed to accept client connection");
@@ -238,7 +249,7 @@ umain(int argc, char **argv)
 	// //wait for every handler to receive a username
 	int counter = sys_chat_counter_read(NO_RESET);
 	// cprintf("counter: %d\n", counter);
-	while (counter < 2 * NUM_OF_PARTICIPANTS){
+	while (counter < 2 * usersNum){
 		counter = sys_chat_counter_read(NO_RESET);
 		// cprintf("counter: %d\n", counter);
 		sys_yield();
@@ -264,7 +275,7 @@ umain(int argc, char **argv)
 		memset(buffer, 0, USER_BUFFER_LEN);
 		memcpy(buffer, IPC_PAGE_VA, strlen(IPC_PAGE_VA));
 		// printf("server buffer: msg len %d\n", strlen(buffer));
-		for(i=0; i<NUM_OF_PARTICIPANTS; i++){
+		for(i = 0; i < usersNum; i++){
 			if (sys_kill_flag(NO_SET_KILL) == KILL)
 				server_die("All users logged out");
 

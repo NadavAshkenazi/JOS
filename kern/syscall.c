@@ -564,9 +564,6 @@ sys_monitored_exofork(void){
 	
 	monitored_envs[monitored_envs_last_index++] = newEnv->env_id; //add env to monitor
 	int i = 0;
-	for (; i<monitored_envs_last_index; i++){
-		cprintf("monitored env %d: ID-> [%08x] alive\n", i, monitored_envs[i]);
-	}
 	return newEnv->env_id; //return from parent with child id
 }
 
@@ -617,7 +614,7 @@ sys_kill_flag(int set){
 	assert((killFlag == 0) || (killFlag == 1));
 	if (set == 1)
 		killFlag = set;
-	cprintf("sys_kill_flag: killFlag = %d", killFlag);
+	// cprintf("sys_kill_flag: killFlag = %d", killFlag);
 	return killFlag;
 }
 
