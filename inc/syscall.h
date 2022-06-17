@@ -25,6 +25,10 @@ enum {
 	SYS_chat_counter_inc,
 	SYS_chat_counter_read,
 	SYS_chat_counter_dec,
+	SYS_monitored_exofork,
+	SYS_kill_monitored_envs,
+	SYS_get_monitored_env_amount,
+	SYS_kill_flag,
 	NSYSCALLS
 };
 

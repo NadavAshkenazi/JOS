@@ -159,6 +159,28 @@ fork(void)
 	return envid; // child id for parent, 0 for child
 }
 
+
+envid_t
+monitoredFork(void)
+{
+	extern void _pgfault_upcall(void); //Set up our page fault handler
+	set_pgfault_handler(pgfault);
+	int envid = sys_monitored_exofork(); //Create a child
+	if (envid <0)
+		panic("fork: sys_monitor_exofork faild - %e\n", envid);
+
+	if (envid == 0){
+		thisenv = &envs[ENVX(sys_getenvid())]; // setup thisenv extern val
+		// cprintf("id: %x type:%d\n",thisenv->env_id, thisenv->env_type); //XXX
+	}
+	
+	else
+		prepareChild(envid);
+
+
+	
+	return envid; // child id for parent, 0 for child
+}
 // Challenge!
 int
 sfork(void)

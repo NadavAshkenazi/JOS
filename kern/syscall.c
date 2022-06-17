@@ -538,6 +538,90 @@ sys_chat_counter_dec()
 	return chatCounter;
 }
 
+static envid_t monitored_envs[16] = {-1};
+static int monitored_envs_last_index = 0;
+static int killFlag = 0;
+
+static envid_t
+sys_monitored_exofork(void){
+	if (monitored_envs_last_index >= 16)
+		return -E_MONITORED_FULL;
+	
+	struct Env* newEnv;
+	int res;
+
+	res = env_alloc(&newEnv, curenv->env_id);
+	if (res < 0)
+		return res;
+	
+	//status is set to ENV_NOT_RUNNABLE
+	newEnv->env_status = ENV_NOT_RUNNABLE;
+
+	//and the register set is copied from the current environment
+	newEnv->env_tf = curenv->env_tf;
+
+	newEnv->env_tf.tf_regs.reg_eax = 0; //set newEnv to return with 0;
+	
+	monitored_envs[monitored_envs_last_index++] = newEnv->env_id; //add env to monitor
+	int i = 0;
+	for (; i<monitored_envs_last_index; i++){
+		cprintf("monitored env %d: ID-> [%08x] alive\n", i, monitored_envs[i]);
+	}
+	return newEnv->env_id; //return from parent with child id
+}
+
+static int
+sys_kill_monitored_envs(void){
+
+	if (monitored_envs_last_index == 0)
+		return 0;
+
+	cprintf("killing from env [%08x]\n", curenv->env_id);
+	bool curenvIsMonitored = false;
+	struct Env *e;
+	int i = 0;
+	for (;i < monitored_envs_last_index; i++){
+			if (monitored_envs[i] != curenv->env_id){
+			envid2env(monitored_envs[i], &e, 0);
+			cprintf("monitored env %d: ID-> [%08x] is killed\n", i, e->env_id);
+			env_destroy(e);
+		}
+		else{
+			curenvIsMonitored = true;
+		}
+	}
+
+	//remove destroyed envs
+	monitored_envs_last_index = 0;
+	killFlag = 0;
+	for (;i < 16; i++)
+		monitored_envs[i] = -1;
+	
+	//self destroy if neccecery
+	if (curenvIsMonitored){
+			envid2env(monitored_envs[i], &e, 0);
+			cprintf("monitored env ID-> [%08x] is self destroying\n", curenv->env_id);
+			env_destroy(curenv);
+	}
+
+	return 0;
+}
+
+static int
+sys_get_monitored_env_amount(){
+	return monitored_envs_last_index;
+}
+
+static int
+sys_kill_flag(int set){
+	assert((killFlag == 0) || (killFlag == 1));
+	if (set == 1)
+		killFlag = set;
+	cprintf("sys_kill_flag: killFlag = %d", killFlag);
+	return killFlag;
+}
+
+
 // Dispatches to the correct kernel function, passing the arguments.
 int32_t
 syscall(uint32_t syscallno, uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4, uint32_t a5)
@@ -598,7 +682,19 @@ syscall(uint32_t syscallno, uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4, 
 
 		case SYS_chat_counter_dec:
 			return sys_chat_counter_dec();
-	
+
+		case SYS_monitored_exofork:
+			return sys_monitored_exofork();
+		
+		case SYS_kill_monitored_envs:
+			return sys_kill_monitored_envs();
+
+		case SYS_get_monitored_env_amount:
+			return sys_get_monitored_env_amount();
+
+		case SYS_kill_flag:
+			return sys_kill_flag((int)a1);
+
 		default: 	
 			return -E_INVAL; // todo: was return -E_NO_SYS;
 		

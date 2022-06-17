@@ -165,3 +165,27 @@ sys_chat_counter_dec()
 {
     return syscall(SYS_chat_counter_dec, 0, 0, 0, 0, 0, 0);
 }
+
+
+// sys_monitored_exofork() is inlined in lib.h
+
+int
+sys_kill_monitored_envs()
+{
+    return syscall(SYS_kill_monitored_envs, 0, 0, 0, 0, 0, 0);
+}
+
+
+int
+sys_get_monitored_env_amount()
+{
+    return syscall(SYS_get_monitored_env_amount, 0, 0, 0, 0, 0, 0);
+}
+
+int
+sys_kill_flag(int set)
+{
+    return syscall(SYS_kill_flag, 0, set, 0, 0, 0, 0);
+}
+
+

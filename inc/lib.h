@@ -67,6 +67,9 @@ void sys_get_EEPROM_MAC(uint64_t* addr);
 int sys_chat_counter_inc();
 int sys_chat_counter_read(int reset);
 int sys_chat_counter_dec();
+int sys_kill_monitored_envs();
+int sys_get_monitored_env_amount();
+int sys_kill_flag(int set);
 
 // This must be inlined.  Exercise for reader: why?
 static __inline envid_t __attribute__((always_inline))
@@ -81,6 +84,18 @@ sys_exofork(void)
 	return ret;
 }
 
+static __inline envid_t __attribute__((always_inline))
+sys_monitored_exofork(void)
+{
+	envid_t ret;
+	__asm __volatile("int %2"
+		: "=a" (ret)
+		: "a" (SYS_monitored_exofork),
+		  "i" (T_SYSCALL)
+	);
+	return ret;
+}
+
 // ipc.c
 void	ipc_send(envid_t to_env, uint32_t value, void *pg, int perm);
 int32_t ipc_recv(envid_t *from_env_store, void *pg, int *perm_store);
@@ -89,6 +104,7 @@ envid_t	ipc_find_env(enum EnvType type);
 // fork.c
 #define	PTE_SHARE	0x400
 envid_t	fork(void);
+envid_t	monitoredFork(void);
 envid_t	priorityFork(int);
 envid_t	sfork(void);	// Challenge!
 
