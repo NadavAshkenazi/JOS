@@ -24,6 +24,7 @@
 #define NO_ENV -1
 #define KILL 1
 #define NO_SET_KILL 0
+#define BAD_USAGE true
 
 int usersNum = 0;
 envid_t chatEnv;
@@ -44,17 +45,20 @@ server_die(char *m)
 
 
 static void
-handler_die(char *m)
-{
-	cprintf("BAD USAGE: %s\n", m);
+handler_die(char *m, bool badUsage)
+{	
+	if (badUsage)
+		cprintf("BAD USAGE: %s\n", m);
+	else
+		cprintf("USER REQUEST: %s\n", m);
 	cprintf("SET KILL FLAG = %d\n", sys_kill_flag(KILL));
 }
+
 
 //this function assumes buffer consists of letter only
 bool validateString(char* buffer, int wantedSize){
 	int i = 0;
 	while ((int)buffer[i] != ENTER_KEY_ASCII){
-		// printf("char is %c\n", buffer[i]);
 		if (i >= BUFFSIZE -1)
 			return false;
 		i++;
@@ -73,35 +77,32 @@ bool validateString(char* buffer, int wantedSize){
 }
 
 void prepareMsg(char* user_message,char* name,char* buffer){
-	// memset(user_message, 0, USER_BUFFER_LEN);
 	strcpy(user_message, "@");
 	strcpy(user_message +1, name);
-	// printf("user_message(name): %s", user_message);
 	strcpy(user_message + strlen(name) +1 , ": ");
 	strcpy(user_message + strlen(name) + 3 , buffer);
 	strcpy(user_message + strlen(name) + 3 + strlen(buffer), "\n");
-	// printf("user_message: %s", user_message);
 }
 
 void
 handle_client(int sock)
 {
 	char buffer[BUFFSIZE];
-	// sys_page_alloc(thisenv->env_id, IPC_PAGE_VA, PTE_P | PTE_W | PTE_U);
 	int received = -1;
 	
 	// Receive message
 	char* name_msg = "What is your name (up to 15 chars)?\n";
 	if ((received = write(sock, name_msg, strlen(name_msg))) < 0)
-		handler_die("Failed to send initial bytes from client");
+		handler_die("Failed to send initial bytes from client", BAD_USAGE);
 	if ((received = read(sock, buffer, BUFFSIZE)) < 0)
-		handler_die("Failed to receive initial bytes from client");
+		handler_die("Failed to receive initial bytes from client", BAD_USAGE);
 	
 
 	//validate name
 	bool validation = validateString(buffer, NAMESIZE);
 	if (!validation)
-		handler_die("invalid name");
+		handler_die("invalid name", BAD_USAGE);
+
 
 	char name[NAMESIZE];
 	memset(name, 0, NAMESIZE);
@@ -109,11 +110,10 @@ handle_client(int sock)
 
 	name_msg = "You are now logged in, waiting for others to join...\n";
 	if ((received = write(sock, name_msg, strlen(name_msg))) < 0)
-		handler_die("Failed to send initial bytes from client");
+		handler_die("Failed to send initial bytes from client", BAD_USAGE);
 
 	while (sys_chat_counter_read(NO_RESET) < usersNum);
 		sys_yield();
-	// cprintf("user %d dec.\n", sock);
 
 	sys_chat_counter_inc();
 
@@ -129,23 +129,19 @@ handle_client(int sock)
 		memset(user_message, 0, USER_BUFFER_LEN);
 
 		if ((received = read(sock, buffer, BUFFSIZE)) < 0)
-			handler_die("Failed to receive additional bytes from client");
+			handler_die("Failed to receive additional bytes from client", BAD_USAGE);
 
 		bool validation = validateString(buffer, BUFFSIZE);
 		if (!validation)
-			handler_die("invalid msg");
+			handler_die("invalid msg", BAD_USAGE);
+
+
+		if (strcmp(buffer, "##_EXIT_##") == 0){
+			handler_die("USER KILL", !BAD_USAGE);
+		}
 
 		prepareMsg(user_message, name, buffer);
-		// validation = validateString(buffer, USER_BUFFER_LEN);
-		// if (!validation)
-		// 	die("invalid users msg");
-
-		// int k = 0;
-		// for (; k < USER_BUFFER_LEN; k++){
-		// 	printf("char is: %c -> %d\n", user_message[k], (int)user_message[k]);
-		// }
-
-
+		
 		sys_page_alloc(thisenv->env_id, IPC_PAGE_VA, PTE_P | PTE_W | PTE_U);
 		memset(IPC_PAGE_VA, 0, PGSIZE);
 		memcpy(IPC_PAGE_VA, user_message, strlen(user_message));
@@ -182,10 +178,17 @@ umain(int argc, char **argv)
 
 	int k;
 	for (k = 0; k < 100; ++k) sys_yield();
-	cprintf("Enter num of users:");
-	char r;
-	while((r = sys_cgetc()) == 0);
+	cprintf("Enter num of users (upto 9):\n");
+	char r = sys_cgetc();
+	while((r == 0) || (!(r >= '2' && r <= '9'))){
+		if (r != 0)
+			cprintf("please enter a valid number between 2 and 9\n");
+		r = sys_cgetc();
+	};
+
 	usersNum = (uint32_t)strtol(&r, 0, 0);
+	cprintf("Num of users: %d\n", usersNum);
+
 
 
 
