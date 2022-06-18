@@ -25,6 +25,7 @@
 #define KILL 1
 #define READ 0
 #define BAD_USAGE true
+#define NONE -1
 
 int usersNum = 0;
 envid_t chatEnv;
@@ -81,6 +82,12 @@ bool validateString(char* buffer, int wantedSize){
 	}
 }
 
+static inline void _msgUserFromHandler(int sock, char* msg){
+	int received = NONE;
+	if ((received = write(sock, msg, strlen(msg))) < 0)
+		handler_die("Failed to send initial bytes from client", BAD_USAGE);
+}
+
 /* prepare msg to the correct sending format */
 void prepareMsg(char* user_message,char* name,char* buffer){
 	strcpy(user_message, "@");
@@ -100,8 +107,8 @@ handle_client(int sock)
 	
 	// Receive message
 	char* name_msg = "What is your name (up to 15 chars)?\n";
-	if ((received = write(sock, name_msg, strlen(name_msg))) < 0)
-		handler_die("Failed to send initial bytes from client", BAD_USAGE);
+	_msgUserFromHandler(sock, name_msg);
+
 	if ((received = read(sock, buffer, BUFFSIZE)) < 0)
 		handler_die("Failed to receive initial bytes from client", BAD_USAGE);
 	
