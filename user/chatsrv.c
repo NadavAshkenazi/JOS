@@ -117,12 +117,40 @@ static inline void _syncAllBarieres(){
 }
 
 /* prepare msg to the correct sending format */
-void prepareMsg(char* user_message,char* name,char* buffer){
+static inline void _prepareMsg(char* user_message,char* name,char* buffer){
 	strcpy(user_message, "@");
 	strcpy(user_message +1, name);
 	strcpy(user_message + strlen(name) +1 , ": ");
 	strcpy(user_message + strlen(name) + 3 , buffer);
 	strcpy(user_message + strlen(name) + 3 + strlen(buffer), "\n");
+}
+
+
+static inline int _msgListener(int sock, char* buffer, char* user_message, char* name){
+	int received = NONE;
+	memset(buffer, 0, BUFFSIZE);
+	memset(user_message, 0, USER_BUFFER_LEN);
+
+	if ((received = read(sock, buffer, BUFFSIZE)) < 0)
+		handler_die("Failed to receive additional bytes from client", BAD_USAGE);
+
+	bool validation = validateString(buffer, BUFFSIZE);
+	if (!validation)
+		handler_die("invalid msg", BAD_USAGE);
+
+
+	if (strcmp(buffer, "##_EXIT_##") == 0){
+		handler_die("USER KILL", !BAD_USAGE);
+	}
+
+	_prepareMsg(user_message, name, buffer);
+	
+	sys_page_alloc(thisenv->env_id, IPC_PAGE_VA, PTE_P | PTE_W | PTE_U);
+	memset(IPC_PAGE_VA, 0, PGSIZE);
+	memcpy(IPC_PAGE_VA, user_message, strlen(user_message));
+	ipc_send(thisenv->env_parent_id, 0, IPC_PAGE_VA, PTE_P | PTE_W | PTE_U);
+
+	return received;
 }
 
 /* Listener enviroment function to mannage sending msgs from users.
@@ -135,57 +163,26 @@ handle_client(int sock)
 	char name[NAMESIZE];
 	char* msg = NULL;
 
-	// Receive message
-	char* name_msg = "What is your name (up to 15 chars)?\n";
-	_msgUserFromHandler(sock, name_msg);
+	msg = "What is your name (up to 15 chars)?\n";
+	_msgUserFromHandler(sock, msg);
 
 	int validation = _readNameAndValidate(sock, buffer, name);
-
 	if (validation)
 		msg = "You are now logged in, waiting for others to join...\n";
 	else
 		msg = "Invalid name, wating to die...\n";
 	
 	_msgUserFromHandler(sock, msg);
-
 	_syncAllBarieres();
-	// while (sys_chat_counter_read(NO_RESET) < usersNum);
-	// 	sys_yield();
-
-	// sys_chat_counter_inc();
-
-	// while (sys_chat_counter_read(NO_RESET) < 2 * usersNum);
-	// 	sys_yield();
-
+	
 	if (!validation)
 		handler_die("invalid name", BAD_USAGE);
 
 	char user_message[USER_BUFFER_LEN];
-	// Send bytes and check for more incoming data in loop
+
+	// check for more incoming data in loop and send to server
 	 do {
-		// Check for more data
-		memset(buffer, 0, BUFFSIZE);
-		memset(user_message, 0, USER_BUFFER_LEN);
-
-		if ((received = read(sock, buffer, BUFFSIZE)) < 0)
-			handler_die("Failed to receive additional bytes from client", BAD_USAGE);
-
-		bool validation = validateString(buffer, BUFFSIZE);
-		if (!validation)
-			handler_die("invalid msg", BAD_USAGE);
-
-
-		if (strcmp(buffer, "##_EXIT_##") == 0){
-			handler_die("USER KILL", !BAD_USAGE);
-		}
-
-		prepareMsg(user_message, name, buffer);
-		
-		sys_page_alloc(thisenv->env_id, IPC_PAGE_VA, PTE_P | PTE_W | PTE_U);
-		memset(IPC_PAGE_VA, 0, PGSIZE);
-		memcpy(IPC_PAGE_VA, user_message, strlen(user_message));
-		ipc_send(thisenv->env_parent_id, 0, IPC_PAGE_VA, PTE_P | PTE_W | PTE_U);	
-
+		received = _msgListener(sock, buffer, user_message, name);
 	} while (received > 0);
 
 	close(sock);
