@@ -106,6 +106,16 @@ static inline bool _readNameAndValidate(int sock, char* buffer, char* name){
 	return validation;
 }
 
+static inline void _syncAllBarieres(){
+	while (sys_chat_counter_read(NO_RESET) < usersNum);
+		sys_yield();
+
+	sys_chat_counter_inc();
+
+	while (sys_chat_counter_read(NO_RESET) < 2 * usersNum);
+		sys_yield();
+}
+
 /* prepare msg to the correct sending format */
 void prepareMsg(char* user_message,char* name,char* buffer){
 	strcpy(user_message, "@");
@@ -129,38 +139,23 @@ handle_client(int sock)
 	char* name_msg = "What is your name (up to 15 chars)?\n";
 	_msgUserFromHandler(sock, name_msg);
 
-	// if ((received = read(sock, buffer, BUFFSIZE)) < 0)
-	// 	handler_die("Failed to receive initial bytes from client", BAD_USAGE);
-	
-	// //validate name
-	// bool validation = validateString(buffer, NAMESIZE);
-
-	// if (validation){
-	// 	memset(name, 0, NAMESIZE);
-	// 	strcpy(name, buffer);
-	// 	name_msg = "You are now logged in, waiting for others to join...\n";
-	// }
-
-	// else {
-	// 	name_msg = "Invalid name, wating to die...\n";
-	// }
-
 	int validation = _readNameAndValidate(sock, buffer, name);
+
 	if (validation)
 		msg = "You are now logged in, waiting for others to join...\n";
 	else
 		msg = "Invalid name, wating to die...\n";
-		
-	if ((received = write(sock, msg, strlen(msg))) < 0)
-		handler_die("Failed to send initial bytes from client", BAD_USAGE);
+	
+	_msgUserFromHandler(sock, msg);
 
-	while (sys_chat_counter_read(NO_RESET) < usersNum);
-		sys_yield();
+	_syncAllBarieres();
+	// while (sys_chat_counter_read(NO_RESET) < usersNum);
+	// 	sys_yield();
 
-	sys_chat_counter_inc();
+	// sys_chat_counter_inc();
 
-	while (sys_chat_counter_read(NO_RESET) < 2 * usersNum);
-		sys_yield();
+	// while (sys_chat_counter_read(NO_RESET) < 2 * usersNum);
+	// 	sys_yield();
 
 	if (!validation)
 		handler_die("invalid name", BAD_USAGE);
