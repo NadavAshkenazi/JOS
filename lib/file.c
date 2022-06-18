@@ -61,11 +61,8 @@ open(const char *path, int mode)
 	// at the appropriate fd address.
 	// FSREQ_OPEN returns 0 on success, < 0 on failure.
 	//
-	// (fd_alloc does not allocate a page, it just returns an
-	// unused fd address.  Do you need to allocate a page?)
-	//
 	// Return the file descriptor index.
-	// If any step after fd_alloc fails, use fd_close to free the
+	// If any step after fd_alloc fails, fd_close is used to free the
 	// file descriptor.
 
 	int r;
@@ -136,11 +133,10 @@ devfile_read(struct Fd *fd, void *buf, size_t n)
 static ssize_t
 devfile_write(struct Fd *fd, const void *buf, size_t n)
 {
-	// Make an FSREQ_WRITE request to the file system server.  Be
-	// careful: fsipcbuf.write.req_buf is only so large, but
+	// Make an FSREQ_WRITE request to the file system server.  
+	// being carfulabout fsipcbuf.write.req_buf because it is only so large, but we
 	// remember that write is always allowed to write *fewer*
 	// bytes than requested.
-	// LAB 5: Your code here
 
 	size_t req_n = MIN(sizeof(fsipcbuf.write.req_buf),n);
 	fsipcbuf.write.req_fileid = fd->fd_file.id;

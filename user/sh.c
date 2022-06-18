@@ -54,7 +54,6 @@ again:
 			// If not, dup 'fd' onto file descriptor 0,
 			// then close the original 'fd'.
 
-			// LAB 5: Your code here.
 			fd = open(t, O_RDONLY);
 			if (fd < 0) {
 				cprintf("could not open %s as read only: %e", t, fd);

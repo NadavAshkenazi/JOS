@@ -32,13 +32,13 @@ KERN_SRCFILES :=	kern/entry.S \
 			lib/readline.c \
 			lib/string.c \
 
-# Source files for LAB4
+# Source files for part 4
 KERN_SRCFILES +=	kern/mpentry.S \
 			kern/mpconfig.c \
 			kern/lapic.c \
 			kern/spinlock.c
 
-# Source files for LAB6
+# Source files for part 6
 KERN_SRCFILES +=	kern/e100.c \
 			kern/e1000.c \
 			kern/pci.c \
@@ -65,7 +65,7 @@ KERN_BINFILES :=	user/hello \
 			user/stepIntoTest \
 			user/continueTest
 
-# Binary files for LAB4
+# Binary files for part 4
 KERN_BINFILES +=	user/idle \
 			user/yield \
 			user/dumbfork \
@@ -84,13 +84,13 @@ KERN_BINFILES +=	user/idle \
 			user/pingpong \
 			user/pingpongs \
 			user/primes
-# Binary files for LAB5
+# Binary files for part 5
 KERN_BINFILES +=	user/testfile \
 			user/spawnhello \
 			user/icode \
 			fs/fs
 
-# Binary files for LAB6
+# Binary files for part 6
 KERN_BINFILES +=	user/testtime \
 			user/httpd \
 			user/echosrv \
@@ -100,7 +100,7 @@ KERN_BINFILES +=	user/testtime \
 			net/testinput \
 			net/ns
 
-# Binary files for LAB5
+# Binary files for part 5
 KERN_BINFILES +=	user/testpteshare \
 			user/testfdsharing \
 			user/testpipe \

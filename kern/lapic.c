@@ -59,7 +59,7 @@ lapic_init(void)
 		return;
 
 	// lapicaddr is the physical address of the LAPIC's 4K MMIO
-	// region.  Map it in to virtual memory so we can access it.
+	// region. Map it in to virtual memory so we can access it.
 	lapic = mmio_map_region(lapicaddr, 4096);
 
 	// Enable local APIC; set spurious interrupt vector.
@@ -132,6 +132,7 @@ lapic_eoi(void)
 static void
 microdelay(int us)
 {
+	//code by specific use-case
 }
 
 #define IO_RTC  0x70
@@ -165,7 +166,6 @@ lapic_startap(uint8_t apicid, uint32_t addr)
 	// Regular hardware is supposed to only accept a STARTUP
 	// when it is in the halted state due to an INIT.  So the second
 	// should be ignored, but it is part of the official Intel algorithm.
-	// Bochs complains about the second one.  Too bad for Bochs.
 	for (i = 0; i < 2; i++) {
 		lapicw(ICRHI, apicid << 24);
 		lapicw(ICRLO, STARTUP | (addr >> 12));

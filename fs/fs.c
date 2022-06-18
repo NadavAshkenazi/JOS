@@ -46,14 +46,13 @@ free_block(uint32_t blockno)
 	bitmap[blockno/32] |= 1<<(blockno%32);
 }
 
-// Search the bitmap for a free block and allocate it.  When you
-// allocate a block, immediately flush the changed bitmap block
+// Search the bitmap for a free block and allocate it.  When
+// allocating a block, immediately flushs the changed bitmap block
 // to disk.
 //
 // Return block number allocated on success,
 // -E_NO_DISK if we are out of blocks.
 //
-// Hint: use free_block as an example for manipulating the bitmap.
 int
 alloc_block(void)
 {
@@ -61,9 +60,7 @@ alloc_block(void)
 	// contains the in-use bits for BLKBITSIZE blocks.  There are
 	// super->s_nblocks blocks in the disk altogether.
 
-	// LAB 5: Your code here.
 	//for each block check if free, and if so mark as used and return bn
-
 	int blockno = 0;
 	if (super == NULL)
 		panic("alloc_block: super is not allocated");
@@ -98,11 +95,11 @@ check_bitmap(void)
 	cprintf("bitmap is good\n");
 }
 
+
+
 // --------------------------------------------------------------
 // File system structures
 // --------------------------------------------------------------
-
-
 
 // Initialize the file system
 void
@@ -142,12 +139,10 @@ fs_init(void)
 //	-E_INVAL if filebno is out of range (it's >= NDIRECT + NINDIRECT).
 //
 // Analogy: This is like pgdir_walk for files.
-// Hint: Don't forget to clear any block you allocate.
+// (clears any block we allocate)
 static int
 file_block_walk(struct File *f, uint32_t filebno, uint32_t **ppdiskbno, bool alloc)
-{
-    // LAB 5: Your code here.
-	
+{	
 	assert(filebno >= 0);
     if (filebno >= NDIRECT + NINDIRECT)
 		return -E_INVAL;
@@ -195,11 +190,9 @@ file_block_walk(struct File *f, uint32_t filebno, uint32_t **ppdiskbno, bool all
 //	-E_NO_DISK if a block needed to be allocated but the disk is full.
 //	-E_INVAL if filebno is out of range.
 //
-// Hint: Use file_block_walk and alloc_block.
 int
 file_get_block(struct File *f, uint32_t filebno, char **blk)
 {
-       // LAB 5: Your code here.
 	   uint32_t *diskbnoPtr;
 
 		// find block slot
@@ -307,8 +300,6 @@ walk_path(const char *path, struct File **pdir, struct File **pf, char *lastelem
 	struct File *dir, *f;
 	int r;
 
-	// if (*path != '/')
-	//	return -E_BAD_PATH;
 	path = skip_slash(path);
 	f = &super->s_root;
 	dir = 0;
@@ -456,15 +447,15 @@ file_free_block(struct File *f, uint32_t filebno)
 	return 0;
 }
 
-// Remove any blocks currently used by file 'f',
+// Removes any blocks currently used by file 'f',
 // but not necessary for a file of size 'newsize'.
 // For both the old and new sizes, figure out the number of blocks required,
 // and then clear the blocks from new_nblocks to old_nblocks.
 // If the new_nblocks is no more than NDIRECT, and the indirect block has
-// been allocated (f->f_indirect != 0), then free the indirect block too.
-// (Remember to clear the f->f_indirect pointer so you'll know
-// whether it's valid!)
-// Do not change f->f_size.
+// been allocated (f->f_indirect != 0), then frees the indirect block too.
+// (* f->f_indirect pointer is cleared so we'll know
+// 	  whether it's valid!
+//	* f->f_size is not changed.)
 static void
 file_truncate_blocks(struct File *f, off_t newsize)
 {
@@ -496,7 +487,7 @@ file_set_size(struct File *f, off_t newsize)
 
 // Flush the contents and metadata of file f out to disk.
 // Loop over all the blocks in file.
-// Translate the file block number into a disk block number
+// Translates the file block number into a disk block number
 // and then check whether that disk block is dirty.  If so, write it out.
 void
 file_flush(struct File *f)

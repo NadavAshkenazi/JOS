@@ -37,44 +37,49 @@ i386_init(void)
 
 	cprintf("6828 decimal is %o octal!\n", 6828);
 
-	// Lab 2 memory management initialization functions
+	// memory management initialization functions
 	mem_init();
 
-	// Lab 3 user environment initialization functions
+	// user environment initialization functions
 	env_init();
 	trap_init();
 
-	// Lab 4 multiprocessor initialization functions
+	// multiprocessor initialization functions
 	mp_init();
 	lapic_init();
 
-	// Lab 4 multitasking initialization functions
+	// multitasking initialization functions
 	pic_init();
 
-	// Lab 6 hardware initialization functions
+	// hardware initialization functions
 	time_init();
 	pci_init();
 
 
-	//XXX testing transmit
-	// struct PageInfo * pp = page_alloc(PTE_P|PTE_U|PTE_W);//XXX
-	// e1000_transmit(pp,1); //XXX
-	// e1000_transmit(pp,1); //XXX
-	// e1000_transmit(pp,1); //XXX
+
+ /* ==========================================================
+							Transmit test
+   	========================================================== */
+
+	// testing transmit
+	// struct PageInfo * pp = page_alloc(PTE_P|PTE_U|PTE_W);
+	// e1000_transmit(pp,1); 
+	// e1000_transmit(pp,1); 
+	// e1000_transmit(pp,1); 
 	// int j = 0;
 	// for (;j<65;j++){
-	// 	struct PageInfo * pp = page_alloc(PTE_P|PTE_U|PTE_W);//XXX
+	// 	struct PageInfo * pp = page_alloc(PTE_P|PTE_U|PTE_W);
 	//     memset(pp, 1, sizeof(pp));
-	// 	e1000_transmit(pp,SIZE_OF_PACKET); //XXX
+	// 	e1000_transmit(pp,SIZE_OF_PACKET); 
 	// }
-	//XXX end testing transmit
+
+	 /* ================== End of test =======================*/
+
 
 	// Acquire the big kernel lock before waking up APs
-	// Your code here:
 	lock_kernel();
 	// Starting non-boot CPUs
 	boot_aps();
-
 	// Start fs.
 	ENV_CREATE(fs_fs, ENV_TYPE_FS);
 
@@ -84,10 +89,10 @@ i386_init(void)
 #endif
 
 #if defined(TEST)
-	// Don't touch -- used by grading script!
+	// Don't touch 
 	ENV_CREATE(TEST, ENV_TYPE_USER);
 #else
-	// Touch all you want.
+	// Touch - add test here if needed.
 
 	ENV_CREATE(user_icode, ENV_TYPE_USER);
 
@@ -152,8 +157,6 @@ mp_main(void)
 	// Now that we have finished some basic setup, call sched_yield()
 	// to start running processes on this CPU.  But make sure that
 	// only one CPU can enter the scheduler at a time!
-	//
-	// Your code here:
 
 	lock_kernel();
 	sched_yield();
@@ -178,7 +181,7 @@ _panic(const char *file, int line, const char *fmt,...)
 		goto dead;
 	panicstr = fmt;
 
-	// Be extra sure that the machine is in as reasonable state
+	// for beeing extra sure that the machine is in as reasonable state
 	__asm __volatile("cli; cld");
 
 	va_start(ap, fmt);

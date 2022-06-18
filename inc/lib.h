@@ -106,7 +106,7 @@ envid_t	ipc_find_env(enum EnvType type);
 envid_t	fork(void);
 envid_t	monitoredFork(void);
 envid_t	priorityFork(int);
-envid_t	sfork(void);	// Challenge!
+envid_t	sfork(void);	
 
 // fd.c
 int	close(int fd);

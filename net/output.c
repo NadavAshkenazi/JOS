@@ -8,7 +8,6 @@ output(envid_t ns_envid)
 {
 	binaryname = "ns_output";
 
-	// LAB 6: Your code here:
 	// 	- read a packet from the network server
 	//	- send the packet to the device driver
 	int len;
@@ -25,7 +24,7 @@ output(envid_t ns_envid)
 		while (ipc_recv(&output_env, &nsipcbuf, NULL) != NSREQ_OUTPUT || output_env != ns_envid)
 			;
 
-		//	- send the packet to the device driver
+		// send the packet to the device driver
 		// Will send the page given via polling
 		len = nsipcbuf.pkt.jp_len;
 		memmove(&nsipcbuf, nsipcbuf.pkt.jp_data, len);

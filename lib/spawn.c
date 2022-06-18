@@ -51,27 +51,25 @@ spawn(const char *prog, const char **argv)
 	//	  then the segment contains text and read-only data.
 	//	  Use read_map() to read the contents of this segment,
 	//	  and map the pages it returns directly into the child
-	//        so that multiple instances of the same program
+	//    so that multiple instances of the same program
 	//	  will share the same copy of the program text.
-	//        Be sure to map the program text read-only in the child.
-	//        Read_map is like read but returns a pointer to the data in
-	//        *blk rather than copying the data into another buffer.
+	//    Be sure to map the program text read-only in the child.
+	//    Read_map is like read but returns a pointer to the data in
+	//    *blk rather than copying the data into another buffer.
 	//
 	//	* If the ELF segment flags DO include ELF_PROG_FLAG_WRITE,
 	//	  then the segment contains read/write data and bss.
-	//	  As with load_icode() in Lab 3, such an ELF segment
+	//	  As with load_icode(), such an ELF segment
 	//	  occupies p_memsz bytes in memory, but only the FIRST
 	//	  p_filesz bytes of the segment are actually loaded
 	//	  from the executable file - you must clear the rest to zero.
-	//        For each page to be mapped for a read/write segment,
-	//        allocate a page in the parent temporarily at UTEMP,
-	//        read() the appropriate portion of the file into that page
+	//    For each page to be mapped for a read/write segment,
+	//    allocate a page in the parent temporarily at UTEMP,
+	//    read() the appropriate portion of the file into that page
 	//	  and/or use memset() to zero non-loaded portions.
-	//	  (You can avoid calling memset(), if you like, if
-	//	  page_alloc() returns zeroed pages already.)
-	//        Then insert the page mapping into the child.
-	//        Look at init_stack() for inspiration.
-	//        Be sure you understand why you can't use read_map() here.
+	//    Then insert the page mapping into the child.
+	//    Look at init_stack() for inspiration.
+	//    Be sure you understand why you can't use read_map() here.
 	//
 	//     Note: None of the segment addresses or lengths above
 	//     are guaranteed to be page-aligned, so you must deal with
@@ -245,8 +243,8 @@ init_stack(envid_t child, const char **argv, uintptr_t *init_esp)
 
 	*init_esp = UTEMP2USTACK(&argv_store[-2]);
 
-	// After completing the stack, map it into the child's address space
-	// and unmap it from ours!
+	// After completing the stack, maps it into the child's address space
+	// and unmaps it from parents
 	if ((r = sys_page_map(0, UTEMP, child, (void*) (USTACKTOP - PGSIZE), PTE_P | PTE_U | PTE_W)) < 0)
 		goto error;
 	if ((r = sys_page_unmap(0, UTEMP)) < 0)
@@ -266,7 +264,6 @@ map_segment(envid_t child, uintptr_t va, size_t memsz,
 	int i, r;
 	void *blk;
 
-	//cprintf("map_segment %x+%x\n", va, memsz);
 
 	if ((i = PGOFF(va))) {
 		va -= i;
@@ -300,7 +297,6 @@ map_segment(envid_t child, uintptr_t va, size_t memsz,
 static int
 copy_shared_pages(envid_t child)
 {
-	// LAB 5: Your code here.
 	uintptr_t va = 0;
 	int res;
 

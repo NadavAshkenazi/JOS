@@ -1,27 +1,23 @@
 #include <kern/e1000.h>
 #include <inc/error.h>
 
-// LAB 6: Your driver code here
-
- 
-
-volatile uint32_t *e1000RegistersVA;//registers addr
-struct tx_desc txDescriptorsArray[E1000_TX_DESC_NUM] 
-    __attribute__((aligned(16)));
-
-// packetBuff txBuffers[E1000_TX_DESC_NUM]; 
-
-struct rx_desc rxDescriptorsArray[E1000_RX_DESC_NUM]
-     __attribute__((aligned(16)));
-
-// packetBuff rxBuffers[E1000_TX_DESC_NUM];
+ /* ==========================================================
+						E1000 Driver code
+   ========================================================== */
 
 
 
+ /* =================== Declerations======================*/
+
+volatile uint32_t *e1000RegistersVA; //registers addr
+struct tx_desc txDescriptorsArray[E1000_TX_DESC_NUM]  __attribute__((aligned(16)));
+struct rx_desc rxDescriptorsArray[E1000_RX_DESC_NUM] __attribute__((aligned(16)));
 
 static inline void e100_txDescs_init();
 static inline void e100_rxDescs_init();
 
+
+/* =================== Driver API ======================*/
 
 int e1000_attach(struct pci_func *pcif)
 {
@@ -46,18 +42,13 @@ int e1000_attach(struct pci_func *pcif)
 
 
 static inline void e100_txDescs_init(){
+
     /*  Allocate a region of memory for the transmit descriptor list. Software should insure this memory is
         aligned on a paragraph (16-byte) boundary */
     memset(txDescriptorsArray, 0, sizeof(txDescriptorsArray));
-    // memset(txBuffers, 0, sizeof(txBuffers));
 
-    //init txDescriptorsArray
-    // int j = 0;
-    // for (; j< E1000_TX_DESC_NUM; j++){
-    //     txDescriptorsArray[j].cmd |= E1000_TXD_CMD_EOP | E1000_TXD_CMD_RPS | E1000_TXD_CMD_IDE;
-    //     txDescriptorsArray[j].status |= E1000_TXD_STAT_DD;
-    // }
-    //setup registers
+    //setup registers:
+
     /*  Program the Transmit Descriptor Base Address
         (TDBAL/TDBAH) register(s) with the address of the region */
     *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_TDBAL)) = PADDR(txDescriptorsArray);
@@ -77,27 +68,30 @@ static inline void e100_txDescs_init(){
     *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_TCTL)) |= 0x0; 
     *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_TCTL)) = (E1000_TCTL_EN | E1000_TCTL_PSP);
     *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_TCTL)) |= E1000_TCTL_CT; //no meaning in full-duplex
-    *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_TCTL)) |=  (0x40 << E1000_TCTL_COLD_SHIFT); //no meaning in full-duplex XXX
+    
+    //The following line has no meaning in full-duplex mode:
+    *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_TCTL)) |=  (0x40 << E1000_TCTL_COLD_SHIFT); 
 
     // config TIPG
-    *(uint16_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_TIPG)) = (uint16_t)(E1000_TIPG_IPGT << E1000_TIPG_IPGT_SHIFT | E1000_TIPG_IPGR1 << E1000_TIPG_IPGR1_SHIFT | E1000_TIPG_IPGR2 << E1000_TIPG_IPGR2_SHIFT); //XXX
-
+    *(uint16_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_TIPG)) = (uint16_t)(E1000_TIPG_IPGT << E1000_TIPG_IPGT_SHIFT |
+                                                                               E1000_TIPG_IPGR1 << E1000_TIPG_IPGR1_SHIFT |
+                                                                               E1000_TIPG_IPGR2 << E1000_TIPG_IPGR2_SHIFT); 
 }
 
+
 inline int e1000_transmit(struct PageInfo* pp, size_t size){
+
     if (size > SIZE_OF_PACKET)
         panic("e1000_transmit: size requested larger than packet");
 
-    // if (!size) return -E_NET_ERROR;
     int tailIndex = *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_TDT));
+
     //configure transmit descriptor
     (txDescriptorsArray + tailIndex)->addr = page2pa(pp);
     (txDescriptorsArray + tailIndex)->length = size;
     (txDescriptorsArray + tailIndex)->cmd = E1000_TXD_CMD_EOP | E1000_TXD_CMD_RS;
-    // *(txBuffers + tailIndex) = page2kva(pp);
 
     // before spinning in busy wait, we need increase cyclicly the tail
-    
     *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_TDT)) += 1;
     *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_TDT)) %= E1000_TX_DESC_NUM;
 
@@ -105,7 +99,6 @@ inline int e1000_transmit(struct PageInfo* pp, size_t size){
     if (!((txDescriptorsArray + tailIndex)->status & E1000_TXD_STAT_DD)){
         return -E_NET_ERROR;
     }
-    
 
     //free descriptor
     memset((txDescriptorsArray + tailIndex), 0, sizeof(struct tx_desc));
@@ -132,12 +125,13 @@ readMACFromEEPROM(uint32_t addr)
 
         // Request the word by address
         *(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_EERD)) = addr | E1000_EERD_START;
+
         //poll until done bit is up
         while (!(*(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_EERD)) & E1000_EERD_DONE))
             ;
+
         // return data part
         return *(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_EERD)) >> E1000_EERD_DATA;
-        
 }
 
 
@@ -154,17 +148,12 @@ static inline void e100_rxDescs_init()
         pp = page_alloc(ALLOC_ZERO);
         pp->pp_ref++;
         (rxDescriptorsArray + i)->addr = page2pa(pp);
-        // txBuffers[i] = page2kva(pp);
     }
 
-    // Setup registers
+    // Setup registers:
 
     /*MAC addresses are written from lowest-order byte to highest-order byte
      */
-    
-    // assert(0x12005452 == (readMACFromEEPROM(E1000_EERD_MAC_MID) << 16 | readMACFromEEPROM(E1000_EERD_MAC_LOW)));
-    // assert(0x5634 == readMACFromEEPROM(E1000_EERD_MAC_HIGH));
-
 
     *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_RA)) = readMACFromEEPROM(E1000_EERD_MAC_MID) << 16 |
                                                                   readMACFromEEPROM(E1000_EERD_MAC_LOW); //mac addr low
@@ -172,8 +161,12 @@ static inline void e100_rxDescs_init()
                                                                       E1000_RAH_AV; //mac addr high
 
 
+    // ************************************ manual setup if necessery ******************************************
+    //
     // *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_RA)) = 0x12005452; //mac addr low
     // *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_RA + 4)) = 0x5634 | E1000_RAH_AV; //mac addr high
+    //
+    // *********************************************************************************************************
 
     /*  Program the receive Descriptor Base Address
         (RDBAL/RDBAH) register(s) with the address of the region */
@@ -193,7 +186,7 @@ static inline void e100_rxDescs_init()
     // config RCTL
     *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_RCTL)) = E1000_RCTL_EN | E1000_RCTL_SECRC | E1000_RCTL_BAM;
 
-    //enable timer interupts 
+    //enable timer interupts :
     /*Receiver Timer Interrupt
       Set when the receiver timer expires.
       The receiver timer is used for receiver descriptor packing. Timer
@@ -201,17 +194,17 @@ static inline void e100_rxDescs_init()
       interrupt event when enabled.
       */
     *(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_IMS)) = E1000_IMS_RXT0;
-    /*Setting the Packet Timer to 0b disables both the Packet Timer and the Absolute Timer  and causes the Receive Timer Interrupt to be generated whenever a new packet has been
-      stored in memory. */
-    
+
+    /*Setting the Packet Timer to 0b disables both the Packet Timer and the Absolute Timer and causes 
+      the Receive Timer Interrupt to be generated whenever a new packet has been stored in memory. */
     *(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_RDTR)) = 0;
 }
 
 
 inline int e1000_receive(struct PageInfo** pp_pointer){
-    // cprintf("in e1000_receive\n"); //XXX
 
     int nextDescIndex = (*(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_RDT)) + 1) % E1000_RX_DESC_NUM;
+
     /*descriptor does not hold a packet.
       allow interupts and return with an error*/
     if (!((rxDescriptorsArray + nextDescIndex)->status & E1000_RXD_STAT_DD))
@@ -219,19 +212,18 @@ inline int e1000_receive(struct PageInfo** pp_pointer){
         //Sets Receiver Timer Interrupt 
         //All register bits are cleared upon read, e.g needs to be set each time.
         *(uint32_t *)(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_IMS)) = E1000_IMS_RXT0;
-        // cprintf("e1000_receive: no pakcet\n"); //XXX
         return -E_NET_ERROR;
     }
 
-    /*descriptor holds a packet.
-      insert packet into requested page*/
+    /*descriptor holds a packet. insert packet into requested page*/
     (rxDescriptorsArray + nextDescIndex)->status &= ~E1000_RXD_STAT_DD; //clear DD flag in status
     size_t len =(size_t)(rxDescriptorsArray + nextDescIndex)->length;
+
     if (!len) return -E_NET_ERROR;
     if (len > SIZE_OF_PACKET)
         return -E_NET_ERROR;
-    *pp_pointer = pa2page((rxDescriptorsArray + nextDescIndex)->addr);
 
+    *pp_pointer = pa2page((rxDescriptorsArray + nextDescIndex)->addr);
 
     /*clear descriptor and insest it back to free descriptor queue*/
     memset((rxDescriptorsArray + nextDescIndex), 0, sizeof(struct rx_desc)); //clear desc
@@ -241,35 +233,28 @@ inline int e1000_receive(struct PageInfo** pp_pointer){
     (rxDescriptorsArray + nextDescIndex)->addr = page2pa(temp_pp);
     *(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_RDT)) = nextDescIndex;
 
-    // cprintf("e1000_receive: len: %d\n", len); //XXX
     return len;
  }
 
 
-
-
 void
 e1000_trap_handler(){
+
     // Find the input env blocked by network and wake it up
     *(e1000RegistersVA + BYTE_T0_ADDRESS(E1000_ICR)) |= E1000_ICR_RXT0; // clear interrupt
     int i = 0;
     int envsFound = 0;
     for (; i < NENV;i++)
     {
-        // cprintf("e1000_trap_handler: env: %x, status: %d, env_net_blocked: %d\n", envs[i].env_id, envs[i].env_status, envs[i].env_net_blocked);
         if ((envs[i].env_status == ENV_NOT_RUNNABLE) && (envs[i].env_net_blocked == true)){
             //wake up
-            // // cprintf("e1000_trap_handler: found env to wake up: %x\n", envs[i].env_id);
             envs[i].env_status = ENV_RUNNABLE;
-            // // cprintf("e1000_trap_handler: envs[%d].env_status: %d\n", i, envs[i].env_status);
             envs[i].env_net_blocked = false;
-            // // cprintf("e1000_trap_handler: envs[%d].env_net_blocked: %d\n", i, envs[i].env_net_blocked);
-            // envs[i].env_tf.tf_regs.reg_eax = -1; //XXX
-            //cprintf("e1000_trap_handler: envs[%d].env_tf.tf_regs.reg_eax: %d\n", i, envs[i].env_tf.tf_regs.reg_eax); //XXX
+
+            // clear syscalls service request
             if (envs[i].env_tf.tf_regs.reg_eax != 0)
                 envs[i].env_tf.tf_regs.reg_eax = -E_NET_ERROR;
             envsFound++;
         }
-       
     }
 }

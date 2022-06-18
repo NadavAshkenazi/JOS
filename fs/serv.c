@@ -60,7 +60,7 @@ serve_init(void)
 	}
 }
 
-// Allocate an open file.
+// Allocates an open file.
 int
 openfile_alloc(struct OpenFile **o)
 {
@@ -83,7 +83,7 @@ openfile_alloc(struct OpenFile **o)
 	return -E_MAX_OPEN;
 }
 
-// Look up an open file for envid.
+// Looks up an open file for envid.
 int
 openfile_lookup(envid_t envid, uint32_t fileid, struct OpenFile **po)
 {
@@ -124,7 +124,7 @@ serve_open(envid_t envid, struct Fsreq_open *req,
 	}
 	fileid = r;
 
-	// Open the file
+	// Opens the file
 	if (req->req_omode & O_CREAT) {
 		if ((r = file_create(path, &f)) < 0) {
 			if (!(req->req_omode & O_EXCL) && r == -E_FILE_EXISTS)
@@ -188,7 +188,7 @@ serve_set_size(envid_t envid, struct Fsreq_set_size *req)
 		cprintf("serve_set_size %08x %08x %08x\n", envid, req->req_fileid, req->req_size);
 
 	// Every file system IPC call has the same general structure.
-	// Here's how it goes.
+	// Here's how it goes:
 
 	// First, use openfile_lookup to find the relevant open file.
 	// On failure, return the error code to the client with ipc_send.
@@ -213,7 +213,6 @@ serve_read(envid_t envid, union Fsipc *ipc)
 	if (debug)
 		cprintf("serve_read %08x %08x %08x\n", envid, req->req_fileid, req->req_n);
 	
-	// Lab 5: Your code here:
 	int res;
 	struct OpenFile* openFile;
 	res = openfile_lookup(envid, req->req_fileid, &openFile);
@@ -233,15 +232,15 @@ serve_read(envid_t envid, union Fsipc *ipc)
 
 // Write req->req_n bytes from req->req_buf to req_fileid, starting at
 // the current seek position, and update the seek position
-// accordingly.  Extend the file if necessary.  Returns the number of
-// bytes written, or < 0 on error.
+// accordingly. 
+// Extend the file if necessary. 
+// Returns the number of  bytes written, or < 0 on error.
 int
 serve_write(envid_t envid, struct Fsreq_write *req)
 {
 	if (debug)
 		cprintf("serve_write %08x %08x %08x\n", envid, req->req_fileid, req->req_n);
 
-	// LAB 5: Your code here.
 	int res;
 	struct OpenFile* openFile;
 	res = openfile_lookup(envid, req->req_fileid, &openFile);

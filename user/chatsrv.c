@@ -30,10 +30,15 @@ int usersNum = 0;
 envid_t chatEnv;
 int handler_sockets[MAX_NUM_OF_PARTICIPANTS] = {NO_SOCKET};
 envid_t handler_envs[MAX_NUM_OF_PARTICIPANTS] = {NO_ENV};
-
 void serverSendMessage(const char* const msg);
 
 
+ /* ==========================================================
+						Chat server code
+   ========================================================== */
+
+
+/* Kills all handlers, closes File descriptors and exits with the proper msg */
 static void
 server_die(char *m)
 {	
@@ -44,6 +49,7 @@ server_die(char *m)
 }
 
 
+/* informs reason of exiting and tells server to die */
 static void
 handler_die(char *m, bool badUsage)
 {	
@@ -54,8 +60,7 @@ handler_die(char *m, bool badUsage)
 	cprintf("SET KILL FLAG = %d\n", sys_kill_flag(KILL));
 }
 
-
-//this function assumes buffer consists of letter only
+/* valites that a string does not causes buffer overflow. */
 bool validateString(char* buffer, int wantedSize){
 	int i = 0;
 	while ((int)buffer[i] != ENTER_KEY_ASCII){
@@ -76,6 +81,7 @@ bool validateString(char* buffer, int wantedSize){
 	}
 }
 
+/* prepare msg to the correct sending format */
 void prepareMsg(char* user_message,char* name,char* buffer){
 	strcpy(user_message, "@");
 	strcpy(user_message +1, name);
@@ -84,6 +90,8 @@ void prepareMsg(char* user_message,char* name,char* buffer){
 	strcpy(user_message + strlen(name) + 3 + strlen(buffer), "\n");
 }
 
+/* Listener enviroment function to mannage sending msgs from users.
+   Each user receives its own listener. */
 void
 handle_client(int sock)
 {
@@ -152,6 +160,7 @@ handle_client(int sock)
 	close(sock);
 }
 
+/* send SERVER msg to all users */
 void serverSendMessage(const char* const msg){
 	char* server_msg = "*SERVER*: "; 
 	strcat(server_msg, msg);
@@ -164,6 +173,9 @@ void serverSendMessage(const char* const msg){
 	}	
 }
 
+
+/* main server enviroment function
+   receives msgs from listers via IPC and sends them over nic */
 void
 umain(int argc, char **argv)
 {	
@@ -173,8 +185,6 @@ umain(int argc, char **argv)
 	char buffer[BUFFSIZE];
 	unsigned int echolen;
 	int received = 0;
-
-	
 
 	int k;
 	for (k = 0; k < 100; ++k) sys_yield();
@@ -241,23 +251,16 @@ umain(int argc, char **argv)
 	}
 
 	cprintf("All users logged in, awiting to enter chat...\n");
-	// //send ok to handlers
-	// for (i = 0; i < NUM_OF_PARTICIPANTS; i++)
-	// 	ipc_send(childern_envs[i], ACK_EVERYBODY_JOINED, NULL, 0);
-	
 
-	// cprintf("waiting for every handler to receive a username...\n");
 	// //wait for every handler to receive a username
 	int counter = sys_chat_counter_read(NO_RESET);
-	// cprintf("counter: %d\n", counter);
 	while (counter < 2 * usersNum){
 		counter = sys_chat_counter_read(NO_RESET);
-		// cprintf("counter: %d\n", counter);
 		sys_yield();
 	}
 
 	cprintf("Chat is active.\n");
-	char* active_msg = "All users are in, you can start chatting...\n";
+	char* active_msg = "All users are in, you can start chatting...\n to close chat, one of the users must send ##_EXIT_##\n";
 	serverSendMessage(active_msg);
 	// Run until canceled
 	while(1){
@@ -270,19 +273,14 @@ umain(int argc, char **argv)
 		assert(strlen(IPC_PAGE_VA) <= USER_BUFFER_LEN);
 		assert(*(IPC_PAGE_VA + USER_BUFFER_LEN) == 0);
 
-		// printf("server: msg len %d\n", strlen(IPC_PAGE_VA));
-
 		char buffer[USER_BUFFER_LEN];
 		memset(buffer, 0, USER_BUFFER_LEN);
 		memcpy(buffer, IPC_PAGE_VA, strlen(IPC_PAGE_VA));
-		// printf("server buffer: msg len %d\n", strlen(buffer));
 		for(i = 0; i < usersNum; i++){
 			if (sys_kill_flag(NO_SET_KILL) == KILL)
 				server_die("All users logged out");
 
 			assert(handler_sockets[i] >= 0);
-			// printf("server to socket: msg len %d\n", strlen(buffer));
-			// printf("server to socket: msg  %s\n", buffer);
 			if (handler_envs[i] != env_id){
 				if (write(handler_sockets[i], buffer, strlen(buffer)) != strlen(buffer)){
 					server_die("Failed to send bytes to client");

@@ -76,7 +76,6 @@ send_header(struct http_request *req, int code)
 static int
 send_data(struct http_request *req, int fd)
 {
-	// LAB 6: Your code here.
 	
 	struct Stat fileStatistics;
 	fstat(fd, &fileStatistics);
@@ -121,7 +120,6 @@ send_size(struct http_request *req, off_t size)
 static const char*
 mime_type(const char *file)
 {
-	//TODO: for now only a single mime type
 	return "text/html";
 }
 
@@ -245,8 +243,6 @@ send_file(struct http_request *req)
 	// if the file is a directory, send a 404 error using send_error
 	// set file_size to the size of the file
 
-	// LAB 6: Your code here.
-
 	//get file descriptor
 
 	fd = open(req->url, O_RDONLY);
@@ -350,10 +346,7 @@ umain(int argc, char **argv)
 	while (1) {
 		unsigned int clientlen = sizeof(client);
 		// Wait for client connection
-		if ((clientsock = accept(serversock,
-					 (struct sockaddr *) &client,
-					 &clientlen)) < 0)
-		{
+		if ((clientsock = accept(serversock,(struct sockaddr *) &client,&clientlen)) < 0){
 			die("Failed to accept client connection");
 		}
 		handle_client(clientsock);
