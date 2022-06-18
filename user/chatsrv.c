@@ -3,7 +3,7 @@
 #include <lwip/inet.h>
 
 #define PORT 7
-#define BUFFSIZE 32
+#define BUFFSIZE 128
 #define IRELEVENT_CHARS 2
 #define NAMESIZE 16
 #define MAXPENDING 5    // Max connection requests
@@ -23,7 +23,7 @@
 #define NO_SOCKET -1
 #define NO_ENV -1
 #define KILL 1
-#define NO_SET_KILL 0
+#define READ 0
 #define BAD_USAGE true
 
 int usersNum = 0;
@@ -54,10 +54,10 @@ static void
 handler_die(char *m, bool badUsage)
 {	
 	if (badUsage)
-		cprintf("BAD USAGE: %s\n", m);
+		cprintf("[%x]BAD USAGE: %s\n",thisenv->env_id,  m);
 	else
-		cprintf("USER REQUEST: %s\n", m);
-	cprintf("SET KILL FLAG = %d\n", sys_kill_flag(KILL));
+		cprintf("[%x]USER REQUEST: %s\n",thisenv->env_id,  m);
+	cprintf("[%x]SET KILL FLAG = %d\n",thisenv->env_id, sys_kill_flag(KILL));
 }
 
 /* valites that a string does not causes buffer overflow. */
@@ -107,16 +107,20 @@ handle_client(int sock)
 	
 
 	//validate name
-	bool validation = validateString(buffer, NAMESIZE);
-	if (!validation)
-		handler_die("invalid name", BAD_USAGE);
-
-
 	char name[NAMESIZE];
-	memset(name, 0, NAMESIZE);
-	strcpy(name, buffer);
+	bool validation = validateString(buffer, NAMESIZE);
 
-	name_msg = "You are now logged in, waiting for others to join...\n";
+	if (validation){
+		memset(name, 0, NAMESIZE);
+		strcpy(name, buffer);
+		name_msg = "You are now logged in, waiting for others to join...\n";
+	}
+
+	else {
+		name_msg = "Invalid name, wating to die...\n";
+	}
+
+	
 	if ((received = write(sock, name_msg, strlen(name_msg))) < 0)
 		handler_die("Failed to send initial bytes from client", BAD_USAGE);
 
@@ -128,7 +132,9 @@ handle_client(int sock)
 	while (sys_chat_counter_read(NO_RESET) < 2 * usersNum);
 		sys_yield();
 
-	
+	if (!validation)
+		handler_die("invalid name", BAD_USAGE);
+
 	char user_message[USER_BUFFER_LEN];
 	// Send bytes and check for more incoming data in loop
 	 do {
@@ -174,6 +180,15 @@ void serverSendMessage(const char* const msg){
 }
 
 
+/* checks if server needs to die, and if so - dies! */
+void lifeAssertion(){
+	int k;
+	for (k = 0; k < 5; ++k) sys_yield(); //delay
+	if (sys_kill_flag(READ) == KILL)	
+			server_die("All users logged out");
+}
+
+
 /* main server enviroment function
    receives msgs from listers via IPC and sends them over nic */
 void
@@ -187,7 +202,7 @@ umain(int argc, char **argv)
 	int received = 0;
 
 	int k;
-	for (k = 0; k < 100; ++k) sys_yield();
+	for (k = 0; k < 100; ++k) sys_yield(); //delay
 	cprintf("Enter num of users (upto 9):\n");
 	char r = sys_cgetc();
 	while((r == 0) || (!(r >= '2' && r <= '9'))){
@@ -238,8 +253,14 @@ umain(int argc, char **argv)
 			server_die("Failed to accept client connection");
 		}
 
+		lifeAssertion();
+		// if (sys_kill_flag(READ) == KILL){
+		// 	cprintf("should die");
+		// }	
+			
 		handler_sockets[i] = clientsock;
 		cprintf("Client %d connected to socket %d: %s\n",i, clientsock, inet_ntoa(echoclient.sin_addr));
+
 		envid_t pid = monitoredFork();
 		if (pid == 0)
 			handle_client(clientsock);
@@ -250,6 +271,11 @@ umain(int argc, char **argv)
 		}
 	}
 
+	// for (k = 0; k < 40; ++k) sys_yield(); //delay
+	// if (sys_kill_flag(READ) == KILL)	
+	// 		server_die("All users logged out");
+	lifeAssertion();
+
 	cprintf("All users logged in, awiting to enter chat...\n");
 
 	// //wait for every handler to receive a username
@@ -259,14 +285,20 @@ umain(int argc, char **argv)
 		sys_yield();
 	}
 
+	// for (k = 0; k < 10; ++k) sys_yield(); //delay
+	// if (sys_kill_flag(READ) == KILL)	
+	// 		server_die("All users logged out");
+
+	lifeAssertion();
+
 	cprintf("Chat is active.\n");
 	char* active_msg = "All users are in, you can start chatting...\n to close chat, one of the users must send ##_EXIT_##\n";
 	serverSendMessage(active_msg);
 	// Run until canceled
 	while(1){
 
-		if (sys_kill_flag(NO_SET_KILL) == KILL)
-			server_die("All users logged out");
+		lifeAssertion();
+
 
 		envid_t env_id;
 		ipc_recv(&env_id, IPC_PAGE_VA, 0);
@@ -277,10 +309,10 @@ umain(int argc, char **argv)
 		memset(buffer, 0, USER_BUFFER_LEN);
 		memcpy(buffer, IPC_PAGE_VA, strlen(IPC_PAGE_VA));
 		for(i = 0; i < usersNum; i++){
-			if (sys_kill_flag(NO_SET_KILL) == KILL)
-				server_die("All users logged out");
 
+			lifeAssertion();
 			assert(handler_sockets[i] >= 0);
+
 			if (handler_envs[i] != env_id){
 				if (write(handler_sockets[i], buffer, strlen(buffer)) != strlen(buffer)){
 					server_die("Failed to send bytes to client");

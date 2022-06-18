@@ -541,7 +541,7 @@ sys_monitored_exofork(void){
 
 static int
 sys_kill_monitored_envs(void){
-
+	cprintf("Startring to kill envs\n", curenv->env_id);
 	if (monitored_envs_last_index == 0)
 		return 0;
 
@@ -583,6 +583,8 @@ sys_get_monitored_env_amount(){
 
 static int
 sys_kill_flag(int set){
+	if (killFlag == 1)
+		return killFlag;
 	assert((killFlag == 0) || (killFlag == 1));
 	if (set == 1)
 		killFlag = set;
