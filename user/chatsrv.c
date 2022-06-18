@@ -88,6 +88,24 @@ static inline void _msgUserFromHandler(int sock, char* msg){
 		handler_die("Failed to send initial bytes from client", BAD_USAGE);
 }
 
+
+
+static inline bool _readNameAndValidate(int sock, char* buffer, char* name){
+	int received = NONE;
+	if ((received = read(sock, buffer, BUFFSIZE)) < 0)
+		handler_die("Failed to receive initial bytes from client", BAD_USAGE);
+
+	//validate name
+	bool validation = validateString(buffer, NAMESIZE);
+
+	if (validation){
+		memset(name, 0, NAMESIZE);
+		strcpy(name, buffer);
+	}
+
+	return validation;
+}
+
 /* prepare msg to the correct sending format */
 void prepareMsg(char* user_message,char* name,char* buffer){
 	strcpy(user_message, "@");
@@ -104,31 +122,36 @@ handle_client(int sock)
 {
 	char buffer[BUFFSIZE];
 	int received = -1;
-	
+	char name[NAMESIZE];
+	char* msg = NULL;
+
 	// Receive message
 	char* name_msg = "What is your name (up to 15 chars)?\n";
 	_msgUserFromHandler(sock, name_msg);
 
-	if ((received = read(sock, buffer, BUFFSIZE)) < 0)
-		handler_die("Failed to receive initial bytes from client", BAD_USAGE);
+	// if ((received = read(sock, buffer, BUFFSIZE)) < 0)
+	// 	handler_die("Failed to receive initial bytes from client", BAD_USAGE);
 	
+	// //validate name
+	// bool validation = validateString(buffer, NAMESIZE);
 
-	//validate name
-	char name[NAMESIZE];
-	bool validation = validateString(buffer, NAMESIZE);
+	// if (validation){
+	// 	memset(name, 0, NAMESIZE);
+	// 	strcpy(name, buffer);
+	// 	name_msg = "You are now logged in, waiting for others to join...\n";
+	// }
 
-	if (validation){
-		memset(name, 0, NAMESIZE);
-		strcpy(name, buffer);
-		name_msg = "You are now logged in, waiting for others to join...\n";
-	}
+	// else {
+	// 	name_msg = "Invalid name, wating to die...\n";
+	// }
 
-	else {
-		name_msg = "Invalid name, wating to die...\n";
-	}
-
-	
-	if ((received = write(sock, name_msg, strlen(name_msg))) < 0)
+	int validation = _readNameAndValidate(sock, buffer, name);
+	if (validation)
+		msg = "You are now logged in, waiting for others to join...\n";
+	else
+		msg = "Invalid name, wating to die...\n";
+		
+	if ((received = write(sock, msg, strlen(msg))) < 0)
 		handler_die("Failed to send initial bytes from client", BAD_USAGE);
 
 	while (sys_chat_counter_read(NO_RESET) < usersNum);
