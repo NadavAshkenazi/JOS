@@ -82,14 +82,14 @@ bool validateString(char* buffer, int wantedSize){
 	}
 }
 
+/* send msg from handler to user terminal */
 static inline void _msgUserFromHandler(int sock, char* msg){
 	int received = NONE;
 	if ((received = write(sock, msg, strlen(msg))) < 0)
 		handler_die("Failed to send initial bytes from client", BAD_USAGE);
 }
 
-
-
+/* read name from user and validate no overflow */
 static inline bool _readNameAndValidate(int sock, char* buffer, char* name){
 	int received = NONE;
 	if ((received = read(sock, buffer, BUFFSIZE)) < 0)
@@ -106,12 +106,16 @@ static inline bool _readNameAndValidate(int sock, char* buffer, char* name){
 	return validation;
 }
 
-static inline void _syncAllBarieres(){
+/* sync with server over all bariers */
+static inline void _syncAllBarrieres(){
+
+	// all sockets accepted barrier
 	while (sys_chat_counter_read(NO_RESET) < usersNum);
 		sys_yield();
 
 	sys_chat_counter_inc();
 
+	// server is ready barrier barrier
 	while (sys_chat_counter_read(NO_RESET) < 2 * usersNum);
 		sys_yield();
 }
@@ -125,7 +129,7 @@ static inline void _prepareMsg(char* user_message,char* name,char* buffer){
 	strcpy(user_message + strlen(name) + 3 + strlen(buffer), "\n");
 }
 
-
+/* check for more incoming data in loop and send to server */
 static inline int _msgListener(int sock, char* buffer, char* user_message, char* name){
 	int received = NONE;
 	memset(buffer, 0, BUFFSIZE);
@@ -161,11 +165,12 @@ handle_client(int sock)
 	char buffer[BUFFSIZE];
 	int received = -1;
 	char name[NAMESIZE];
+	char user_message[USER_BUFFER_LEN];
 	char* msg = NULL;
 
+	//handle name
 	msg = "What is your name (up to 15 chars)?\n";
 	_msgUserFromHandler(sock, msg);
-
 	int validation = _readNameAndValidate(sock, buffer, name);
 	if (validation)
 		msg = "You are now logged in, waiting for others to join...\n";
@@ -173,14 +178,12 @@ handle_client(int sock)
 		msg = "Invalid name, wating to die...\n";
 	
 	_msgUserFromHandler(sock, msg);
-	_syncAllBarieres();
+	_syncAllBarrieres();
 	
 	if (!validation)
 		handler_die("invalid name", BAD_USAGE);
 
-	char user_message[USER_BUFFER_LEN];
-
-	// check for more incoming data in loop and send to server
+	// handle msgs
 	 do {
 		received = _msgListener(sock, buffer, user_message, name);
 	} while (received > 0);
