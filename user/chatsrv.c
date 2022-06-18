@@ -190,8 +190,6 @@ umain(int argc, char **argv)
 	cprintf("Num of users: %d\n", usersNum);
 
 
-
-
 	// Create the TCP socket
 	if ((serversock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0)
 		server_die("Failed to create socket");

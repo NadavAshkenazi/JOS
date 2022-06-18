@@ -1,13 +1,11 @@
 // hello, world
 #include <inc/lib.h>
 
-void
-umain(int argc, char **argv)
-{
-	cprintf("hello, world\n");
-	cprintf("thisenv: %x\n", thisenv);
-	cprintf("i am environment %08x\n", thisenv->env_id);
-}
+
+/* ==========================================================
+				optional: priority fork test
+   ========================================================== */
+
 
 // void
 // umain(int argc, char **argv)
@@ -26,3 +24,13 @@ umain(int argc, char **argv)
 // 		}
 // 	}
 // }
+
+
+
+void
+umain(int argc, char **argv)
+{
+	cprintf("hello, world\n");
+	cprintf("thisenv: %x\n", thisenv);
+	cprintf("i am environment %08x\n", thisenv->env_id);
+}

@@ -45,7 +45,7 @@
 .text
 
 /*
- * Lab 3: Your code here for generating entry points for the different traps.
+ * code for generating entry points for the different traps.
  */
 
 TRAPHANDLER_NOEC(t_divide, T_DIVIDE) 		# 0: divide error
@@ -90,7 +90,7 @@ TRAPHANDLER_NOEC(t_irq15,IRQ_OFFSET + 15);					# 47
 TRAPHANDLER_NOEC(t_syscall, T_SYSCALL) 		# 48: device not available
 
 /*
- * Lab 3: Your code here for _alltraps
+ * code for _alltraps
  */
 
  _alltraps:
@@ -117,8 +117,6 @@ TRAPHANDLER_NOEC(t_syscall, T_SYSCALL) 		# 48: device not available
 
 	# pushl %esp to pass a pointer to the Trapframe as an argument to trap()
 	pushl %esp 
-
-	# call trap
 	call trap
 
 

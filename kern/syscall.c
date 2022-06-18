@@ -23,7 +23,6 @@ sys_cputs(const char *s, size_t len)
 	// Check that the user has permission to read memory [s, s+len).
 	// Destroy the environment if not.
 
-	// LAB 3: Your code here.
 	user_mem_assert(curenv, s, len, PTE_U);
 	// Print the string supplied by the user.
 	cprintf("%.*s", len, s);
@@ -59,7 +58,6 @@ sys_env_destroy(envid_t envid)
 		return r;
 
 	if (e == curenv) 
-		// cprintf("[%08x] exiting gracefully (type: %d)\n", curenv->env_id, curenv->env_type); //XXX
 		cprintf("[%08x] exiting gracefully\n", curenv->env_id);
 	else
 		cprintf("[%08x] destroying %08x\n", curenv->env_id, e->env_id);
@@ -88,7 +86,6 @@ sys_exofork(void)
 	// from the current environment -- but tweaked so sys_exofork
 	// will appear to return 0.
 
-	// LAB 4: Your code here
 	struct Env* newEnv;
 	int res;
 
@@ -96,14 +93,11 @@ sys_exofork(void)
 	if (res < 0)
 		return res;
 	
-	//status is set to ENV_NOT_RUNNABLE
 	newEnv->env_status = ENV_NOT_RUNNABLE;
 
-	//and the register set is copied from the current environment
+	//the register set is copied from the current environment
 	newEnv->env_tf = curenv->env_tf;
-
 	newEnv->env_tf.tf_regs.reg_eax = 0; //set newEnv to return with 0;
-
 	return newEnv->env_id; //return from parent with child id
 }
 
@@ -117,21 +111,14 @@ sys_exofork(void)
 static int
 sys_env_set_status(envid_t envid, int status)
 {
-	// Hint: Use the 'envid2env' function from kern/env.c to translate an
-	// envid to a struct Env.
-	// You should set envid2env's third argument to 1, which will
-	// check whether the current environment has permission to set
-	// envid's status.
-
-	// LAB 4: Your code here.
-
-	if (!(status == ENV_RUNNABLE || status == ENV_NOT_RUNNABLE)) // -E_INVAL if status is not a valid status for an environment.
+	
+	if (!(status == ENV_RUNNABLE || status == ENV_NOT_RUNNABLE)) 
 		return -E_INVAL;
 		
 	struct Env* e;
 	int res = envid2env(envid, &e, 1);
 
-	if (res < 0) // -E_BAD_ENV if environment envid doesn't currently exist
+	if (res < 0) // -E_BAD_ENV for envid that doesn't currently exist
 		return -E_BAD_ENV;
 
 	e->env_status = status;
@@ -148,9 +135,6 @@ sys_env_set_status(envid_t envid, int status)
 static int
 sys_env_set_trapframe(envid_t envid, struct Trapframe *tf)
 {
-	// LAB 5: Your code here.
-	// Remember to check whether the user has supplied us with a good
-	// address!
 	struct Env *requestEnv;
 	if (envid2env(envid, &requestEnv, 1) < 0) //check valid enviroment
 		return -E_BAD_ENV;
@@ -175,15 +159,18 @@ sys_env_set_trapframe(envid_t envid, struct Trapframe *tf)
 static int
 sys_env_set_pgfault_upcall(envid_t envid, void *func)
 {
-	// LAB 4: Your code here.
 	struct Env* e;
 	int res = envid2env(envid, &e, 1);
-	if (res < 0) // -E_BAD_ENV if environment envid doesn't currently exist or the caller doesn't have permission to change envid
+
+	// -E_BAD_ENV if environment envid doesn't currently exist or the caller doesn't have permission to change envid
+	if (res < 0) 	  		
 		return -E_BAD_ENV;
 	
 	e->env_pgfault_upcall = func;
 	return 0;
 }
+
+
 
 // Allocate a page of memory and map it at 'va' with permission
 // 'perm' in the address space of 'envid'.
@@ -204,14 +191,6 @@ sys_env_set_pgfault_upcall(envid_t envid, void *func)
 static int
 sys_page_alloc(envid_t envid, void *va, int perm)
 {
-	// Hint: This function is a wrapper around page_alloc() and
-	//   page_insert() from kern/pmap.c.
-	//   Most of the new code you write should be to check the
-	//   parameters for correctness.
-	//   If page_insert() fails, remember to free the page you
-	//   allocated!
-
-	// LAB 4: Your code here.	
 
 	if ((perm & (PTE_U | PTE_P)) != (PTE_U | PTE_P)) // check that PTE_U | PTE_P are on
 		return -E_INVAL;
@@ -224,7 +203,8 @@ sys_page_alloc(envid_t envid, void *va, int perm)
 	if (res < 0) // -E_BAD_ENV if environment envid doesn't currently exist
 		return -E_BAD_ENV;
 
-	if (((uintptr_t)va >= UTOP) || (PGOFF(va) != 0)) // check that va does not exceeds UTOP and that there is no offset (page is aligned)
+	// check that va does not exceeds UTOP and that there is no offset (page is aligned)
+	if (((uintptr_t)va >= UTOP) || (PGOFF(va) != 0)) 
 		return -E_INVAL;
 	
 	struct PageInfo* pp;
@@ -262,14 +242,6 @@ static int
 sys_page_map(envid_t srcenvid, void *srcva,
 	     envid_t dstenvid, void *dstva, int perm)
 {
-	// Hint: This function is a wrapper around page_lookup() and
-	//   page_insert() from kern/pmap.c.
-	//   Again, most of the new code you write should be to check the
-	//   parameters for correctness.
-	//   Use the third argument to page_lookup() to
-	//   check the current permissions on the page.
-
-	// LAB 4: Your code here.
 	if ((perm & (PTE_U | PTE_P)) != (PTE_U | PTE_P)) // check that PTE_U | PTE_P are on
 		return -E_INVAL;
 	
@@ -295,7 +267,8 @@ sys_page_map(envid_t srcenvid, void *srcva,
 		return -E_INVAL;
 
 	// if (srcva or dstva) >= UTOP or (srcva or dstva) is not page-aligned
-	if (((uintptr_t)srcva >= UTOP || PGOFF(srcva)) || ((uintptr_t)dstva >= UTOP) || PGOFF(dstva)) // check that va does not exceeds UTOP and that there is no offset (page is aligned)
+	// e.g that there is no offset (page is aligned)
+	if (((uintptr_t)srcva >= UTOP || PGOFF(srcva)) || ((uintptr_t)dstva >= UTOP) || PGOFF(dstva)) 
 		return -E_INVAL;
 	
 	if (perm & PTE_W && !((*pte) & PTE_W)) //must not grant write access to a read-only page
@@ -318,16 +291,13 @@ sys_page_map(envid_t srcenvid, void *srcva,
 static int
 sys_page_unmap(envid_t envid, void *va)
 {
-	// Hint: This function is a wrapper around page_remove().
-
-	// LAB 4: Your code here.
-
 	struct Env* e;
 	int res = envid2env(envid, &e, 1);
 	if (res < 0) // -E_BAD_ENV if environment envid doesn't currently exist
 		return -E_BAD_ENV;
 
-	if ((uintptr_t)va >= UTOP || PGOFF(va) != 0) // check that va does not exceeds UTOP and that there is no offset (page is aligned)
+	// check that va does not exceeds UTOP and that there is no offset (page is aligned)
+	if ((uintptr_t)va >= UTOP || PGOFF(va) != 0) 
 		return -E_INVAL;
 
 	page_remove(e->env_pgdir, va);
@@ -352,8 +322,7 @@ sys_page_unmap(envid_t envid, void *va)
 //    env_ipc_value is set to the 'value' parameter;
 //    env_ipc_perm is set to 'perm' if a page was transferred, 0 otherwise.
 // The target environment is marked runnable again, returning 0
-// from the paused sys_ipc_recv system call.  (Hint: does the
-// sys_ipc_recv function ever actually return?)
+// from the paused sys_ipc_recv system call.  
 //
 // If the sender wants to send a page but the receiver isn't asking for one,
 // then no page mapping is transferred, but no error occurs.
@@ -377,16 +346,11 @@ sys_page_unmap(envid_t envid, void *va)
 static int
 sys_ipc_try_send(envid_t envid, uint32_t value, void *srcva, unsigned perm)
 {
-	// LAB 4: Your code here.
 	struct Env *targetEnv;
 	struct PageInfo *pp;
 	pte_t* pte;
 
-
 	int res = envid2env(envid, &targetEnv, 0);
-	// cprintf("envid = %d\n", envid);
-	// cprintf("res = %e\n", res);
-
 	if (res < 0)
 		return -E_BAD_ENV;
 
@@ -441,7 +405,6 @@ sys_ipc_try_send(envid_t envid, uint32_t value, void *srcva, unsigned perm)
 static int
 sys_ipc_recv(void *dstva)
 {
-	// LAB 4: Your code here.
 	if (((uintptr_t) dstva < UTOP) && (PGOFF(dstva) != 0)) // valid addr but not page-aligned
 		return -E_INVAL;
 
@@ -458,13 +421,14 @@ static int sys_set_priority(int priority) {
 	return 0;
 }
 
+
 // Return the current time.
 static int
 sys_time_msec(void)
 {
-	// LAB 6: Your code here.
 	return time_msec(); // get ticks 
 }
+
 
 static int
 sys_transmit(void* addr, size_t size){
@@ -474,30 +438,27 @@ sys_transmit(void* addr, size_t size){
 	return e1000_transmit(pp, size);
 }
 
+
 static int
 sys_receive(void * addr){
-	// cprintf("env: %x in sys_receive\n", curenv->env_id);
 	struct PageInfo *pp;
 	int res =  e1000_receive(&pp);
 	while (res < 0){
-		// cprintf("sys_receive: could not receive, making env: %x not runnable\n", curenv->env_id);
 		curenv->env_net_blocked = true;
 		curenv->env_status = ENV_NOT_RUNNABLE;
 		sched_yield();
-		// cprintf("sys_receive: env: %x back from yield\n", curenv->env_id); //XXX
 		res = e1000_receive(&pp);
 	}
-	// cprintf("env: %x sys_receive:RECEIVED, len: %d\n", curenv->env_id, res);
+
 	//insert packet received into host mem.
 	int res2 = page_insert(curenv->env_pgdir, pp, addr, PTE_U | PTE_W | PTE_P);
 	if (res2 < 0){
 		page_free(pp);
-		// cprintf("sys_receive: could not insert page to host mem: %p -> %e", addr, res2); //XXX
 		res = -E_NO_MEM;
 	}
+
 	user_mem_assert(curenv, addr, PGSIZE, PTE_U | PTE_W | PTE_P); //check prem and destroy if denied
-	// cprintf("env: %x inserted %x \n", curenv->env_id, addr);
-	// cprintf("env: %x, len: %d\n", curenv->env_id, res);
+
 	return res;
 }
 
@@ -514,14 +475,18 @@ sys_get_EEPROM_MAC(uint64_t* addr)
 
 }
 
-static int chatCounter = 0;
+/* ==========================================================
+		chat read/write barier syscall syncing mechanism
+   ========================================================== */
 
+static int chatCounter = 0;
 static int
 sys_chat_counter_inc()
 {
     chatCounter++;
 	return chatCounter;
 }
+
 
 static int
 sys_chat_counter_read(int reset){
@@ -531,12 +496,18 @@ sys_chat_counter_read(int reset){
 	return res;
 }
 
+
 static int
 sys_chat_counter_dec()
 {
     chatCounter--;
 	return chatCounter;
 }
+
+
+/* ==========================================================
+					monitored envs API
+   ========================================================== */
 
 static envid_t monitored_envs[16] = {-1};
 static int monitored_envs_last_index = 0;
@@ -566,6 +537,7 @@ sys_monitored_exofork(void){
 	int i = 0;
 	return newEnv->env_id; //return from parent with child id
 }
+
 
 static int
 sys_kill_monitored_envs(void){
@@ -619,13 +591,17 @@ sys_kill_flag(int set){
 }
 
 
+/* ==========================================================
+							SYSCALL
+   ========================================================== */
+
+
 // Dispatches to the correct kernel function, passing the arguments.
 int32_t
 syscall(uint32_t syscallno, uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4, uint32_t a5)
 {
 	// Call the function corresponding to the 'syscallno' parameter.
 	// Return any appropriate return value.
-	// LAB 3: Your code here.
 
 	switch (syscallno) {
 
@@ -693,8 +669,7 @@ syscall(uint32_t syscallno, uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4, 
 			return sys_kill_flag((int)a1);
 
 		default: 	
-			return -E_INVAL; // todo: was return -E_NO_SYS;
-		
+			return -E_INVAL;
 	}
 }
 

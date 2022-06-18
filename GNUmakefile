@@ -167,7 +167,7 @@ gdb:
 	gdb -x .gdbinit
 
 pre-qemu: .gdbinit
-#	QEMU doesn't truncate the pcap file.  Work around this.
+#	QEMU doesn't truncate the pcap file.  Working around this.
 	@rm -f qemu.pcap
 
 qemu: $(IMAGES) pre-qemu
