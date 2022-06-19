@@ -541,7 +541,7 @@ sys_monitored_exofork(void){
 
 static int
 sys_kill_monitored_envs(void){
-	cprintf("Startring to kill envs\n", curenv->env_id);
+	cprintf("Starting to kill envs\n", curenv->env_id);
 	if (monitored_envs_last_index == 0)
 		return 0;
 
@@ -578,7 +578,16 @@ sys_kill_monitored_envs(void){
 
 static int
 sys_get_monitored_env_amount(){
-	return monitored_envs_last_index;
+	struct Env *e;
+	int liveEnv = 0;
+	int i = 0;
+	for (;i < monitored_envs_last_index; i++){
+		envid2env(monitored_envs[i], &e, 0);
+		if ((e->env_status!= ENV_DYING) && (e->env_status!= ENV_FREE))
+			liveEnv++;
+	}
+
+	return liveEnv;
 }
 
 static int

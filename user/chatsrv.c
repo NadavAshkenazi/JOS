@@ -2,17 +2,18 @@
 #include <lwip/sockets.h>
 #include <lwip/inet.h>
 
+
+//chat configs
 #define PORT 7
 #define BUFFSIZE 128
 #define IRELEVENT_CHARS 2
 #define NAMESIZE 16
 #define MAXPENDING 5    // Max connection requests
 #define MAX_NUM_OF_PARTICIPANTS 9
-#define IPC_PAGE_VA ((char *) 0xA00000)
-
-
+#define IPC_PAGE_VA ((char *) 0xA00000) //non shared va
 #define USER_BUFFER_LEN (BUFFSIZE + NAMESIZE + 4)
 
+//keyword defines
 #define ENTER_KEY_ASCII 10
 #define NAME_ERROR 1
 #define ACK_RECEIVED_NAME 100
@@ -27,6 +28,8 @@
 #define BAD_USAGE true
 #define NONE -1
 
+
+//Globals
 int usersNum = 0;
 envid_t chatEnv;
 int handler_sockets[MAX_NUM_OF_PARTICIPANTS] = {NO_SOCKET};
@@ -41,7 +44,7 @@ void _serverSendMessage(const char* const msg);
 
 /* Kills all handlers, closes File descriptors and exits with the proper msg */
 static void
-server_die(char *m)
+_server_die(char *m)
 {	
 	cprintf("%s\n", m);
 	cprintf("Destroying chat...\n");
@@ -50,9 +53,10 @@ server_die(char *m)
 }
 
 
+
 /* informs reason of exiting and tells server to die */
 static void
-handler_die(char *m, bool badUsage)
+_handler_die(char *m, bool badUsage)
 {	
 	if (badUsage)
 		cprintf("[%x]BAD USAGE: %s\n",thisenv->env_id,  m);
@@ -61,8 +65,10 @@ handler_die(char *m, bool badUsage)
 	cprintf("[%x]SET KILL FLAG = %d\n",thisenv->env_id, sys_kill_flag(KILL));
 }
 
-/* valites that a string does not causes buffer overflow. */
-bool validateString(char* buffer, int wantedSize){
+
+
+/* validates that a string does not causes buffer overflow. */
+bool _validateString(char* buffer, int wantedSize){
 	int i = 0;
 	while ((int)buffer[i] != ENTER_KEY_ASCII){
 		if (i >= BUFFSIZE -1)
@@ -74,29 +80,31 @@ bool validateString(char* buffer, int wantedSize){
 		assert((int)buffer[i] == ENTER_KEY_ASCII);
 		buffer[i] = '\0';
 		return true;
-
 	}
-
-	else{
+	else
 		return false;
-	}
+	
 }
 
-/* send msg from handler to user terminal */
+
+
+/* sends msg from handler to user terminal */
 static inline void _msgUserFromHandler(int sock, char* msg){
 	int received = NONE;
 	if ((received = write(sock, msg, strlen(msg))) < 0)
-		handler_die("Failed to send initial bytes from client", BAD_USAGE);
+		_handler_die("Failed to send initial bytes from client", BAD_USAGE);
 }
 
-/* read name from user and validate no overflow */
+
+
+/* reads name from user and validates no overflow */
 static inline bool _readNameAndValidate(int sock, char* buffer, char* name){
 	int received = NONE;
 	if ((received = read(sock, buffer, BUFFSIZE)) < 0)
-		handler_die("Failed to receive initial bytes from client", BAD_USAGE);
+		_handler_die("Failed to receive initial bytes from client", BAD_USAGE);
 
 	//validate name
-	bool validation = validateString(buffer, NAMESIZE);
+	bool validation = _validateString(buffer, NAMESIZE);
 
 	if (validation){
 		memset(name, 0, NAMESIZE);
@@ -106,7 +114,9 @@ static inline bool _readNameAndValidate(int sock, char* buffer, char* name){
 	return validation;
 }
 
-/* sync with server over all bariers */
+
+
+/* sync with server over all barrieres */
 static inline void _handlerSyncAllBarrieres(){
 
 	// all sockets accepted barrier
@@ -115,10 +125,12 @@ static inline void _handlerSyncAllBarrieres(){
 
 	sys_chat_counter_inc();
 
-	// server is ready barrier barrier
+	// server is ready barrier 
 	while (sys_chat_counter_read(NO_RESET) < 2 * usersNum);
 		sys_yield();
 }
+
+
 
 /* prepare msg to the correct sending format */
 static inline void _prepareMsg(char* user_message,char* name,char* buffer){
@@ -129,22 +141,24 @@ static inline void _prepareMsg(char* user_message,char* name,char* buffer){
 	strcpy(user_message + strlen(name) + 3 + strlen(buffer), "\n");
 }
 
-/* check for more incoming data in loop and send to server */
+
+
+/* check for more incoming data in a loop and send to server over IPC*/
 static inline int _handlerMsgListener(int sock, char* buffer, char* user_message, char* name){
 	int received = NONE;
 	memset(buffer, 0, BUFFSIZE);
 	memset(user_message, 0, USER_BUFFER_LEN);
 
 	if ((received = read(sock, buffer, BUFFSIZE)) < 0)
-		handler_die("Failed to receive additional bytes from client", BAD_USAGE);
+		_handler_die("Failed to receive additional bytes from client", BAD_USAGE);
 
-	bool validation = validateString(buffer, BUFFSIZE);
+	bool validation = _validateString(buffer, BUFFSIZE);
 	if (!validation)
-		handler_die("invalid msg", BAD_USAGE);
+		_handler_die("invalid msg", BAD_USAGE);
 
 
 	if (strcmp(buffer, "##_EXIT_##") == 0){
-		handler_die("USER KILL", !BAD_USAGE);
+		_handler_die("USER KILL", !BAD_USAGE);
 	}
 
 	_prepareMsg(user_message, name, buffer);
@@ -157,16 +171,16 @@ static inline int _handlerMsgListener(int sock, char* buffer, char* user_message
 	return received;
 }
 
+
+
 /* Listener enviroment function to mannage sending msgs from users.
    Each user receives its own listener. */
 void
 handle_client(int sock)
 {
-	char buffer[BUFFSIZE];
-	int received = NONE;
-	char name[NAMESIZE];
-	char user_message[USER_BUFFER_LEN];
+	char buffer[BUFFSIZE], name[NAMESIZE], user_message[USER_BUFFER_LEN];
 	char* msg = NULL;
+	int received = NONE;
 
 	//handle name
 	msg = "What is your name (up to 15 chars)?\n";
@@ -181,7 +195,7 @@ handle_client(int sock)
 	_handlerSyncAllBarrieres();
 	
 	if (!validation)
-		handler_die("invalid name", BAD_USAGE);
+		_handler_die("invalid name", BAD_USAGE);
 
 	// handle msgs
 	 do {
@@ -191,6 +205,8 @@ handle_client(int sock)
 	close(sock);
 }
 
+
+
 /* send SERVER msg to all users */
 void _serverSendMessage(const char* const msg){
 	char* server_msg = "*SERVER*: "; 
@@ -199,19 +215,31 @@ void _serverSendMessage(const char* const msg){
 	for(i = 0; i < usersNum; i++){
 		assert(handler_sockets[i] >= 0);
 		if (write(handler_sockets[i], server_msg, strlen(server_msg)) != strlen(server_msg)){
-			server_die("Failed to send bytes to client");
+			_server_die("Failed to send bytes to client");
 		}
 	}	
 }
 
 
-/* checks if server needs to die, and if so - dies! */
+
+/* checks if server needs to die, and if so - kills it! */
 void _lifeAssertion(){
 	int k;
 	for (k = 0; k < 5; ++k) sys_yield(); //delay
 	if (sys_kill_flag(READ) == KILL)	
-			server_die("All users logged out");
+			_server_die("All users logged out");
+
 }
+
+
+
+/* kills server if user crashes */
+void _checkUserCrashes(){
+	int liveEnvs = sys_get_monitored_env_amount();
+	if(liveEnvs != usersNum) 
+		_server_die("User crash");
+}
+
 
 
 /* get users num from keyboard */
@@ -233,10 +261,12 @@ static inline void _establishNumOfUsers(){
 	cprintf("Num of users: %d\n", usersNum);
 }
 
+
+/* set server configuration and connections */
 void _configServer(int *serversock, struct sockaddr_in *echoserver){
 	// Create the TCP socket
 	if ((*serversock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0)
-		server_die("Failed to create socket");
+		_server_die("Failed to create socket");
 
 	cprintf("opened socket\n");
 
@@ -250,18 +280,20 @@ void _configServer(int *serversock, struct sockaddr_in *echoserver){
 
 	// Bind the server socket
 	if (bind(*serversock, (struct sockaddr *) echoserver, sizeof(*echoserver)) < 0) {
-		server_die("Failed to bind the server socket");
+		_server_die("Failed to bind the server socket");
 	}
 
 	// Listen on the server socket
 	if (listen(*serversock, MAXPENDING) < 0)
-		server_die("Failed to listen on server socket");
+		_server_die("Failed to listen on server socket");
 
 	cprintf("bound\n");
-
+	cprintf("Waiting for users to loggin...\n");
 }
 
 
+
+/* loop until all users are conneceted */
 void _acceptClients(int* clientsock, int* serversock, struct sockaddr_in* echoclient){
 	//wait until all accepts
 	int i = 0;
@@ -269,7 +301,7 @@ void _acceptClients(int* clientsock, int* serversock, struct sockaddr_in* echocl
 		cprintf("Waiting for %d users\n", usersNum -i);
 		unsigned int clientlen = sizeof(*echoclient);
 		if ((*clientsock = accept(*serversock, (struct sockaddr *) echoclient, &clientlen)) < 0) {
-			server_die("Failed to accept client connection");
+			_server_die("Failed to accept client connection");
 		}
 
 		_lifeAssertion();
@@ -291,6 +323,9 @@ void _acceptClients(int* clientsock, int* serversock, struct sockaddr_in* echocl
 	cprintf("All users logged in, awiting to enter chat...\n");
 }
 
+
+
+/* sync with handlers over all barrieres */
 void _serverSyncAllBarrieres(){
 		// //wait for every handler to receive a username
 	int counter = sys_chat_counter_read(NO_RESET);
@@ -303,20 +338,22 @@ void _serverSyncAllBarrieres(){
 
 	cprintf("Chat is active.\n");
 
-	char* active_msg = "All users are in, you can start chatting...\n to close chat, one of the users must send ##_EXIT_##\n";
+	char* active_msg = "All users are in, you can start chatting...\n to close chat, one of the users must send ##_EXIT_##.\n";
 	_serverSendMessage(active_msg);
 
 }
 
 
+
+/* check for more incoming data from handlers over IPC in a loop and send to all other handlers*/
 static inline void _serverMsgListener(){
 
 		_lifeAssertion();
+		_checkUserCrashes();
 
 		envid_t env_id;
 		ipc_recv(&env_id, IPC_PAGE_VA, 0);
-		assert(strlen(IPC_PAGE_VA) <= USER_BUFFER_LEN);
-		assert(*(IPC_PAGE_VA + USER_BUFFER_LEN) == 0);
+		assert((strlen(IPC_PAGE_VA) <= USER_BUFFER_LEN) && (*(IPC_PAGE_VA + USER_BUFFER_LEN) == 0));
 
 		char buffer[USER_BUFFER_LEN];
 		memset(buffer, 0, USER_BUFFER_LEN);
@@ -329,11 +366,13 @@ static inline void _serverMsgListener(){
 
 			if (handler_envs[i] != env_id){
 				if (write(handler_sockets[i], buffer, strlen(buffer)) != strlen(buffer)){
-					server_die("Failed to send bytes to client");
+					_server_die("Failed to send bytes to client");
 				}
 			}
 		}	
 }
+
+
 
 /* main server enviroment function
    receives msgs from listers via IPC and sends them over nic */
@@ -347,10 +386,11 @@ umain(int argc, char **argv)
 	unsigned int echolen;
 	int received = 0;
 
-	
+	//configs
 	_establishNumOfUsers();
 	_configServer(&serversock, &echoserver);
-	cprintf("Waiting for users to loggin...\n");
+
+	//connections and synchronization
 	sys_chat_counter_read(RESET); // reset barrier
 	_acceptClients(&clientsock, &serversock, &echoclient);
 	_serverSyncAllBarrieres();
