@@ -31,7 +31,7 @@ int usersNum = 0;
 envid_t chatEnv;
 int handler_sockets[MAX_NUM_OF_PARTICIPANTS] = {NO_SOCKET};
 envid_t handler_envs[MAX_NUM_OF_PARTICIPANTS] = {NO_ENV};
-void serverSendMessage(const char* const msg);
+void _serverSendMessage(const char* const msg);
 
 
  /* ==========================================================
@@ -163,7 +163,7 @@ void
 handle_client(int sock)
 {
 	char buffer[BUFFSIZE];
-	int received = -1;
+	int received = NONE;
 	char name[NAMESIZE];
 	char user_message[USER_BUFFER_LEN];
 	char* msg = NULL;
@@ -192,7 +192,7 @@ handle_client(int sock)
 }
 
 /* send SERVER msg to all users */
-void serverSendMessage(const char* const msg){
+void _serverSendMessage(const char* const msg){
 	char* server_msg = "*SERVER*: "; 
 	strcat(server_msg, msg);
 	int i;
@@ -214,6 +214,53 @@ void lifeAssertion(){
 }
 
 
+/* get users num from keyboard */
+static inline void _establishNumOfUsers(){
+
+	int k;
+	for (k = 0; k < 100; ++k) sys_yield(); //delay
+
+	cprintf("Enter num of users (upto 9):\n");
+
+	char r = sys_cgetc();
+	while((r == 0) || (!(r >= '2' && r <= '9'))){
+		if (r != 0)
+			cprintf("please enter a valid number between 2 and 9\n");
+		r = sys_cgetc();
+	};
+
+	usersNum = (uint32_t)strtol(&r, 0, 0);
+	cprintf("Num of users: %d\n", usersNum);
+}
+
+void _configServer(int *serversock, struct sockaddr_in *echoserver){
+	// Create the TCP socket
+	if ((*serversock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0)
+		server_die("Failed to create socket");
+
+	cprintf("opened socket\n");
+
+	// Construct the server sockaddr_in structure
+	memset(echoserver, 0, sizeof(*echoserver));       // Clear struct
+	echoserver->sin_family = AF_INET;                  // Internet/IP
+	echoserver->sin_addr.s_addr = htonl(INADDR_ANY);   // IP address
+	echoserver->sin_port = htons(PORT);		  // server port
+
+	cprintf("trying to bind\n");
+
+	// Bind the server socket
+	if (bind(*serversock, (struct sockaddr *) echoserver, sizeof(*echoserver)) < 0) {
+		server_die("Failed to bind the server socket");
+	}
+
+	// Listen on the server socket
+	if (listen(*serversock, MAXPENDING) < 0)
+		server_die("Failed to listen on server socket");
+
+	cprintf("bound\n");
+
+}
+
 /* main server enviroment function
    receives msgs from listers via IPC and sends them over nic */
 void
@@ -226,45 +273,49 @@ umain(int argc, char **argv)
 	unsigned int echolen;
 	int received = 0;
 
-	int k;
-	for (k = 0; k < 100; ++k) sys_yield(); //delay
-	cprintf("Enter num of users (upto 9):\n");
-	char r = sys_cgetc();
-	while((r == 0) || (!(r >= '2' && r <= '9'))){
-		if (r != 0)
-			cprintf("please enter a valid number between 2 and 9\n");
-		r = sys_cgetc();
-	};
+	// int k;
+	// for (k = 0; k < 100; ++k) sys_yield(); //delay
+	// cprintf("Enter num of users (upto 9):\n");
+	// char r = sys_cgetc();
+	// while((r == 0) || (!(r >= '2' && r <= '9'))){
+	// 	if (r != 0)
+	// 		cprintf("please enter a valid number between 2 and 9\n");
+	// 	r = sys_cgetc();
+	// };
 
-	usersNum = (uint32_t)strtol(&r, 0, 0);
-	cprintf("Num of users: %d\n", usersNum);
+	// usersNum = (uint32_t)strtol(&r, 0, 0);
+	// cprintf("Num of users: %d\n", usersNum);
 
+	_establishNumOfUsers();
 
-	// Create the TCP socket
-	if ((serversock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0)
-		server_die("Failed to create socket");
+	
+	// // Create the TCP socket
+	// if ((serversock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0)
+	// 	server_die("Failed to create socket");
 
-	cprintf("opened socket\n");
+	// cprintf("opened socket\n");
 
-	// Construct the server sockaddr_in structure
-	memset(&echoserver, 0, sizeof(echoserver));       // Clear struct
-	echoserver.sin_family = AF_INET;                  // Internet/IP
-	echoserver.sin_addr.s_addr = htonl(INADDR_ANY);   // IP address
-	echoserver.sin_port = htons(PORT);		  // server port
+	// // Construct the server sockaddr_in structure
+	// memset(&echoserver, 0, sizeof(echoserver));       // Clear struct
+	// echoserver.sin_family = AF_INET;                  // Internet/IP
+	// echoserver.sin_addr.s_addr = htonl(INADDR_ANY);   // IP address
+	// echoserver.sin_port = htons(PORT);		  // server port
 
-	cprintf("trying to bind\n");
+	// cprintf("trying to bind\n");
 
-	// Bind the server socket
-	if (bind(serversock, (struct sockaddr *) &echoserver,
-		 sizeof(echoserver)) < 0) {
-		server_die("Failed to bind the server socket");
-	}
+	// // Bind the server socket
+	// if (bind(serversock, (struct sockaddr *) &echoserver,
+	// 	 sizeof(echoserver)) < 0) {
+	// 	server_die("Failed to bind the server socket");
+	// }
 
-	// Listen on the server socket
-	if (listen(serversock, MAXPENDING) < 0)
-		server_die("Failed to listen on server socket");
+	// // Listen on the server socket
+	// if (listen(serversock, MAXPENDING) < 0)
+	// 	server_die("Failed to listen on server socket");
 
-	cprintf("bound\n");
+	// cprintf("bound\n");
+
+	_configServer(&serversock, &echoserver);
 
 	cprintf("Waiting for users to loggin...\n");
 
@@ -318,7 +369,7 @@ umain(int argc, char **argv)
 
 	cprintf("Chat is active.\n");
 	char* active_msg = "All users are in, you can start chatting...\n to close chat, one of the users must send ##_EXIT_##\n";
-	serverSendMessage(active_msg);
+	_serverSendMessage(active_msg);
 	// Run until canceled
 	while(1){
 
