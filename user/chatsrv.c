@@ -126,7 +126,7 @@ static inline void _handlerSyncAllBarrieres(){
 	sys_chat_counter_inc();
 
 	// server is ready barrier 
-	while (sys_chat_counter_read(NO_RESET) < 2 * usersNum);
+	while (sys_chat_counter_read(NO_RESET) < (2 * usersNum) + 1);
 		sys_yield();
 }
 
@@ -340,6 +340,7 @@ void _serverSyncAllBarrieres(){
 
 	char* active_msg = "All users are in, you can start chatting...\n to close chat, one of the users must send ##_EXIT_##.\n";
 	_serverSendMessage(active_msg);
+	sys_chat_counter_inc();
 
 }
 
